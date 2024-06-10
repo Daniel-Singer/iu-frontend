@@ -1,10 +1,15 @@
 import { Stack } from '@mantine/core';
 import classes from './Navbar.module.css';
-import { IconHome, IconMessage } from '@tabler/icons-react';
+import {
+  IconHome,
+  IconMessage,
+  IconSettings,
+  IconUser,
+} from '@tabler/icons-react';
 import { INavlink } from '../../types/Navlink';
 import Navlink from '../navlink/Navlink';
 
-const navLinks: INavlink[] = [
+const navLinks = [
   {
     path: '',
     label: 'Dashboard',
@@ -17,12 +22,32 @@ const navLinks: INavlink[] = [
   },
 ];
 
+const systemLinks: INavlink[] = [
+  {
+    path: 'account',
+    label: 'Mein Account',
+    icon: <IconUser size={20} />,
+  },
+  {
+    path: 'settings',
+    label: 'Einstellungen',
+    icon: <IconSettings size={20} />,
+  },
+];
+
 const Navbar = () => {
   return (
-    <Stack className={classes.navbar}>
-      {navLinks?.map((link) => (
-        <Navlink key={link.path} {...link} />
-      ))}
+    <Stack className={classes.navbar} justify="space-between">
+      <Stack>
+        {navLinks?.map((link) => (
+          <Navlink key={link.path} {...link} />
+        ))}
+      </Stack>
+      <Stack>
+        {systemLinks?.map((link) => (
+          <Navlink key={link.path} {...link} />
+        ))}
+      </Stack>
     </Stack>
   );
 };
