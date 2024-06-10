@@ -1,13 +1,16 @@
 import { Group, Text } from '@mantine/core';
+import { ReactNode } from 'react';
 
 interface IProps {
-  children: string;
+  label?: string;
+  children: ReactNode;
 }
 
-const ScreenHeader = ({ children }: IProps) => {
+const ScreenHeader = ({ label, children }: IProps) => {
   return (
-    <Group>
-      <Text c="blue">{children.toUpperCase()}</Text>
+    <Group justify="space-between">
+      <Text c="blue">{label?.toUpperCase()}</Text>
+      <Group>{children}</Group>
     </Group>
   );
 };
