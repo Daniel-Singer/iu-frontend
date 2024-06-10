@@ -7,6 +7,7 @@ import {
   IconUser,
 } from '@tabler/icons-react';
 import Navlink from '../navlink/Navlink';
+import ColorSchemeButton from '../buttons/ColorSchemeButton';
 
 const navLinks = [
   {
@@ -33,10 +34,15 @@ const navLinks = [
 
 const Navbar = () => {
   return (
-    <Stack className={classes.navbar}>
-      {navLinks?.map((link) => (
-        <Navlink key={link.path} {...link} />
-      ))}
+    <Stack className={classes.navbar} justify="space-between">
+      <Stack>
+        {navLinks?.map((link) => (
+          <Navlink key={link.path} {...link} />
+        ))}
+      </Stack>
+      <Stack>
+        <ColorSchemeButton />
+      </Stack>
     </Stack>
   );
 };
