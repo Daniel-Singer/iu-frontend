@@ -1,5 +1,5 @@
 interface ICategoryBase {
   id?: number;
   label: string;
-  desription: string;
+  description: string;
 }

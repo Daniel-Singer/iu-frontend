@@ -9,6 +9,7 @@ interface IUserBase {
 
 interface IStudent extends IUserBase {
   matrikel_nr: string | number;
+  cos?: string;
   role: 'student';
 }
 

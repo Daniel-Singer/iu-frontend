@@ -15,6 +15,7 @@ import SettingsScreen from './screens/SettingsScreen';
 
 import { theme } from './theme';
 import AdminDashboardScreen from './screens/AdminDashboardScreen';
+import StudentsScreen from './screens/StudentsScreen';
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
             <Route path="account" element={<AccountScreen />} />
             <Route path="settings" element={<SettingsScreen />} />
             <Route path="admin" element={<AdminDashboardScreen />} />
+            <Route path="students" element={<StudentsScreen />} />
           </Route>
           <Route path="/*" element={<NotFoundScreen />} />
         </Routes>
