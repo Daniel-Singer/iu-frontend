@@ -1,4 +1,4 @@
-interface IUser {
+interface IUserBase {
   id?: number;
   username: string;
   first_name: string;
@@ -7,15 +7,15 @@ interface IUser {
   password: string;
 }
 
-interface IStudent extends IUser {
+interface IStudent extends IUserBase {
   matrikel_nr: string | number;
   role: 'student';
 }
 
-interface ITutor extends IUser {
+interface ITutor extends IUserBase {
   role: 'tutor';
 }
 
-interface IAdmin extends IUser {
+interface IAdmin extends IUserBase {
   role: 'admin';
 }

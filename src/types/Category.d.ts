@@ -1,4 +1,4 @@
-interface ICategory {
+interface ICategoryBase {
   id?: number;
   label: string;
   desription: string;

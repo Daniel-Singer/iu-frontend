@@ -10,8 +10,10 @@ interface IIssueCreate extends IIssueBase {
 }
 
 interface IIssueReceive extends IIssueBase {
-  course: ICourse;
-  created_from: number;
+  status?: any;
+  course: ICourseReceive;
+  category: ICategoryBase;
+  created_from: Pick<IUserBase, 'id' | 'first_name' | 'last_name'>;
   created_at: Date;
   updated_at: Date;
 }
