@@ -15,7 +15,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<ScreenLayout />}>
             <Route index element={<DashboardScreen />} />
-            <Route path="/messages" element={<MessagesScreen />} />
+            <Route path="messages" element={<MessagesScreen />} />
           </Route>
           <Route path="/*" element={<NotFoundScreen />} />
         </Routes>
