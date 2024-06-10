@@ -6,7 +6,7 @@ interface IProps {
 
 const ScreenHeader = ({ children }: IProps) => {
   return (
-    <Group p="md">
+    <Group>
       <Text c="blue">{children.toUpperCase()}</Text>
     </Group>
   );
