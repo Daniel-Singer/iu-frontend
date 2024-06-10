@@ -1,5 +1,11 @@
+import ScreenHeader from '../components/screen/ScreenHeader';
+
 const DashboardScreen = () => {
-  return <>DashboardScreen</>;
+  return (
+    <>
+      <ScreenHeader>Dashboard</ScreenHeader>
+    </>
+  );
 };
 
 export default DashboardScreen;

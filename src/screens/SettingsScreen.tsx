@@ -1,5 +1,11 @@
+import ScreenHeader from '../components/screen/ScreenHeader';
+
 const SettingsScreen = () => {
-  return <>SettingsScreen</>;
+  return (
+    <>
+      <ScreenHeader>Einstellungen</ScreenHeader>
+    </>
+  );
 };
 
 export default SettingsScreen;

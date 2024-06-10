@@ -6,7 +6,9 @@ const ScreenLayout = () => {
   return (
     <div className={classes.screen}>
       <Navbar />
-      <Outlet />
+      <div className={classes.main}>
+        <Outlet />
+      </div>
     </div>
   );
 };

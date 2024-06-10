@@ -1,5 +1,11 @@
+import ScreenHeader from '../components/screen/ScreenHeader';
+
 const MessagesScreen = () => {
-  return <>MessagesScreen</>;
+  return (
+    <>
+      <ScreenHeader>Nachrichten</ScreenHeader>
+    </>
+  );
 };
 
 export default MessagesScreen;
