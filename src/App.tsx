@@ -1,8 +1,11 @@
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
+// styles
 import '@mantine/core/styles.css';
 import './App.css';
+
+// Screen imports
 import DashboardScreen from './screens/DashboardScreen';
 import MessagesScreen from './screens/MessageesScreen';
 import NotFoundScreen from './screens/NotFoundScreen';
@@ -10,9 +13,11 @@ import ScreenLayout from './layout/ScreenLayout';
 import AccountScreen from './screens/AccountScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
+import { theme } from './theme';
+
 const App = () => {
   return (
-    <MantineProvider>
+    <MantineProvider theme={theme} defaultColorScheme="auto">
       <Router>
         <Routes>
           <Route path="/" element={<ScreenLayout />}>

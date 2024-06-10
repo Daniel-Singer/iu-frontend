@@ -6,7 +6,6 @@ import {
   IconSettings,
   IconUser,
 } from '@tabler/icons-react';
-import { INavlink } from '../../types/Navlink';
 import Navlink from '../navlink/Navlink';
 
 const navLinks = [
@@ -20,9 +19,6 @@ const navLinks = [
     label: 'Nachrichten',
     icon: <IconMessage size={20} />,
   },
-];
-
-const systemLinks: INavlink[] = [
   {
     path: 'account',
     label: 'Mein Account',
@@ -37,17 +33,10 @@ const systemLinks: INavlink[] = [
 
 const Navbar = () => {
   return (
-    <Stack className={classes.navbar} justify="space-between">
-      <Stack>
-        {navLinks?.map((link) => (
-          <Navlink key={link.path} {...link} />
-        ))}
-      </Stack>
-      <Stack>
-        {systemLinks?.map((link) => (
-          <Navlink key={link.path} {...link} />
-        ))}
-      </Stack>
+    <Stack className={classes.navbar}>
+      {navLinks?.map((link) => (
+        <Navlink key={link.path} {...link} />
+      ))}
     </Stack>
   );
 };
