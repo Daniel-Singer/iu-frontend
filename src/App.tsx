@@ -7,7 +7,7 @@ import './App.css';
 
 // Screen imports
 import DashboardScreen from './screens/DashboardScreen';
-import MessagesScreen from './screens/MessageesScreen';
+import MessagesScreen from './screens/MessagesScreen';
 import NotFoundScreen from './screens/NotFoundScreen';
 import ScreenLayout from './layout/ScreenLayout';
 import AccountScreen from './screens/AccountScreen';
