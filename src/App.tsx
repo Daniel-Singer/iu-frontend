@@ -18,6 +18,8 @@ import SettingsScreen from './screens/SettingsScreen';
 import { theme } from './theme';
 import AdminDashboardScreen from './screens/AdminDashboardScreen';
 import StudentsScreen from './screens/StudentsScreen';
+import LoginScreen from './screens/LoginScreen';
+import AuthWrapper from './auth/AuthWrapper';
 
 // instantiate QueryClient
 const queryClient = new QueryClient();
@@ -28,14 +30,22 @@ const App = () => {
       <QueryClientProvider client={queryClient}>
         <Router>
           <Routes>
-            <Route path="/" element={<ScreenLayout />}>
-              <Route index element={<DashboardScreen />} />
-              <Route path="messages" element={<MessagesScreen />} />
-              <Route path="account" element={<AccountScreen />} />
-              <Route path="settings" element={<SettingsScreen />} />
-              <Route path="admin" element={<AdminDashboardScreen />} />
-              <Route path="students" element={<StudentsScreen />} />
+            <Route
+              path="/"
+              element={
+                <AuthWrapper allowedRoles={['student', 'admin', 'tutor']} />
+              }
+            >
+              <Route path="/" element={<ScreenLayout />}>
+                <Route index element={<DashboardScreen />} />
+                <Route path="messages" element={<MessagesScreen />} />
+                <Route path="account" element={<AccountScreen />} />
+                <Route path="settings" element={<SettingsScreen />} />
+                <Route path="admin" element={<AdminDashboardScreen />} />
+                <Route path="students" element={<StudentsScreen />} />
+              </Route>
             </Route>
+            <Route path="/login" element={<LoginScreen />} />
             <Route path="/*" element={<NotFoundScreen />} />
           </Routes>
         </Router>
