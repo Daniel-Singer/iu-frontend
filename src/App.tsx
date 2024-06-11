@@ -1,5 +1,7 @@
 import { MantineProvider } from '@mantine/core';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 // styles
 import '@mantine/core/styles.css';
@@ -17,22 +19,28 @@ import { theme } from './theme';
 import AdminDashboardScreen from './screens/AdminDashboardScreen';
 import StudentsScreen from './screens/StudentsScreen';
 
+// instantiate QueryClient
+const queryClient = new QueryClient();
+
 const App = () => {
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
-      <Router>
-        <Routes>
-          <Route path="/" element={<ScreenLayout />}>
-            <Route index element={<DashboardScreen />} />
-            <Route path="messages" element={<MessagesScreen />} />
-            <Route path="account" element={<AccountScreen />} />
-            <Route path="settings" element={<SettingsScreen />} />
-            <Route path="admin" element={<AdminDashboardScreen />} />
-            <Route path="students" element={<StudentsScreen />} />
-          </Route>
-          <Route path="/*" element={<NotFoundScreen />} />
-        </Routes>
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<ScreenLayout />}>
+              <Route index element={<DashboardScreen />} />
+              <Route path="messages" element={<MessagesScreen />} />
+              <Route path="account" element={<AccountScreen />} />
+              <Route path="settings" element={<SettingsScreen />} />
+              <Route path="admin" element={<AdminDashboardScreen />} />
+              <Route path="students" element={<StudentsScreen />} />
+            </Route>
+            <Route path="/*" element={<NotFoundScreen />} />
+          </Routes>
+        </Router>
+        <ReactQueryDevtools initialIsOpen={true} />
+      </QueryClientProvider>
     </MantineProvider>
   );
 };
