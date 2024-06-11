@@ -1,4 +1,5 @@
-import { Modal } from '@mantine/core';
+import { Modal, Text } from '@mantine/core';
+import IssueForm from '../../forms/issue/IssueForm';
 
 interface IProps {
   open: boolean;
@@ -7,7 +8,13 @@ interface IProps {
 
 const IssueModal = ({ open, onClose }: IProps) => {
   return (
-    <Modal opened={open} onClose={onClose} title="Neue Fehlermeldung"></Modal>
+    <Modal
+      opened={open}
+      onClose={onClose}
+      title={<Text c="blue">NEUE FEHLERMELDUNG</Text>}
+    >
+      <IssueForm />
+    </Modal>
   );
 };
 
