@@ -12,10 +12,10 @@ const AuthWrapper = ({ allowedRoles }: IProps) => {
     if (!auth) {
       return false;
     } else {
-      if (!auth.user?.role) {
+      if (!auth?.role) {
         return false;
       }
-      return allowedRoles.includes(auth.user.role!);
+      return allowedRoles.includes(auth.role!);
     }
   };
 
