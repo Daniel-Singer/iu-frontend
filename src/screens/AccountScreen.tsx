@@ -3,7 +3,7 @@ import ScreenHeader from '../components/screen/ScreenHeader';
 const AccountScreen = () => {
   return (
     <>
-      <ScreenHeader>Mein Account</ScreenHeader>
+      <ScreenHeader label="Mein Account"></ScreenHeader>
     </>
   );
 };

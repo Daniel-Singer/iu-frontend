@@ -3,7 +3,7 @@ import ScreenHeader from '../components/screen/ScreenHeader';
 const SettingsScreen = () => {
   return (
     <>
-      <ScreenHeader>Einstellungen</ScreenHeader>
+      <ScreenHeader label="Einstellungen"></ScreenHeader>
     </>
   );
 };

@@ -5,7 +5,7 @@ import students from '../mock/students.json';
 const StudentsScreen = () => {
   return (
     <>
-      <ScreenHeader>Studentenübersicht</ScreenHeader>
+      <ScreenHeader label="Studentenübersicht"></ScreenHeader>
     </>
   );
 };

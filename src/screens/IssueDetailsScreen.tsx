@@ -3,7 +3,7 @@ import ScreenHeader from '../components/screen/ScreenHeader';
 const IssueDetailsScreen = () => {
   return (
     <>
-      <ScreenHeader>Fehlermeldung</ScreenHeader>
+      <ScreenHeader label="Fehlermeldung"></ScreenHeader>
     </>
   );
 };

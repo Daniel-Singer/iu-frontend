@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 interface IProps {
   label?: string;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const ScreenHeader = ({ label, children }: IProps) => {

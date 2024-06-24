@@ -3,7 +3,7 @@ import ScreenHeader from '../components/screen/ScreenHeader';
 const MessagesScreen = () => {
   return (
     <>
-      <ScreenHeader>Nachrichten</ScreenHeader>
+      <ScreenHeader label="Nachrichten"></ScreenHeader>
     </>
   );
 };

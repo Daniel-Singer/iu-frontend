@@ -42,7 +42,12 @@ const App = () => {
                 <Route path="account" element={<AccountScreen />} />
                 <Route path="settings" element={<SettingsScreen />} />
                 <Route path="admin" element={<AdminDashboardScreen />} />
-                <Route path="students" element={<StudentsScreen />} />
+                <Route
+                  path="student"
+                  element={<AuthWrapper allowedRoles={['admin', 'tutor']} />}
+                >
+                  <Route path="students" element={<StudentsScreen />} />
+                </Route>
               </Route>
             </Route>
             <Route path="/login" element={<LoginScreen />} />
