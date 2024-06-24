@@ -43,10 +43,10 @@ const App = () => {
                 <Route path="settings" element={<SettingsScreen />} />
                 <Route path="admin" element={<AdminDashboardScreen />} />
                 <Route
-                  path="student"
+                  path="students"
                   element={<AuthWrapper allowedRoles={['admin', 'tutor']} />}
                 >
-                  <Route path="students" element={<StudentsScreen />} />
+                  <Route index element={<StudentsScreen />} />
                 </Route>
               </Route>
             </Route>

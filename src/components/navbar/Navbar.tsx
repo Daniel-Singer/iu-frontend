@@ -3,6 +3,7 @@ import classes from './Navbar.module.css';
 import {
   IconHome,
   IconMessage,
+  IconSchool,
   IconSettings,
   IconUser,
 } from '@tabler/icons-react';
@@ -31,6 +32,11 @@ const navLinks: INavLinks = {
       path: 'messages',
       label: 'Nachrichten',
       icon: <IconMessage size={20} />,
+    },
+    {
+      path: 'students',
+      label: 'Studierende',
+      icon: <IconSchool size={20} />,
     },
     {
       path: 'account',
