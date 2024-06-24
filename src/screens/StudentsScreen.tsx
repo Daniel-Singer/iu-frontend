@@ -1,11 +1,11 @@
 import ScreenHeader from '../components/screen/ScreenHeader';
-
-import students from '../mock/students.json';
+import StudentsTable from '../tables/students/StudentsTable';
 
 const StudentsScreen = () => {
   return (
     <>
       <ScreenHeader label="Studentenübersicht"></ScreenHeader>
+      <StudentsTable />
     </>
   );
 };
