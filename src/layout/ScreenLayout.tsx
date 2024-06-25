@@ -4,6 +4,7 @@ import classes from './Layout.module.css';
 import { listCategories } from '../queries/categories/listCategories';
 import { useQueries } from '@tanstack/react-query';
 import { AuthProvider } from '../context/AuthContext';
+import { listCourses } from '../queries/courses/listCourses';
 
 /**
  * ScreenLayout
@@ -20,6 +21,10 @@ const initQueries: IInitQuery[] = [
   {
     queryKey: ['categories'],
     queryFn: listCategories,
+  },
+  {
+    queryKey: ['courses'],
+    queryFn: listCourses,
   },
 ];
 const ScreenLayout = () => {
