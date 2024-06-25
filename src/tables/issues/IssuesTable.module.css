@@ -1,0 +1,11 @@
+.table th:last-of-type,
+.table th:nth-last-child(2),
+.table td:last-of-type,
+.table td:nth-last-child(2) {
+    text-align: right;
+    width: 15%;
+}
+
+.table tr {
+    cursor: pointer;
+}
