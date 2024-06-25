@@ -46,6 +46,13 @@ const navLinks: INavLinks = {
       icon: <IconSettings size={20} />,
     },
   ],
+  student: [
+    {
+      path: '',
+      label: 'Dashboard',
+      icon: <IconHome size={20} />,
+    },
+  ],
 };
 
 const Navbar = () => {

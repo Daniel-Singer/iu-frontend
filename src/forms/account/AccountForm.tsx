@@ -3,14 +3,14 @@ import SubmitButton from '../../components/buttons/SubmitButton';
 import { useForm } from '@mantine/form';
 import { useAuthContext } from '../../context/AuthContext';
 import { useQuery } from '@tanstack/react-query';
-import { getUser } from '../../queries/users/getUser';
 import { useEffect } from 'react';
+import { getMyAccount } from '../../queries/users/getMyAccount';
 
 const AccountForm = () => {
   const { auth } = useAuthContext();
   const { data: myaccount, isSuccess } = useQuery({
     queryKey: ['myaccount'],
-    queryFn: () => getUser(auth.id!),
+    queryFn: getMyAccount,
     enabled: !!auth?.id,
   });
   const form = useForm({
@@ -30,6 +30,7 @@ const AccountForm = () => {
       form.setFieldValue('email', myaccount?.email! ?? 'k.A.');
     }
   }, [isSuccess]);
+
   return (
     <form onSubmit={form.onSubmit((values) => console.log(values))}>
       <Stack>
