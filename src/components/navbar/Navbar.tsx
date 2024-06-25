@@ -3,6 +3,7 @@ import classes from './Navbar.module.css';
 import {
   IconHome,
   IconMessage,
+  IconPower,
   IconSchool,
   IconSettings,
   IconUser,
@@ -40,11 +41,6 @@ const navLinks: INavLinks = {
       icon: <IconSchool size={20} />,
     },
     {
-      path: 'account',
-      label: 'Mein Account',
-      icon: <IconUser size={20} />,
-    },
-    {
       path: 'settings',
       label: 'Einstellungen',
       icon: <IconSettings size={20} />,
@@ -63,6 +59,12 @@ const Navbar = () => {
       </Stack>
       <Stack>
         <ColorSchemeButton />
+        <Navlink
+          path="account"
+          label="Mein Account"
+          icon={<IconUser size={20} />}
+        />
+        <Navlink path="logout" label="Logout" icon={<IconPower size={20} />} />
       </Stack>
     </Stack>
   );
