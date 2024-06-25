@@ -52,6 +52,11 @@ const navLinks: INavLinks = {
       label: 'Dashboard',
       icon: <IconHome size={20} />,
     },
+    {
+      path: 'messages',
+      label: 'Nachrichten',
+      icon: <IconMessage size={20} />,
+    },
   ],
 };
 
