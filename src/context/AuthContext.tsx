@@ -12,7 +12,7 @@ interface IAuthProviderProps {
   children: ReactNode;
 }
 
-export const AuhProvider = ({ children }: IAuthProviderProps) => {
+export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [auth, setAuth] = useSessionStorage({
     key: 'auth',
     defaultValue: undefined,

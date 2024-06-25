@@ -3,6 +3,7 @@ import Navbar from '../components/navbar/Navbar';
 import classes from './Layout.module.css';
 import { listCategories } from '../queries/categories/listCategories';
 import { useQueries } from '@tanstack/react-query';
+import { AuthProvider } from '../context/AuthContext';
 
 /**
  * ScreenLayout
@@ -29,12 +30,14 @@ const ScreenLayout = () => {
     })),
   });
   return (
-    <div className={classes.screen}>
-      <Navbar />
-      <div className={classes.main}>
-        <Outlet />
+    <AuthProvider>
+      <div className={classes.screen}>
+        <Navbar />
+        <div className={classes.main}>
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 };
 

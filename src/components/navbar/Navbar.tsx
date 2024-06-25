@@ -10,6 +10,7 @@ import {
 import Navlink from '../navlink/Navlink';
 import ColorSchemeButton from '../buttons/ColorSchemeButton';
 import { ReactNode } from 'react';
+import { useAuthContext } from '../../context/AuthContext';
 
 interface INavLinkInfo {
   path: string;
@@ -52,10 +53,11 @@ const navLinks: INavLinks = {
 };
 
 const Navbar = () => {
+  const { auth } = useAuthContext();
   return (
     <Stack className={classes.navbar} justify="space-between">
       <Stack>
-        {navLinks['admin'].map((link) => (
+        {navLinks[auth?.role]?.map((link) => (
           <Navlink key={link.path} {...link} />
         ))}
       </Stack>
