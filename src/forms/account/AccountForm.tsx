@@ -1,8 +1,18 @@
 import { Group, SimpleGrid, Stack, Text, TextInput } from '@mantine/core';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import { useForm } from '@mantine/form';
+import { useAuthContext } from '../../context/AuthContext';
+import { useQuery } from '@tanstack/react-query';
+import { getUser } from '../../queries/users/getUser';
+import { useEffect } from 'react';
 
 const AccountForm = () => {
+  const { auth } = useAuthContext();
+  const { data: myaccount, isSuccess } = useQuery({
+    queryKey: ['myaccount'],
+    queryFn: () => getUser(auth.id!),
+    enabled: !!auth?.id,
+  });
   const form = useForm({
     initialValues: {
       first_name: '',
@@ -11,6 +21,15 @@ const AccountForm = () => {
       email: '',
     },
   });
+
+  useEffect(() => {
+    if (isSuccess) {
+      form.setFieldValue('first_name', myaccount?.first_name!);
+      form.setFieldValue('last_name', myaccount?.last_name!);
+      form.setFieldValue('username', myaccount?.username!);
+      form.setFieldValue('email', myaccount?.email! ?? 'k.A.');
+    }
+  }, [isSuccess]);
   return (
     <form onSubmit={form.onSubmit((values) => console.log(values))}>
       <Stack>
