@@ -9,15 +9,7 @@ const IssuesTable = () => {
     queryKey: ['my_issues'],
     queryFn: listMyIssues,
   });
-  if (myIssues?.length! < 1) {
-    return (
-      <Alert icon={<IconAlertTriangle size={20} />}>
-        <Text size="sm" c="blue">
-          Keine Fehlermeldungen angelegt
-        </Text>
-      </Alert>
-    );
-  } else {
+  if (myIssues?.length! > 1) {
     return (
       <ScrollArea.Autosize>
         <Paper flex={1} withBorder radius="sm">
@@ -55,6 +47,14 @@ const IssuesTable = () => {
           </Table>
         </Paper>
       </ScrollArea.Autosize>
+    );
+  } else {
+    return (
+      <Alert icon={<IconAlertTriangle size={20} />}>
+        <Text size="sm" c="blue">
+          Keine Fehlermeldungen angelegt
+        </Text>
+      </Alert>
     );
   }
 };
