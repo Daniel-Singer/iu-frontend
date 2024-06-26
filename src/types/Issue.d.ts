@@ -5,8 +5,8 @@ interface IIssueBase {
 }
 
 interface IIssueCreate extends IIssueBase {
-  course_id: number | undefined;
-  category_id: number | undefined;
+  course_id?: string;
+  category_id?: string;
   media_type: string;
   attached_file: any;
 }

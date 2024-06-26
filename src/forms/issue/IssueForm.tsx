@@ -3,6 +3,9 @@ import { useSelectData } from './hooks/useSelectData';
 import { useForm } from '@mantine/form';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import { IconPaperclip } from '@tabler/icons-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createIssue } from '../../queries/issues/createIssue';
+import { showNotification } from '../../helpers/notifications/showNotification';
 
 const IssueForm = () => {
   const { categories, courses } = useSelectData();
@@ -24,8 +27,27 @@ const IssueForm = () => {
     },
   });
 
+  const queryClient = useQueryClient();
+
+  const { mutate: create } = useMutation({
+    mutationFn: createIssue,
+    onSuccess: (issue) => {
+      queryClient.invalidateQueries({
+        queryKey: ['my_issues'],
+      });
+      showNotification(
+        'success',
+        'FEHLERMELDUNG',
+        `Fehlermeldung ${issue.title} erfolgreich erstellt!`
+      );
+    },
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+
   const handleSubmit = (values: IIssueCreate) => {
-    console.log(values);
+    create(values);
   };
   return (
     <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
