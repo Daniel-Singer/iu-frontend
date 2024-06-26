@@ -75,7 +75,7 @@ const Navbar = () => {
   const { auth } = useAuthContext();
   return (
     <Stack className={classes.navbar} justify="space-between">
-      <Stack>
+      <Stack gap={0}>
         {navLinks[auth?.role]?.map((link) => (
           <Navlink key={link.path} {...link} />
         ))}

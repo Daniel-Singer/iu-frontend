@@ -1,0 +1,10 @@
+.navlink {
+
+    &[data-active] {
+        background-color: light-dark(var(--mantine-color-gray-4), var(--mantine-color-dark-8));
+    }
+}
+
+.navlink:hover {
+    background-color: light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-7));
+}

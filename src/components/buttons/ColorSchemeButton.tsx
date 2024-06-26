@@ -10,7 +10,7 @@ import { IconMoon, IconSun } from '@tabler/icons-react';
 const ColorSchemeButton = () => {
   const { colorScheme, toggleColorScheme } = useMantineColorScheme();
   return (
-    <UnstyledButton onClick={toggleColorScheme}>
+    <UnstyledButton onClick={toggleColorScheme} p="xs">
       <Group>
         <ThemeIcon variant="light">
           {colorScheme === 'light' ? (
