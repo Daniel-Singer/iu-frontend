@@ -1,4 +1,11 @@
-import { Select, Stack, TextInput, Textarea } from '@mantine/core';
+import {
+  FileInput,
+  Select,
+  SimpleGrid,
+  Stack,
+  TextInput,
+  Textarea,
+} from '@mantine/core';
 import { useSelectData } from './hooks/useSelectData';
 import { useForm } from '@mantine/form';
 import SubmitButton from '../../components/buttons/SubmitButton';
@@ -24,20 +31,20 @@ const IssueForm = () => {
     <form onSubmit={form.onSubmit((values) => console.log(values))}>
       <Stack>
         <Select
-          label="Kategorie"
-          data={categories}
-          withAsterisk
-          {...form.getInputProps('category_id')}
-        />
-        <Select
           label="Kurs"
           data={courses}
           withAsterisk
           searchable
           {...form.getInputProps('course_id')}
         />
+        <Select
+          label="Kategorie"
+          data={categories}
+          withAsterisk
+          {...form.getInputProps('category_id')}
+        />
         <TextInput
-          label="Kurzbeschreibung"
+          label="Titel"
           withAsterisk
           {...form.getInputProps('title')}
         />
@@ -48,6 +55,8 @@ const IssueForm = () => {
           autosize
           {...form.getInputProps('description')}
         />
+        <Select data={[]} label="Medien-Typ" />
+        <FileInput label="Datei auswählen" />
         <SubmitButton>Speichern</SubmitButton>
       </Stack>
     </form>
