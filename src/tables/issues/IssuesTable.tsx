@@ -5,12 +5,14 @@ import { IconAlertTriangle } from '@tabler/icons-react';
 import { listMyIssues } from '../../queries/issues/listMyIssues';
 import classes from './IssuesTable.module.css';
 import Status from './Status';
+import { useNavigate } from 'react-router-dom';
 
 const IssuesTable = () => {
   const { data: myIssues } = useQuery({
     queryKey: ['my_issues'],
     queryFn: listMyIssues,
   });
+  const navigate = useNavigate();
   if (myIssues?.length! > 0) {
     return (
       <ScrollArea.Autosize>
@@ -40,7 +42,7 @@ const IssuesTable = () => {
                 }) => (
                   <Table.Tr
                     key={`issue${id}`}
-                    onDoubleClick={() => console.log('test')}
+                    onDoubleClick={() => navigate(`/issue/${id}`)}
                   >
                     <Table.Td>{id}</Table.Td>
                     <Table.Td>

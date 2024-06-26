@@ -21,6 +21,7 @@ import StudentsScreen from './screens/StudentsScreen';
 import LoginScreen from './screens/LoginScreen';
 import AuthWrapper from './auth/AuthWrapper';
 import LogoutScreen from './screens/LogoutScreen';
+import IssueDetailsScreen from './screens/IssueDetailsScreen';
 
 // instantiate QueryClient
 const queryClient = new QueryClient();
@@ -49,6 +50,7 @@ const App = () => {
                 >
                   <Route index element={<StudentsScreen />} />
                 </Route>
+                <Route path="issue/:id" element={<IssueDetailsScreen />} />
                 <Route path="logout" element={<LogoutScreen />} />
               </Route>
             </Route>
