@@ -1,6 +1,7 @@
 import { Stack } from '@mantine/core';
 import classes from './Navbar.module.css';
 import {
+  IconBook,
   IconHome,
   IconMessage,
   IconPower,
@@ -39,6 +40,16 @@ const navLinks: INavLinks = {
       path: 'students',
       label: 'Studierende',
       icon: <IconSchool size={20} />,
+    },
+    {
+      path: 'courses',
+      label: 'Kurse',
+      icon: <IconBook size={20} />,
+    },
+    {
+      path: 'tutors',
+      label: 'Tutoren',
+      icon: <IconUser size={20} />,
     },
     {
       path: 'settings',
