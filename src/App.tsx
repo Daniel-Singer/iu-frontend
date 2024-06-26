@@ -24,6 +24,7 @@ import LoginScreen from './screens/LoginScreen';
 import AuthWrapper from './auth/AuthWrapper';
 import LogoutScreen from './screens/LogoutScreen';
 import IssueDetailsScreen from './screens/IssueDetailsScreen';
+import { ModalProvider } from './context/ModalContext';
 
 // instantiate QueryClient
 const queryClient = new QueryClient();
@@ -42,7 +43,14 @@ const App = () => {
               }
             >
               <Route path="/" element={<ScreenLayout />}>
-                <Route index element={<DashboardScreen />} />
+                <Route
+                  index
+                  element={
+                    <ModalProvider>
+                      <DashboardScreen />
+                    </ModalProvider>
+                  }
+                />
                 <Route path="messages" element={<MessagesScreen />} />
                 <Route path="account" element={<AccountScreen />} />
                 <Route path="settings" element={<SettingsScreen />} />

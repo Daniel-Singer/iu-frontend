@@ -1,21 +1,19 @@
-import { useState } from 'react';
 import ScreenHeader from '../components/screen/ScreenHeader';
 import AddButton from '../components/buttons/AddButton';
 import IssueModal from '../modals/issues/IssueModal';
 import IssuesTable from '../tables/issues/IssuesTable';
-import { ModalProvider } from '../context/ModalContext';
+import { useModalContext } from '../context/ModalContext';
 
 const DashboardScreen = () => {
-  const [open, setOpen] = useState<boolean>(false);
-
+  const { open, toggleModal } = useModalContext();
   return (
-    <ModalProvider>
-      <IssueModal open={open} onClose={() => setOpen(!open)} />
+    <>
+      <IssueModal open={open} onClose={toggleModal} />
       <ScreenHeader label="Dashboard">
-        <AddButton onClick={() => setOpen(!open)}>Anlegen</AddButton>
+        <AddButton onClick={toggleModal}>Anlegen</AddButton>
       </ScreenHeader>
       <IssuesTable />
-    </ModalProvider>
+    </>
   );
 };
 

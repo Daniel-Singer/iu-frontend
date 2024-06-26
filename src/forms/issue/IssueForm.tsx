@@ -6,9 +6,11 @@ import { IconPaperclip } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createIssue } from '../../queries/issues/createIssue';
 import { showNotification } from '../../helpers/notifications/showNotification';
+import { useModalContext } from '../../context/ModalContext';
 
 const IssueForm = () => {
   const { categories, courses } = useSelectData();
+  const { toggleModal } = useModalContext();
   const form = useForm<IIssueCreate>({
     initialValues: {
       title: '',
@@ -40,6 +42,7 @@ const IssueForm = () => {
         'FEHLERMELDUNG',
         `Fehlermeldung ${issue.title} erfolgreich erstellt!`
       );
+      toggleModal();
     },
     onError: (error) => {
       console.error(error);
