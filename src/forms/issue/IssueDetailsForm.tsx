@@ -9,23 +9,68 @@ import {
 } from '@mantine/core';
 import dayjs from 'dayjs';
 import { useForm } from '@mantine/form';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { getIssue } from '../../queries/issues/getIssue';
 import DeleteButton from '../../components/buttons/DeleteButton';
 import CardRow from '../../layout/card/CardRow';
 import SubmitButton from '../../components/buttons/SubmitButton';
+import { deleteIssue } from '../../queries/issues/deleteIssue';
+import { showNotification } from '../../helpers/notifications/showNotification';
+import { updateIssue } from '../../queries/issues/updateIssue';
 
 const IssueDetailsForm = () => {
   const params = useParams();
 
-  const form = useForm();
+  const navigate = useNavigate();
 
+  const queryClient = useQueryClient();
+
+  const form = useForm({
+    initialValues: {
+      title: '',
+      description: '',
+    },
+  });
+
+  // get issue data from database
   const { data: issue, isSuccess } = useQuery({
     queryKey: ['issue'],
     queryFn: () => getIssue(params.id!),
     enabled: !!params.id,
+  });
+
+  // update issue in database
+  const { mutate: update } = useMutation({
+    mutationFn: updateIssue,
+    onSuccess: (issue) => {
+      queryClient.invalidateQueries({
+        queryKey: ['my_issues'],
+      });
+      showNotification(
+        'success',
+        'UPDATE!',
+        `Update für ${issue?.title} erfolgreich`
+      );
+      form.resetDirty();
+    },
+  });
+
+  // remove issue from database
+  const { mutate: remove } = useMutation({
+    mutationFn: deleteIssue,
+    onSuccess: (issue) => {
+      navigate('/');
+      queryClient.invalidateQueries({
+        queryKey: ['my_issues'],
+      });
+      showNotification(
+        'success',
+        'ERFOLG!',
+        `${issue.title} erfolgreich gelöscht`
+      );
+    },
   });
 
   useEffect(() => {
@@ -36,8 +81,13 @@ const IssueDetailsForm = () => {
       form.resetDirty();
     }
   }, [isSuccess]);
+
   return (
-    <form>
+    <form
+      onSubmit={form.onSubmit((values) =>
+        update({ id: issue?.id!, update: values })
+      )}
+    >
       <Stack>
         <CardRow label="ID" value={issue?.id!} />
         <CardRow
@@ -78,7 +128,9 @@ const IssueDetailsForm = () => {
         />
         <Group justify="space-between">
           <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>
-          <DeleteButton>Meldung entfernen</DeleteButton>
+          <DeleteButton onClick={() => remove(issue?.id!)}>
+            Meldung entfernen
+          </DeleteButton>
         </Group>
       </Stack>
     </form>
