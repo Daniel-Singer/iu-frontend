@@ -27,6 +27,7 @@ import IssueDetailsScreen from './screens/IssueDetailsScreen';
 import { ModalProvider } from './context/ModalContext';
 import CoursesScreen from './screens/CoursesScreen';
 import TutorsScreen from './screens/TutorsScreen';
+import CourseDetailsScreen from './screens/CourseDetailsScreen';
 
 // instantiate QueryClient
 const queryClient = new QueryClient();
@@ -68,6 +69,7 @@ const App = () => {
                   element={<AuthWrapper allowedRoles={['admin']} />}
                 >
                   <Route index element={<CoursesScreen />} />
+                  <Route path=":id" element={<CourseDetailsScreen />} />
                 </Route>
                 <Route
                   path="tutors"
