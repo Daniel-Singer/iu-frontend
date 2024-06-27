@@ -42,14 +42,14 @@ const navLinks: INavLinks = {
       icon: <IconSchool size={20} />,
     },
     {
-      path: 'courses',
-      label: 'Kurse',
-      icon: <IconBook size={20} />,
-    },
-    {
       path: 'tutors',
       label: 'Tutoren',
       icon: <IconUser size={20} />,
+    },
+    {
+      path: 'courses',
+      label: 'Kurse',
+      icon: <IconBook size={20} />,
     },
     {
       path: 'settings',
@@ -58,6 +58,18 @@ const navLinks: INavLinks = {
     },
   ],
   student: [
+    {
+      path: '',
+      label: 'Dashboard',
+      icon: <IconHome size={20} />,
+    },
+    {
+      path: 'messages',
+      label: 'Nachrichten',
+      icon: <IconMessage size={20} />,
+    },
+  ],
+  tutor: [
     {
       path: '',
       label: 'Dashboard',
