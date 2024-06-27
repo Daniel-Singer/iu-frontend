@@ -1,8 +1,17 @@
-import { useQueryClient } from '@tanstack/react-query';
-import ScreenHeader from '../components/screen/ScreenHeader';
 import { useEffect } from 'react';
-import { Paper, SimpleGrid } from '@mantine/core';
+import {
+  Group,
+  Paper,
+  ScrollArea,
+  SimpleGrid,
+  Stack,
+  Text,
+} from '@mantine/core';
+import { useQueryClient } from '@tanstack/react-query';
+
+import ScreenHeader from '../components/screen/ScreenHeader';
 import IssueDetailsForm from '../forms/issue/IssueDetailsForm';
+import StatusTable from '../tables/status/StatusTable';
 
 const IssueDetailsScreen = () => {
   const queryClient = useQueryClient();
@@ -17,11 +26,21 @@ const IssueDetailsScreen = () => {
   return (
     <>
       <ScreenHeader label="Details Fehlermeldung"></ScreenHeader>
-      <SimpleGrid cols={2}>
-        <Paper withBorder p="xs">
-          <IssueDetailsForm />
-        </Paper>
-      </SimpleGrid>
+      <ScrollArea.Autosize>
+        <SimpleGrid cols={2}>
+          <Stack>
+            <Paper withBorder p="xs">
+              <IssueDetailsForm />
+            </Paper>
+            <Paper>
+              <Group p="xs" justify="space-between">
+                <Text c="blue">FORTSCHRITT</Text>
+              </Group>
+              <StatusTable />
+            </Paper>
+          </Stack>
+        </SimpleGrid>
+      </ScrollArea.Autosize>
     </>
   );
 };
