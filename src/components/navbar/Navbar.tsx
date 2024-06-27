@@ -37,12 +37,12 @@ const navLinks: INavLinks = {
       icon: <IconMessage size={20} />,
     },
     {
-      path: 'students',
+      path: 'users?role=student',
       label: 'Studierende',
       icon: <IconSchool size={20} />,
     },
     {
-      path: 'tutors',
+      path: 'users?role=tutor',
       label: 'Tutoren',
       icon: <IconUser size={20} />,
     },

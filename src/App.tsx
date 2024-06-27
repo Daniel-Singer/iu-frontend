@@ -19,7 +19,6 @@ import SettingsScreen from './screens/SettingsScreen';
 
 import { theme } from './theme';
 import AdminDashboardScreen from './screens/AdminDashboardScreen';
-import StudentsScreen from './screens/StudentsScreen';
 import LoginScreen from './screens/LoginScreen';
 import AuthWrapper from './auth/AuthWrapper';
 import LogoutScreen from './screens/LogoutScreen';
@@ -28,6 +27,7 @@ import { ModalProvider } from './context/ModalContext';
 import CoursesScreen from './screens/CoursesScreen';
 import TutorsScreen from './screens/TutorsScreen';
 import CourseDetailsScreen from './screens/CourseDetailsScreen';
+import UsersScreen from './screens/UsersScreen';
 
 // instantiate QueryClient
 const queryClient = new QueryClient();
@@ -59,10 +59,10 @@ const App = () => {
                 <Route path="settings" element={<SettingsScreen />} />
                 <Route path="admin" element={<AdminDashboardScreen />} />
                 <Route
-                  path="students"
+                  path="users"
                   element={<AuthWrapper allowedRoles={['admin', 'tutor']} />}
                 >
-                  <Route index element={<StudentsScreen />} />
+                  <Route index element={<UsersScreen />} />
                 </Route>
                 <Route
                   path="courses"
