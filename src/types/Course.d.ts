@@ -12,4 +12,7 @@ interface ICourseCreate extends ICourseBase {
 // Interface used when course is received from server
 interface ICourseReceive extends ICourseBase {
   tutor: Pick<ITutor, 'id' | 'first_name' | 'last_name' | 'email'>;
+  issues: {
+    count: number;
+  };
 }

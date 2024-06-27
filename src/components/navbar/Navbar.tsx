@@ -80,7 +80,7 @@ const Navbar = () => {
           <Navlink key={link.path} {...link} />
         ))}
       </Stack>
-      <Stack>
+      <Stack gap={0}>
         <ColorSchemeButton />
         <Navlink
           path="account"
