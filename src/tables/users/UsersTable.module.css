@@ -2,14 +2,6 @@
     width: 5%;
 }
 
-.table th:nth-last-of-type(2),
-.table th:nth-last-of-type(3) {
-    width: 15%;
-}
-
-.userId {
-    width: 5%;
-}
 
 .header {
     position: sticky;
@@ -18,4 +10,12 @@
     &[data-scrolling] {
         box-shadow: var(--mantine-shadow-sm);
     }
+}
+
+.matrikel_nr {
+    width: 15%;
+}
+
+.name {
+    width: 30%;
 }
