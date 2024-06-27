@@ -19,7 +19,11 @@ const Tbody = ({ issues }: IProps) => {
           >
             <Table.Td>{id}</Table.Td>
             <Table.Td>
-              <Anchor size="sm" c="green">
+              <Anchor
+                size="sm"
+                c="green"
+                onClick={() => navigate(`/courses/${course.id!}`)}
+              >
                 {course.code}
               </Anchor>
             </Table.Td>
