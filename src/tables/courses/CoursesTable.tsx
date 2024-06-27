@@ -1,4 +1,4 @@
-import { Paper, ScrollArea, Table, Text } from '@mantine/core';
+import { Paper, ScrollArea, Table } from '@mantine/core';
 
 import classes from './CoursesTable.module.css';
 import Thead from './Thead';

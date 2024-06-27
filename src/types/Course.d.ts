@@ -16,3 +16,8 @@ interface ICourseReceive extends ICourseBase {
     count: number;
   };
 }
+
+interface ICourseDetailsReceive extends ICourseBase {
+  tutor: Pick<ITutor, 'id' | 'first_name' | 'last_name' | 'email'>;
+  issues: IIssueReceive[];
+}
