@@ -8,23 +8,23 @@ interface IMediaType {
 
 const mediaTypes: IMediaType[] = [
   {
-    value: '1',
+    value: 'pdf',
     label: 'Skript/PDF',
   },
   {
-    value: '2',
+    value: 'app',
     label: 'Learning App',
   },
   {
-    value: '3',
+    value: 'video',
     label: 'Video',
   },
   {
-    value: '4',
+    value: 'mycampus',
     label: 'MyCampus',
   },
   {
-    value: '5',
+    value: 'audio',
     label: 'Audio',
   },
 ];

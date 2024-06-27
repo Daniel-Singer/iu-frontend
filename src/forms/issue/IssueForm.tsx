@@ -10,6 +10,7 @@ import CourseSelect from './selects/CourseSelect';
 import { IssueFormProvider, useIssueForm } from './context';
 import CategorySelect from './selects/CategorySelect';
 import MediaSelect from './selects/MediaSelect';
+import MediaDetailsInputs from './selects/MediaDetailsInputs';
 
 const IssueForm = () => {
   const { toggleModal } = useModalContext();
@@ -73,6 +74,7 @@ const IssueForm = () => {
             {...form.getInputProps('description')}
           />
           <MediaSelect />
+          <MediaDetailsInputs />
           <FileInput
             label="Datei anhängen"
             leftSection={<IconPaperclip size={18} />}
