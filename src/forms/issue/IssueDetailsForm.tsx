@@ -122,10 +122,7 @@ const IssueDetailsForm = () => {
           autosize
           {...form.getInputProps('description')}
         />
-        <CardRow
-          label="Status"
-          value={<Text c="orange">In Bearbeitung</Text>}
-        />
+        <CardRow label="Status" value={<Text>{issue?.status[0].label}</Text>} />
         <Group justify="space-between">
           <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>
           <DeleteButton onClick={() => remove(issue?.id!)}>

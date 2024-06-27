@@ -1,5 +1,10 @@
-interface IStatus {
+interface IStatusBase {
   id?: number;
-  label: string;
+  label: any;
   desription: string;
+}
+
+interface IStatusReceive extends IStatusBase {
+  created_at: Date;
+  updated_at: Date;
 }
