@@ -1,14 +1,15 @@
-import { FileInput, Select, Stack, TextInput, Textarea } from '@mantine/core';
-import SubmitButton from '../../components/buttons/SubmitButton';
+import { FileInput, Stack, TextInput, Textarea } from '@mantine/core';
 import { IconPaperclip } from '@tabler/icons-react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
+import SubmitButton from '../../components/buttons/SubmitButton';
 import { createIssue } from '../../queries/issues/createIssue';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { useModalContext } from '../../context/ModalContext';
-import CourseSelect from './inputs/CourseSelect';
+import CourseSelect from './selects/CourseSelect';
 import { IssueFormProvider, useIssueForm } from './context';
-import CategorySelect from './inputs/CategorySelect';
-import MediaSelect from './inputs/MediaSelect';
+import CategorySelect from './selects/CategorySelect';
+import MediaSelect from './selects/MediaSelect';
 
 const IssueForm = () => {
   const { toggleModal } = useModalContext();

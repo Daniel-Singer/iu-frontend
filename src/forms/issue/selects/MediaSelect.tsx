@@ -21,7 +21,7 @@ const mediaTypes: IMediaType[] = [
   },
   {
     value: '4',
-    label: 'Lernplattform',
+    label: 'MyCampus',
   },
   {
     value: '5',
@@ -32,11 +32,13 @@ const mediaTypes: IMediaType[] = [
 const MediaSelect = () => {
   const form = useIssueFormContext();
   return (
-    <Select
-      data={mediaTypes.map(({ value, label }) => ({ value, label }))}
-      label="Medientyp"
-      {...form.getInputProps('media_type')}
-    />
+    <>
+      <Select
+        data={mediaTypes.map(({ value, label }) => ({ value, label }))}
+        label="Medientyp"
+        {...form.getInputProps('media_type')}
+      />
+    </>
   );
 };
 
