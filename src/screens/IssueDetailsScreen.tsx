@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import {
+  Box,
   Group,
   Paper,
   ScrollArea,
@@ -32,13 +33,15 @@ const IssueDetailsScreen = () => {
             <Paper withBorder p="xs">
               <IssueDetailsForm />
             </Paper>
+          </Stack>
+          <Box>
             <Paper>
               <Group p="xs" justify="space-between">
                 <Text c="blue">FORTSCHRITT</Text>
               </Group>
               <StatusTable />
             </Paper>
-          </Stack>
+          </Box>
         </SimpleGrid>
       </ScrollArea.Autosize>
     </>

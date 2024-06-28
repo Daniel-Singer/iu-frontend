@@ -19,6 +19,7 @@ import SubmitButton from '../../components/buttons/SubmitButton';
 import { deleteIssue } from '../../queries/issues/deleteIssue';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { updateIssue } from '../../queries/issues/updateIssue';
+import CommentButton from '../../components/buttons/CommentButton';
 
 const IssueDetailsForm = () => {
   const params = useParams();
@@ -106,6 +107,10 @@ const IssueDetailsForm = () => {
           label="Geändert"
           value={dayjs(issue?.updated_at).format('DD.MM.YYYY')}
         />
+        <Divider h={0} />
+        <Group justify="end">
+          <CommentButton>Kommentieren</CommentButton>
+        </Group>
         <Divider h={0} />
         <Text size="sm" c="dimmed">
           Inhalte ändern
