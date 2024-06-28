@@ -6,14 +6,12 @@ import Comment from './Comment';
 
 const CommentList = () => {
   const params = useParams();
-  const { data: comments } = useQuery({
+  const { data: comments, isSuccess } = useQuery({
     queryKey: ['comments'],
     queryFn: () => listIssuesComments(params?.id!),
     enabled: !!params.id,
   });
-  if (comments?.length! < 1) {
-    return null;
-  } else {
+  if (isSuccess && comments?.length! > 0) {
     return (
       <Stack gap="xs">
         <Text c="blue">KOMMENTARE</Text>
@@ -24,6 +22,8 @@ const CommentList = () => {
         ))}
       </Stack>
     );
+  } else {
+    return null;
   }
 };
 

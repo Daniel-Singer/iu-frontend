@@ -12,10 +12,14 @@ const IssueDetailsScreen = () => {
   const queryClient = useQueryClient();
 
   useEffect(() => {
-    return () =>
+    return () => {
       queryClient.removeQueries({
         queryKey: ['issue'],
       });
+      queryClient.removeQueries({
+        queryKey: ['comments'],
+      });
+    };
   }, []);
 
   return (
