@@ -147,7 +147,7 @@ const IssueDetailsForm = () => {
           />
           <CardRow
             label="Status"
-            value={<Text>{issue?.status[0].label}</Text>}
+            value={<Text>{issue?.status[0]?.label}</Text>}
           />
           <Group justify="space-between">
             <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>

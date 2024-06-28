@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { listIssuesComments } from '../../queries/comments/listIssuesComments';
 import { useParams } from 'react-router-dom';
-import { Stack } from '@mantine/core';
+import { Paper, Stack, Text } from '@mantine/core';
 import Comment from './Comment';
 
 const CommentList = () => {
@@ -11,13 +11,20 @@ const CommentList = () => {
     queryFn: () => listIssuesComments(params?.id!),
     enabled: !!params.id,
   });
-  return (
-    <Stack>
-      {comments?.map((comment) => (
-        <Comment key={comment.id!} {...comment} />
-      ))}
-    </Stack>
-  );
+  if (comments?.length! < 1) {
+    return null;
+  } else {
+    return (
+      <Stack gap="xs">
+        <Text c="blue">KOMMENTARE</Text>
+        {comments?.map((comment) => (
+          <Paper withBorder p="xs">
+            <Comment key={comment.id!} {...comment} />
+          </Paper>
+        ))}
+      </Stack>
+    );
+  }
 };
 
 export default CommentList;

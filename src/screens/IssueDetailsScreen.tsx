@@ -39,9 +39,7 @@ const IssueDetailsScreen = () => {
                 <IssueDetailsForm />
               </ModalProvider>
             </Paper>
-            <Paper withBorder p="xs">
-              <CommentList />
-            </Paper>
+            <CommentList />
           </Stack>
           <Box>
             <Paper>
