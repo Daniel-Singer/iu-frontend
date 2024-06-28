@@ -20,6 +20,7 @@ import { deleteIssue } from '../../queries/issues/deleteIssue';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { updateIssue } from '../../queries/issues/updateIssue';
 import CommentButton from '../../components/buttons/CommentButton';
+import { useModalContext } from '../../context/ModalContext';
 
 const IssueDetailsForm = () => {
   const params = useParams();
@@ -27,6 +28,8 @@ const IssueDetailsForm = () => {
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
+
+  const { toggleModal } = useModalContext();
 
   const form = useForm({
     initialValues: {
@@ -109,7 +112,7 @@ const IssueDetailsForm = () => {
         />
         <Divider h={0} />
         <Group justify="end">
-          <CommentButton>Kommentieren</CommentButton>
+          <CommentButton onClick={toggleModal}>Kommentieren</CommentButton>
         </Group>
         <Divider h={0} />
         <Text size="sm" c="dimmed">

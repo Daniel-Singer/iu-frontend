@@ -13,6 +13,8 @@ import { useQueryClient } from '@tanstack/react-query';
 import ScreenHeader from '../components/screen/ScreenHeader';
 import IssueDetailsForm from '../forms/issue/IssueDetailsForm';
 import StatusTable from '../tables/status/StatusTable';
+import { ModalProvider } from '../context/ModalContext';
+import CommentModal from '../modals/comment/CommentModal';
 
 const IssueDetailsScreen = () => {
   const queryClient = useQueryClient();
@@ -31,8 +33,12 @@ const IssueDetailsScreen = () => {
         <SimpleGrid cols={2}>
           <Stack>
             <Paper withBorder p="xs">
-              <IssueDetailsForm />
+              <ModalProvider>
+                <CommentModal />
+                <IssueDetailsForm />
+              </ModalProvider>
             </Paper>
+            <Paper withBorder p="xs"></Paper>
           </Stack>
           <Box>
             <Paper>

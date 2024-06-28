@@ -1,5 +1,6 @@
-import { Textarea } from '@mantine/core';
+import { Stack, Textarea } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import SubmitButton from '../../components/buttons/SubmitButton';
 
 const CommentForm = () => {
   const form = useForm({
@@ -9,7 +10,16 @@ const CommentForm = () => {
   });
   return (
     <form onSubmit={form.onSubmit((values) => console.log(values))}>
-      <Textarea label="Kommentar" />
+      <Stack>
+        <Textarea
+          label="Kommentar"
+          {...form.getInputProps('text')}
+          data-autofocus
+        />
+        <SubmitButton>senden</SubmitButton>
+      </Stack>
     </form>
   );
 };
+
+export default CommentForm;
