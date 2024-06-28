@@ -1,16 +1,7 @@
 import { useEffect } from 'react';
-import {
-  Box,
-  Group,
-  Paper,
-  ScrollArea,
-  SimpleGrid,
-  Stack,
-  Text,
-} from '@mantine/core';
+import { Paper, ScrollArea, SimpleGrid, Stack, Text } from '@mantine/core';
 import { useQueryClient } from '@tanstack/react-query';
 
-import ScreenHeader from '../components/screen/ScreenHeader';
 import IssueDetailsForm from '../forms/issue/IssueDetailsForm';
 import StatusTable from '../tables/status/StatusTable';
 import { ModalProvider } from '../context/ModalContext';
@@ -29,10 +20,10 @@ const IssueDetailsScreen = () => {
 
   return (
     <>
-      <ScreenHeader label="Details Fehlermeldung"></ScreenHeader>
       <ScrollArea.Autosize>
         <SimpleGrid cols={2}>
           <Stack>
+            <Text c="blue">DETAILS</Text>
             <Paper withBorder p="xs">
               <ModalProvider>
                 <CommentModal />
@@ -41,14 +32,12 @@ const IssueDetailsScreen = () => {
             </Paper>
             <CommentList />
           </Stack>
-          <Box>
-            <Paper>
-              <Group p="xs" justify="space-between">
-                <Text c="blue">FORTSCHRITT</Text>
-              </Group>
+          <Stack>
+            <Text c="blue">FORTSCHRITT</Text>
+            <Paper withBorder>
               <StatusTable />
             </Paper>
-          </Box>
+          </Stack>
         </SimpleGrid>
       </ScrollArea.Autosize>
     </>

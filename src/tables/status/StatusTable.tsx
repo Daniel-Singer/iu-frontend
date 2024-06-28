@@ -15,7 +15,7 @@ const StatusTable = () => {
   });
   if (status?.length! < 1) {
     return (
-      <Alert icon={<IconAlertTriangle size={20} />}>
+      <Alert icon={<IconAlertTriangle size={20} />} m="xs">
         <Text size="sm" c="blue">
           Keine Status für diese Fehlermeldung gespeichert
         </Text>
