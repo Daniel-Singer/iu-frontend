@@ -1,5 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
+  ActionIcon,
+  Collapse,
   Divider,
   Group,
   Stack,
@@ -21,6 +23,7 @@ import { showNotification } from '../../helpers/notifications/showNotification';
 import { updateIssue } from '../../queries/issues/updateIssue';
 import CommentButton from '../../components/buttons/CommentButton';
 import { useModalContext } from '../../context/ModalContext';
+import { IconChevronDown } from '@tabler/icons-react';
 
 const IssueDetailsForm = () => {
   const params = useParams();
@@ -30,6 +33,8 @@ const IssueDetailsForm = () => {
   const queryClient = useQueryClient();
 
   const { toggleModal } = useModalContext();
+
+  const [showDetails, setShowDetails] = useState<boolean>(false);
 
   const form = useForm({
     initialValues: {
@@ -102,6 +107,7 @@ const IssueDetailsForm = () => {
           label="Tutor"
           value={`${issue?.course.tutor.first_name} ${issue?.course?.tutor.last_name}`}
         />
+        <CardRow label="Titel" value={issue?.title} />
         <CardRow
           label="Erstellt"
           value={dayjs(issue?.created_at).format('DD.MM.YYYY')}
@@ -111,32 +117,45 @@ const IssueDetailsForm = () => {
           value={dayjs(issue?.updated_at).format('DD.MM.YYYY')}
         />
         <Divider h={0} />
-        <Group justify="end">
+        <Group justify="space-between">
+          <Group>
+            <ActionIcon
+              color="gray"
+              onClick={() => setShowDetails(!showDetails)}
+            >
+              <IconChevronDown size={18} />
+            </ActionIcon>
+          </Group>
           <CommentButton onClick={toggleModal}>Kommentieren</CommentButton>
         </Group>
-        <Divider h={0} />
-        <Text size="sm" c="dimmed">
-          Inhalte ändern
-        </Text>
-        <TextInput
-          label="Titel"
-          {...form.getInputProps('title')}
-          withAsterisk
-        />
-        <Textarea
-          label="Beschreibung"
-          withAsterisk
-          minRows={5}
-          autosize
-          {...form.getInputProps('description')}
-        />
-        <CardRow label="Status" value={<Text>{issue?.status[0].label}</Text>} />
-        <Group justify="space-between">
-          <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>
-          <DeleteButton onClick={() => remove(issue?.id!)}>
-            Meldung entfernen
-          </DeleteButton>
-        </Group>
+        <Collapse in={showDetails}>
+          <Divider h={0} />
+          <Text size="sm" c="dimmed">
+            Inhalte ändern
+          </Text>
+          <TextInput
+            label="Titel"
+            {...form.getInputProps('title')}
+            withAsterisk
+          />
+          <Textarea
+            label="Beschreibung"
+            withAsterisk
+            minRows={5}
+            autosize
+            {...form.getInputProps('description')}
+          />
+          <CardRow
+            label="Status"
+            value={<Text>{issue?.status[0].label}</Text>}
+          />
+          <Group justify="space-between">
+            <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>
+            <DeleteButton onClick={() => remove(issue?.id!)}>
+              Meldung entfernen
+            </DeleteButton>
+          </Group>
+        </Collapse>
       </Stack>
     </form>
   );
