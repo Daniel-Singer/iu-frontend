@@ -1,4 +1,5 @@
 interface ICommentBase {
+  id?: number | string;
   text: string;
 }
 
@@ -12,4 +13,5 @@ interface ICommentReceive extends ICommentBase {
     first_name: string;
     last_name: string;
   };
+  created_at: Date;
 }

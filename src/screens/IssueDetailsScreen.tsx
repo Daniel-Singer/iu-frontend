@@ -15,6 +15,7 @@ import IssueDetailsForm from '../forms/issue/IssueDetailsForm';
 import StatusTable from '../tables/status/StatusTable';
 import { ModalProvider } from '../context/ModalContext';
 import CommentModal from '../modals/comment/CommentModal';
+import CommentList from '../components/comment/CommentList';
 
 const IssueDetailsScreen = () => {
   const queryClient = useQueryClient();
@@ -38,7 +39,9 @@ const IssueDetailsScreen = () => {
                 <IssueDetailsForm />
               </ModalProvider>
             </Paper>
-            <Paper withBorder p="xs"></Paper>
+            <Paper withBorder p="xs">
+              <CommentList />
+            </Paper>
           </Stack>
           <Box>
             <Paper>
