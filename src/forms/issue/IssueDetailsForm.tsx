@@ -57,6 +57,9 @@ const IssueDetailsForm = () => {
       queryClient.invalidateQueries({
         queryKey: ['my_issues'],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['issue'],
+      });
       showNotification(
         'success',
         'UPDATE!',
@@ -126,7 +129,9 @@ const IssueDetailsForm = () => {
               <IconChevronDown size={18} />
             </ActionIcon>
           </Group>
-          <CommentButton onClick={toggleModal}>Kommentieren</CommentButton>
+          <CommentButton color="grape" onClick={toggleModal}>
+            Kommentieren
+          </CommentButton>
         </Group>
         <Collapse in={showDetails}>
           <Divider h={0} />
