@@ -1,7 +1,7 @@
 import { Stack, Text } from '@mantine/core';
 import dayjs from 'dayjs';
 
-const Comment = ({ id, text, created_from, created_at }: ICommentReceive) => {
+const Comment = ({ text, created_from, created_at }: ICommentReceive) => {
   return (
     <Stack gap="xs">
       <Text size="xs" c="dimmed">{`${created_from.first_name} ${
