@@ -1,14 +1,12 @@
 import { Table, Text } from '@mantine/core';
-import { useQuery } from '@tanstack/react-query';
-import { listCourses } from '../../queries/courses/listCourses';
 import { useNavigate } from 'react-router-dom';
 
-const Tbody = () => {
+interface IProps {
+  courses: ICourseReceive[];
+}
+
+const Tbody = ({ courses }: IProps) => {
   const navigate = useNavigate();
-  const { data: courses } = useQuery({
-    queryKey: ['courses'],
-    queryFn: listCourses,
-  });
   return (
     <Table.Tbody>
       {courses?.map((course) => (
