@@ -1,49 +1,12 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import ScreenHeader from '../components/screen/ScreenHeader';
-import { useNavigate, useParams } from 'react-router-dom';
-import { getCourse } from '../queries/courses/getCourse';
-import { useEffect } from 'react';
 import { Grid, Group } from '@mantine/core';
 import SubmitButton from '../components/buttons/SubmitButton';
 import DeleteButton from '../components/buttons/DeleteButton';
 import DetailsCard from '../layout/card/DetailsCard';
-import { deleteCourse } from '../queries/courses/deleteCourse';
-import { showNotification } from '../helpers/notifications/showNotification';
+import { useCourseActions } from '../hooks/course/useCourseActions';
 
 const CourseDetailsScreen = () => {
-  const params = useParams();
-
-  const queryClient = useQueryClient();
-
-  const navigate = useNavigate();
-
-  const { data: course } = useQuery({
-    queryKey: ['course'],
-    queryFn: () => getCourse(params?.id!),
-    enabled: !!params.id,
-  });
-
-  const { mutate: removeCourse } = useMutation({
-    mutationFn: deleteCourse,
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({
-        queryKey: ['courses'],
-      });
-      queryClient.removeQueries({
-        queryKey: ['course'],
-      });
-      navigate('/courses');
-      showNotification(
-        'success',
-        'KURS',
-        `${data.code} wurde erfolgreich gelöscht`
-      );
-    },
-  });
-
-  useEffect(() => {
-    return () => queryClient.removeQueries({ queryKey: ['course'] });
-  }, []);
+  const { removeCourse, course } = useCourseActions();
 
   return (
     <>
@@ -68,7 +31,7 @@ const CourseDetailsScreen = () => {
           >
             <Group justify="space-between">
               <SubmitButton disabled>Update</SubmitButton>
-              <DeleteButton onClick={() => removeCourse(parseInt(params?.id!))}>
+              <DeleteButton onClick={() => removeCourse(course?.id!)}>
                 Löschen
               </DeleteButton>
             </Group>
