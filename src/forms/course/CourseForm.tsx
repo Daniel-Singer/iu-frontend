@@ -2,8 +2,14 @@ import { Stack, TextInput } from '@mantine/core';
 import { CourseFormProvider, useCourseForm } from './context';
 import TutorInput from './TutorInput';
 import SubmitButton from '../../components/buttons/SubmitButton';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { createCourse } from '../../queries/courses/createCourse';
+import { useModalContext } from '../../context/ModalContext';
+import { showNotification } from '../../helpers/notifications/showNotification';
 
 const CourseForm = () => {
+  const { toggleModal } = useModalContext();
+  const queryClient = useQueryClient();
   const form = useCourseForm({
     initialValues: {
       code: '',
@@ -17,9 +23,25 @@ const CourseForm = () => {
         !value || value === '' ? 'Kurs Bezeichnung erforderlich' : null,
     },
   });
+
+  const { mutate: addCourse } = useMutation({
+    mutationFn: createCourse,
+    onSuccess: (course) => {
+      toggleModal();
+      form.reset();
+      showNotification(
+        'success',
+        'KURS',
+        `${course.code} erfolgreich hinzugefügt`
+      );
+      queryClient.invalidateQueries({
+        queryKey: ['courses'],
+      });
+    },
+  });
   return (
     <CourseFormProvider form={form}>
-      <form>
+      <form onSubmit={form.onSubmit((values) => addCourse(values))}>
         <Stack>
           <TextInput
             label="Code"
