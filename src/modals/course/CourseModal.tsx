@@ -1,16 +1,13 @@
 import { Modal, Text } from '@mantine/core';
 import CourseForm from '../../forms/course/CourseForm';
+import { useModalContext } from '../../context/ModalContext';
 
-interface IProps {
-  open: boolean;
-  onClose: () => void;
-}
-
-const CourseModal = ({ open, onClose }: IProps) => {
+const CourseModal = () => {
+  const { open, toggleModal } = useModalContext();
   return (
     <Modal
       opened={open}
-      onClose={onClose}
+      onClose={toggleModal}
       title={<Text c="blue">NEUER KURS</Text>}
     >
       <CourseForm />

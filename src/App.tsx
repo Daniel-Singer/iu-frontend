@@ -68,7 +68,14 @@ const App = () => {
                   path="courses"
                   element={<AuthWrapper allowedRoles={['admin']} />}
                 >
-                  <Route index element={<CoursesScreen />} />
+                  <Route
+                    index
+                    element={
+                      <ModalProvider>
+                        <CoursesScreen />
+                      </ModalProvider>
+                    }
+                  />
                   <Route path=":id" element={<CourseDetailsScreen />} />
                 </Route>
                 <Route

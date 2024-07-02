@@ -21,8 +21,17 @@ const CourseForm = () => {
     <CourseFormProvider form={form}>
       <form>
         <Stack>
-          <TextInput label="Code" {...form.getInputProps('code')} />
-          <TextInput label="Bezeichnung" {...form.getInputProps('title')} />
+          <TextInput
+            label="Code"
+            {...form.getInputProps('code')}
+            data-autofocus
+            withAsterisk
+          />
+          <TextInput
+            label="Bezeichnung"
+            {...form.getInputProps('title')}
+            withAsterisk
+          />
           <TutorInput />
           <SubmitButton>Speichern</SubmitButton>
         </Stack>

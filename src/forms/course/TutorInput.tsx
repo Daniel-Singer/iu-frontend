@@ -15,7 +15,15 @@ const TutorInput = () => {
       }));
     },
   });
-  return <Select data={tutors!} {...form.getInputProps('tutor_id')} />;
+  return (
+    <Select
+      label="Tutor"
+      data={tutors!}
+      {...form.getInputProps('tutor_id')}
+      searchable
+      withAsterisk
+    />
+  );
 };
 
 export default TutorInput;
