@@ -14,4 +14,5 @@ interface ICommentReceive extends ICommentBase {
     last_name: string;
   };
   created_at: Date;
+  seen_at: Date | null;
 }
