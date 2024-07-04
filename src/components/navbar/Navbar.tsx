@@ -80,6 +80,16 @@ const navLinks: INavLinks = {
       label: 'Nachrichten',
       icon: <IconMessage size={20} />,
     },
+    {
+      path: 'users?role=student',
+      label: 'Studenten',
+      icon: <IconUser size={20} />,
+    },
+    {
+      path: 'courses',
+      label: 'Kurse',
+      icon: <IconBook size={20} />,
+    },
   ],
 };
 
