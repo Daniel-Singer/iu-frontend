@@ -11,7 +11,7 @@ export const useCourseActions = () => {
   const params = useParams();
 
   // function to receive course data
-  const { data: course } = useQuery({
+  const { data: course, isLoading } = useQuery({
     queryKey: ['course'],
     queryFn: () => getCourse(params?.id!),
     enabled: !!params?.id,
@@ -44,5 +44,6 @@ export const useCourseActions = () => {
   return {
     course,
     removeCourse,
+    isLoading,
   };
 };
