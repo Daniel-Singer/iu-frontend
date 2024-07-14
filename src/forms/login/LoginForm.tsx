@@ -54,7 +54,14 @@ const LoginForm = () => {
       navigate(from, { replace: true });
     },
     onError: (error: any) => {
-      setErrorText(error?.response?.data?.message ?? null);
+      // handle 500 error, no connection to server
+      if (error?.response?.status === 500) {
+        setErrorText(
+          'Etwas ist schief gelaufen. Bitte versuche es etwas später wieder'
+        );
+      } else {
+        setErrorText(error?.response?.data?.message ?? null);
+      }
       ref.current?.focus();
     },
   });
