@@ -4,6 +4,7 @@ import IssueModal from '../modals/issues/IssueModal';
 import IssuesTable from '../tables/issues/IssuesTable';
 import { useModalContext } from '../context/ModalContext';
 import SearchBar from '../components/search/SearchBar';
+import WelcomeUser from '../layout/dashboard/WelcomeUser';
 
 const DashboardScreen = () => {
   const { open, toggleModal } = useModalContext();
@@ -14,6 +15,7 @@ const DashboardScreen = () => {
         <SearchBar />
         <AddButton onClick={toggleModal}>Neue Meldung</AddButton>
       </ScreenHeader>
+      <WelcomeUser />
       <IssuesTable />
     </>
   );
