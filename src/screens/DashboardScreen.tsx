@@ -5,6 +5,8 @@ import IssuesTable from '../tables/issues/IssuesTable';
 import { useModalContext } from '../context/ModalContext';
 import SearchBar from '../components/search/SearchBar';
 import WelcomeUser from '../layout/dashboard/WelcomeUser';
+import StatsContainer from '../layout/stats/StatsContainer';
+import UnseenComments from '../components/stats/dashboard/UnseenComments';
 
 const DashboardScreen = () => {
   const { open, toggleModal } = useModalContext();
@@ -16,6 +18,9 @@ const DashboardScreen = () => {
         <AddButton onClick={toggleModal}>Neue Meldung</AddButton>
       </ScreenHeader>
       <WelcomeUser />
+      <StatsContainer>
+        <UnseenComments />
+      </StatsContainer>
       <IssuesTable />
     </>
   );
