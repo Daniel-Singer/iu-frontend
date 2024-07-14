@@ -7,7 +7,9 @@ import SearchBar from '../components/search/SearchBar';
 import WelcomeUser from '../layout/dashboard/WelcomeUser';
 import StatsContainer from '../layout/stats/StatsContainer';
 import UnseenComments from '../components/stats/dashboard/UnseenComments';
+import UnseenMessages from '../components/stats/dashboard/UnseenMessages';
 
+// TODO - Logik für Searchbar einbinden
 const DashboardScreen = () => {
   const { open, toggleModal } = useModalContext();
   return (
@@ -20,6 +22,7 @@ const DashboardScreen = () => {
       <WelcomeUser />
       <StatsContainer>
         <UnseenComments />
+        <UnseenMessages />
       </StatsContainer>
       <IssuesTable />
     </>

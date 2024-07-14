@@ -3,6 +3,9 @@ import ScreenHeader from '../components/screen/ScreenHeader';
 import AccountForm from '../forms/account/AccountForm';
 import PasswordForm from '../forms/password/PasswordForm';
 
+// TODO - Logik für Passwortänderung Implementieren. Muss
+//        auch im Backend erstellt werden
+
 const AccountScreen = () => {
   return (
     <>

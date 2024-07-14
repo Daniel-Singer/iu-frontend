@@ -3,6 +3,7 @@ import StatsCard from '../../../layout/stats/StatsCard';
 import { getUsersCommentAnalytics } from '../../../queries/analytics/comments/getUsersCommentAnalytics';
 import StatsLabel from '../../../layout/stats/StatsLabel';
 import { Group, Paper, Skeleton, Stack, Text } from '@mantine/core';
+import { IconUser } from '@tabler/icons-react';
 
 const UnseenComments = () => {
   const { data, isLoading } = useQuery({
@@ -13,7 +14,7 @@ const UnseenComments = () => {
     <StatsCard>
       <Paper p="xs">
         <Stack>
-          <StatsLabel>Kommentare</StatsLabel>
+          <StatsLabel icon={<IconUser />}>Kommentare</StatsLabel>
           {isLoading ? (
             <Skeleton h={24} />
           ) : (

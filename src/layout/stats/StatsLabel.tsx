@@ -1,5 +1,6 @@
 import { Group, Text } from '@mantine/core';
 import { ReactNode } from 'react';
+import classes from './Stats.module.css';
 
 interface IProps {
   children: string;
@@ -8,7 +9,7 @@ interface IProps {
 
 const StatsLabel = ({ children, icon }: IProps) => {
   return (
-    <Group justify="space-between">
+    <Group justify="space-between" className={classes.label}>
       <Text size="xs" c="dimmed">
         {children.toUpperCase()}
       </Text>
