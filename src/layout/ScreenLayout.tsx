@@ -6,6 +6,7 @@ import { useQueries } from '@tanstack/react-query';
 import { AuthProvider } from '../context/AuthContext';
 import { listCourses } from '../queries/courses/listCourses';
 import { listStatus } from '../queries/status/listStatus';
+import { getUsersCommentAnalytics } from '../queries/analytics/comments/getUsersCommentAnalytics';
 
 /**
  * ScreenLayout
@@ -30,6 +31,10 @@ const initQueries: IInitQuery[] = [
   {
     queryKey: ['status'],
     queryFn: listStatus,
+  },
+  {
+    queryKey: ['comment_analytics'],
+    queryFn: getUsersCommentAnalytics,
   },
 ];
 const ScreenLayout = () => {
