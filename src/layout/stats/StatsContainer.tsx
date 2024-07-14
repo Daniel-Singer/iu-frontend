@@ -6,7 +6,7 @@ interface IProps {
 }
 
 const StatsContainer = ({ children }: IProps) => {
-  return <Grid>{children}</Grid>;
+  return <Grid gutter="md">{children}</Grid>;
 };
 
 export default StatsContainer;
