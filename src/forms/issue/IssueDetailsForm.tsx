@@ -44,7 +44,11 @@ const IssueDetailsForm = () => {
   });
 
   // get issue data from database
-  const { data: issue, isSuccess } = useQuery({
+  const {
+    data: issue,
+    isSuccess,
+    isLoading,
+  } = useQuery({
     queryKey: ['issue'],
     queryFn: () => getIssue(params.id!),
     enabled: !!params.id,
@@ -101,16 +105,18 @@ const IssueDetailsForm = () => {
       )}
     >
       <Stack>
-        <CardRow label="ID" value={issue?.id!} />
+        <CardRow label="ID" value={issue?.id!} loading={isLoading} />
         <CardRow
           label="Kurs"
           value={`${issue?.course.code!} - ${issue?.course.title!}`}
+          loading={isLoading}
         />
         <CardRow
           label="Tutor"
           value={`${issue?.course.tutor.first_name} ${issue?.course?.tutor.last_name}`}
+          loading={isLoading}
         />
-        <CardRow label="Titel" value={issue?.title} />
+        <CardRow label="Titel" value={issue?.title} loading={isLoading} />
         <CardRow
           label="Erstellt"
           value={dayjs(issue?.created_at).format('DD.MM.YYYY')}
