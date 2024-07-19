@@ -10,7 +10,7 @@ const DashboardScreen = () => {
   return (
     <>
       <IssueModal open={open} onClose={toggleModal} />
-      <ScreenHeader label="Dashboard">
+      <ScreenHeader label="Anzeigetafel">
         <SearchBar />
         <AddButton onClick={toggleModal}>Neue Meldung</AddButton>
       </ScreenHeader>
