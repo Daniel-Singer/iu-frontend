@@ -9,6 +9,7 @@ import StatsContainer from '../layout/stats/StatsContainer';
 import UnseenComments from '../components/stats/dashboard/UnseenComments';
 import UnseenMessages from '../components/stats/dashboard/UnseenMessages';
 
+// TODO - Logik für Searchbar einbinden
 const DashboardScreen = () => {
   const { open, toggleModal } = useModalContext();
   return (
