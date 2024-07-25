@@ -20,8 +20,16 @@ const IssueForm = () => {
       description: '',
       course_id: undefined,
       category_id: undefined,
-      media_type: '',
       attached_file: '',
+      issue_media: {
+        file_path: undefined,
+        media_type: undefined,
+        page: undefined,
+        line: undefined,
+        timestamp: undefined,
+        url: undefined,
+        label: undefined,
+      },
     },
     validate: {
       category_id: (value) => (value ? null : 'Kategorie erforderlich'),
