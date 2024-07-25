@@ -61,6 +61,13 @@ const IssueForm = () => {
   });
 
   const handleSubmit = (values: IIssueCreate) => {
+    for (let key in values.issue_media) {
+      //@ts-ignore
+      if (values.issue_media[key] === '') {
+        //@ts-ignore
+        values.issue_media[key] = null;
+      }
+    }
     create(values);
   };
   return (
