@@ -7,8 +7,8 @@ interface IIssueBase {
 interface IIssueCreate extends IIssueBase {
   course_id?: string;
   category_id?: string;
-  media_type: string;
   attached_file: any;
+  issue_media: IIssueMediaBase;
 }
 
 interface IIssueReceive extends IIssueBase {

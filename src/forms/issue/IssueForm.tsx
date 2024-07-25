@@ -20,8 +20,16 @@ const IssueForm = () => {
       description: '',
       course_id: undefined,
       category_id: undefined,
-      media_type: '',
       attached_file: '',
+      issue_media: {
+        file_path: undefined,
+        media_type: undefined,
+        page: undefined,
+        line: undefined,
+        timestamp: undefined,
+        url: undefined,
+        label: undefined,
+      },
     },
     validate: {
       category_id: (value) => (value ? null : 'Kategorie erforderlich'),
@@ -53,6 +61,13 @@ const IssueForm = () => {
   });
 
   const handleSubmit = (values: IIssueCreate) => {
+    for (let key in values.issue_media) {
+      //@ts-ignore
+      if (values.issue_media[key] === '') {
+        //@ts-ignore
+        values.issue_media[key] = null;
+      }
+    }
     create(values);
   };
   return (

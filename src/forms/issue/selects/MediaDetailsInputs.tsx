@@ -12,38 +12,63 @@ const MediaDetailsInputs = () => {
   const mediaDetailInputs: IMediaDetail = {
     pdf: (
       <SimpleGrid cols={2}>
-        <NumberInput label="Seite" min={1} />
-        <NumberInput label="Zeile" min={1} />
+        <NumberInput
+          label="Seite"
+          min={1}
+          {...form.getInputProps('issue_media.page')}
+        />
+        <NumberInput
+          label="Zeile"
+          min={1}
+          {...form.getInputProps('issue_media.line')}
+        />
       </SimpleGrid>
     ),
     app: (
       <SimpleGrid cols={2}>
-        <NumberInput label="Seite" min={1} />
-        <NumberInput label="Zeile" min={1} />
+        <NumberInput
+          label="Seite"
+          min={1}
+          {...form.getInputProps('issue_media.page')}
+        />
+        <NumberInput
+          label="Zeile"
+          min={1}
+          {...form.getInputProps('issue_media.line')}
+        />
       </SimpleGrid>
     ),
     video: (
       <SimpleGrid cols={2}>
-        <TextInput label="Titel" />
-        <NumberInput label="Zeitstempel" />
+        <TextInput label="Titel" {...form.getInputProps('issue_media.label')} />
+        <NumberInput
+          label="Zeitstempel"
+          {...form.getInputProps('issue_media.timestamp')}
+        />
       </SimpleGrid>
     ),
     mycampus: (
       <SimpleGrid cols={2}>
-        <NumberInput label="URL" />
+        <TextInput label="URL" {...form.getInputProps('issue_media.url')} />
       </SimpleGrid>
     ),
     audio: (
       <SimpleGrid cols={2}>
-        <TextInput label="Titel" />
-        <NumberInput label="Zeitstempel" />
+        <TextInput label="Titel" {...form.getInputProps('issue_media.label')} />
+        <NumberInput
+          label="Zeitstempel"
+          {...form.getInputProps('issue_media.timestamp')}
+        />
       </SimpleGrid>
     ),
   };
-  if (form.values.media_type === '' || !form.values.media_type) {
+  if (
+    form.values.issue_media.media_type === '' ||
+    !form.values.issue_media.media_type
+  ) {
     return null;
   } else {
-    return <>{mediaDetailInputs[form.values.media_type]}</>;
+    return <>{mediaDetailInputs[form.values.issue_media.media_type]}</>;
   }
 };
 
