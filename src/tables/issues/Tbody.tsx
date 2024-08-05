@@ -33,7 +33,7 @@ const Tbody = ({ issues }: IProps) => {
                 {!category?.label ? 'k.A' : category?.label!}
               </Text>
             </Table.Td>
-            <Status>{status}</Status>
+            <Status>{status.label}</Status>
             <Table.Td>{dayjs(created_at).format('DD.MM.YYYY')}</Table.Td>
             <Table.Td>{dayjs(updated_at).format('DD.MM.YYYY')}</Table.Td>
           </Table.Tr>

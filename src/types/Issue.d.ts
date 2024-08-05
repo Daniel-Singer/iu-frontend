@@ -12,7 +12,10 @@ interface IIssueCreate extends IIssueBase {
 }
 
 interface IIssueReceive extends IIssueBase {
-  status: IStatusReceive[];
+  status: {
+    id: number;
+    label: string;
+  };
   course: ICourseReceive;
   category: ICategoryBase;
   created_from: Pick<IUserBase, 'id' | 'first_name' | 'last_name'>;
