@@ -1,14 +1,26 @@
-import { Table, Text } from '@mantine/core';
+import { MantineColor, Table, Text } from '@mantine/core';
 
 interface IProps {
-  children: string;
+  id: number;
+  label: string;
 }
 
-const Status = ({ children }: IProps) => {
+interface IColorMap {
+  [key: number]: MantineColor;
+}
+
+const colorMap: IColorMap = {
+  1: 'blue',
+  2: 'orange',
+  3: 'green',
+  4: 'red',
+};
+
+const Status = ({ id, label }: IProps) => {
   return (
     <Table.Td>
-      <Text size="sm" c={children ? 'default' : 'red'}>
-        {children ? children : 'k.A.'}
+      <Text size="sm" c={id ? colorMap[id] : 'default'}>
+        {label}
       </Text>
     </Table.Td>
   );

@@ -1,14 +1,10 @@
 import { useEffect } from 'react';
-import { Paper, ScrollArea, SimpleGrid, Stack, Text } from '@mantine/core';
+import { ScrollArea, SimpleGrid, Stack, Text } from '@mantine/core';
 import { useQueryClient } from '@tanstack/react-query';
 
-import IssueDetailsForm from '../forms/issue/IssueDetailsForm';
-import StatusTable from '../tables/status/StatusTable';
-import { ModalProvider } from '../context/ModalContext';
-import CommentModal from '../modals/comment/CommentModal';
-import CommentList from '../components/comment/CommentList';
+import IssueCard from '../components/cards/issue/IssueCard';
+import TimelineTabs from '../components/timeline/TimelineTabs';
 
-// TODO - Audit Tab implementieren.
 const IssueDetailsScreen = () => {
   const queryClient = useQueryClient();
 
@@ -26,22 +22,14 @@ const IssueDetailsScreen = () => {
   return (
     <>
       <ScrollArea.Autosize>
-        <SimpleGrid cols={2}>
+        <SimpleGrid cols={2} p={0} spacing="xs">
           <Stack>
             <Text c="blue">DETAILS</Text>
-            <Paper withBorder p="xs">
-              <ModalProvider>
-                <CommentModal />
-                <IssueDetailsForm />
-              </ModalProvider>
-            </Paper>
-            <CommentList />
+            <IssueCard />
           </Stack>
           <Stack>
             <Text c="blue">FORTSCHRITT</Text>
-            <Paper withBorder>
-              <StatusTable />
-            </Paper>
+            <TimelineTabs />
           </Stack>
         </SimpleGrid>
       </ScrollArea.Autosize>

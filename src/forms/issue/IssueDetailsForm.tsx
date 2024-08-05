@@ -1,29 +1,16 @@
-import { useEffect, useState } from 'react';
-import {
-  ActionIcon,
-  Collapse,
-  Divider,
-  Group,
-  Stack,
-  Text,
-  TextInput,
-  Textarea,
-} from '@mantine/core';
-import dayjs from 'dayjs';
-import { useForm } from '@mantine/form';
+import { useEffect } from 'react';
+import { Stack, TextInput, Textarea } from '@mantine/core';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { getIssue } from '../../queries/issues/getIssue';
-import DeleteButton from '../../components/buttons/DeleteButton';
-import CardRow from '../../layout/card/CardRow';
-import SubmitButton from '../../components/buttons/SubmitButton';
 import { deleteIssue } from '../../queries/issues/deleteIssue';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { updateIssue } from '../../queries/issues/updateIssue';
-import CommentButton from '../../components/buttons/CommentButton';
-import { useModalContext } from '../../context/ModalContext';
-import { IconChevronDown } from '@tabler/icons-react';
+import { IssueDetailsFormProvider, useIssueDetailsForm } from './context';
+import StatusSelect from './selects/StatusSelect';
+import SubmitButton from '../../components/buttons/SubmitButton';
+import DeleteButton from '../../components/buttons/DeleteButton';
 
 const IssueDetailsForm = () => {
   const params = useParams();
@@ -32,23 +19,18 @@ const IssueDetailsForm = () => {
 
   const queryClient = useQueryClient();
 
-  const { toggleModal } = useModalContext();
-
-  const [showDetails, setShowDetails] = useState<boolean>(false);
-
-  const form = useForm({
+  const form = useIssueDetailsForm({
     initialValues: {
       title: '',
       description: '',
+      status: {
+        id: undefined,
+        label: '',
+      },
     },
   });
-
   // get issue data from database
-  const {
-    data: issue,
-    isSuccess,
-    isLoading,
-  } = useQuery({
+  const { data: issue, isSuccess } = useQuery({
     queryKey: ['issue'],
     queryFn: () => getIssue(params.id!),
     enabled: !!params.id,
@@ -89,86 +71,47 @@ const IssueDetailsForm = () => {
     },
   });
 
+  const handleDelete = () => {
+    remove(params?.id!);
+  };
+
   useEffect(() => {
     if (isSuccess) {
       form.setFieldValue('title', issue.title);
       form.setFieldValue('description', issue.description);
-
+      form.setFieldValue('status.id', String(issue.status.id));
       form.resetDirty();
     }
   }, [isSuccess]);
 
   return (
-    <form
-      onSubmit={form.onSubmit((values) =>
-        update({ id: issue?.id!, update: values })
-      )}
-    >
-      <Stack>
-        <CardRow label="ID" value={issue?.id!} loading={isLoading} />
-        <CardRow
-          label="Kurs"
-          value={`${issue?.course.code!} - ${issue?.course.title!}`}
-          loading={isLoading}
-        />
-        <CardRow
-          label="Tutor"
-          value={`${issue?.course.tutor.first_name} ${issue?.course?.tutor.last_name}`}
-          loading={isLoading}
-        />
-        <CardRow label="Titel" value={issue?.title} loading={isLoading} />
-        <CardRow
-          label="Erstellt"
-          value={dayjs(issue?.created_at).format('DD.MM.YYYY')}
-        />
-        <CardRow
-          label="Geändert"
-          value={dayjs(issue?.updated_at).format('DD.MM.YYYY')}
-        />
-        <Divider h={0} />
-        <Group justify="space-between">
-          <Group>
-            <ActionIcon
-              color="gray"
-              onClick={() => setShowDetails(!showDetails)}
-            >
-              <IconChevronDown size={18} />
-            </ActionIcon>
-          </Group>
-          <CommentButton color="grape" onClick={toggleModal}>
-            Kommentieren
-          </CommentButton>
-        </Group>
-        <Collapse in={showDetails}>
-          <Divider h={0} />
-          <Text size="sm" c="dimmed">
-            Inhalte ändern
-          </Text>
+    <IssueDetailsFormProvider form={form}>
+      <form
+        onSubmit={form.onSubmit((values) =>
+          update({ id: issue?.id!, update: values })
+        )}
+      >
+        <Stack>
           <TextInput
             label="Titel"
-            {...form.getInputProps('title')}
             withAsterisk
+            {...form.getInputProps('title')}
           />
           <Textarea
             label="Beschreibung"
             withAsterisk
+            {...form.getInputProps('description')}
             minRows={5}
             autosize
-            {...form.getInputProps('description')}
           />
-          <CardRow
-            label="Status"
-            value={<Text>{issue?.status[0]?.label}</Text>}
-          />
-          <Group justify="space-between">
+          <StatusSelect />
+          <Stack>
             <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>
-            <DeleteButton onClick={() => remove(issue?.id!)}>
-              Meldung entfernen
-            </DeleteButton>
-          </Group>
-        </Collapse>
-      </Stack>
-    </form>
+            <DeleteButton onClick={handleDelete}>Löschen</DeleteButton>
+          </Stack>
+        </Stack>
+      </form>
+    </IssueDetailsFormProvider>
   );
 };
 
