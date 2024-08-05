@@ -8,7 +8,7 @@ interface IProps {
   loading?: boolean;
 }
 
-const CardRow = ({ span = 2, label, value, loading }: IProps) => {
+const CardRow = ({ span = 4, label, value, loading }: IProps) => {
   return (
     <Grid>
       <Grid.Col span={span}>

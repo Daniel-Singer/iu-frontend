@@ -26,21 +26,21 @@ const StatusTable = () => {
       <Table>
         <Table.Thead>
           <Table.Tr>
-            <Table.Th>Datum</Table.Th>
             <Table.Th>Status</Table.Th>
             <Table.Th>Erstellt von</Table.Th>
+            <Table.Th>Datum</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
           {status?.map((element) => (
             <Table.Tr key={element.id}>
-              <Table.Td>
-                {dayjs(element.created_at).format('DD.MM.YYYY')}
-              </Table.Td>
               <Table.Td>{element.status.label}</Table.Td>
               <Table.Td>{`${element?.created_from?.first_name!} ${
                 element?.created_from?.last_name
               }`}</Table.Td>
+              <Table.Td>
+                {dayjs(element.created_at).format('DD.MM.YYYY')}
+              </Table.Td>
             </Table.Tr>
           ))}
         </Table.Tbody>

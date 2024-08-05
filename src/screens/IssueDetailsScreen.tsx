@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
-import { Paper, ScrollArea, SimpleGrid, Stack, Text } from '@mantine/core';
+import { ScrollArea, SimpleGrid, Stack, Text } from '@mantine/core';
 import { useQueryClient } from '@tanstack/react-query';
 
-import StatusTable from '../tables/status/StatusTable';
-import CommentList from '../components/comment/CommentList';
 import IssueCard from '../components/cards/issue/IssueCard';
+import TimelineTabs from '../components/timeline/TimelineTabs';
 
-// TODO - Audit Tab implementieren.
 const IssueDetailsScreen = () => {
   const queryClient = useQueryClient();
 
@@ -28,13 +26,10 @@ const IssueDetailsScreen = () => {
           <Stack>
             <Text c="blue">DETAILS</Text>
             <IssueCard />
-            <CommentList />
           </Stack>
           <Stack>
             <Text c="blue">FORTSCHRITT</Text>
-            <Paper withBorder>
-              <StatusTable />
-            </Paper>
+            <TimelineTabs />
           </Stack>
         </SimpleGrid>
       </ScrollArea.Autosize>

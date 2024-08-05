@@ -44,8 +44,9 @@ const IssueCard = () => {
           label="Erstellt"
           value={dayjs(issue?.created_at).format('DD.MM.YYYY')}
         />
+        <CardRow label="Beschreibung" value={issue?.description} />
         <CardRow
-          label="Geändert"
+          label="Letzte Änderung"
           value={dayjs(issue?.updated_at).format('DD.MM.YYYY')}
         />
         <CardRow label="Status" value={issue?.status?.label!} />
