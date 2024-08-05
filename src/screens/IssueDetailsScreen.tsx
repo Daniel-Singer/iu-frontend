@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { Paper, ScrollArea, SimpleGrid, Stack, Text } from '@mantine/core';
 import { useQueryClient } from '@tanstack/react-query';
 
-import IssueDetailsForm from '../forms/issue/IssueDetailsForm';
 import StatusTable from '../tables/status/StatusTable';
 import CommentList from '../components/comment/CommentList';
 import IssueCard from '../components/cards/issue/IssueCard';
