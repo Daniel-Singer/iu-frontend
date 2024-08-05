@@ -4,9 +4,8 @@ import { useQueryClient } from '@tanstack/react-query';
 
 import IssueDetailsForm from '../forms/issue/IssueDetailsForm';
 import StatusTable from '../tables/status/StatusTable';
-import { ModalProvider } from '../context/ModalContext';
-import CommentModal from '../modals/comment/CommentModal';
 import CommentList from '../components/comment/CommentList';
+import IssueCard from '../components/cards/issue/IssueCard';
 
 // TODO - Audit Tab implementieren.
 const IssueDetailsScreen = () => {
@@ -26,15 +25,10 @@ const IssueDetailsScreen = () => {
   return (
     <>
       <ScrollArea.Autosize>
-        <SimpleGrid cols={2}>
+        <SimpleGrid cols={2} p={0} spacing="xs">
           <Stack>
             <Text c="blue">DETAILS</Text>
-            <Paper withBorder p="xs">
-              <ModalProvider>
-                <CommentModal />
-                <IssueDetailsForm />
-              </ModalProvider>
-            </Paper>
+            <IssueCard />
             <CommentList />
           </Stack>
           <Stack>

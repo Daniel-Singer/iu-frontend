@@ -103,72 +103,7 @@ const IssueDetailsForm = () => {
       onSubmit={form.onSubmit((values) =>
         update({ id: issue?.id!, update: values })
       )}
-    >
-      <Stack>
-        <CardRow label="ID" value={issue?.id!} loading={isLoading} />
-        <CardRow
-          label="Kurs"
-          value={`${issue?.course.code!} - ${issue?.course.title!}`}
-          loading={isLoading}
-        />
-        <CardRow
-          label="Tutor"
-          value={`${issue?.course.tutor.first_name} ${issue?.course?.tutor.last_name}`}
-          loading={isLoading}
-        />
-        <CardRow label="Titel" value={issue?.title} loading={isLoading} />
-        <CardRow
-          label="Erstellt"
-          value={dayjs(issue?.created_at).format('DD.MM.YYYY')}
-        />
-        <CardRow
-          label="Geändert"
-          value={dayjs(issue?.updated_at).format('DD.MM.YYYY')}
-        />
-        <Divider h={0} />
-        <Group justify="space-between">
-          <Group>
-            <ActionIcon
-              color="gray"
-              onClick={() => setShowDetails(!showDetails)}
-            >
-              <IconChevronDown size={18} />
-            </ActionIcon>
-          </Group>
-          <CommentButton color="grape" onClick={toggleModal}>
-            Kommentieren
-          </CommentButton>
-        </Group>
-        <Collapse in={showDetails}>
-          <Divider h={0} />
-          <Text size="sm" c="dimmed">
-            Inhalte ändern
-          </Text>
-          <TextInput
-            label="Titel"
-            {...form.getInputProps('title')}
-            withAsterisk
-          />
-          <Textarea
-            label="Beschreibung"
-            withAsterisk
-            minRows={5}
-            autosize
-            {...form.getInputProps('description')}
-          />
-          <CardRow
-            label="Status"
-            value={<Text>{issue?.status[0]?.label}</Text>}
-          />
-          <Group justify="space-between">
-            <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>
-            <DeleteButton onClick={() => remove(issue?.id!)}>
-              Meldung entfernen
-            </DeleteButton>
-          </Group>
-        </Collapse>
-      </Stack>
-    </form>
+    ></form>
   );
 };
 

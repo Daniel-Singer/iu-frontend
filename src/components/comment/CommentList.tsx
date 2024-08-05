@@ -16,7 +16,7 @@ const CommentList = () => {
       <Stack gap="xs">
         <Text c="blue">KOMMENTARE</Text>
         {comments?.map((comment) => (
-          <Paper withBorder p="xs">
+          <Paper withBorder p="xs" key={comment?.id!}>
             <Comment key={comment.id!} {...comment} />
           </Paper>
         ))}

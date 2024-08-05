@@ -5,6 +5,7 @@ interface IProps {
   disabled?: boolean;
   color?: MantineColor;
   children: string;
+  onClick: () => void;
 }
 
 const EditButton = ({

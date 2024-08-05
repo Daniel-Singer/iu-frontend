@@ -4,13 +4,15 @@ import SubmitButton from '../../components/buttons/SubmitButton';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createComment } from '../../queries/comments/createComment';
 import { useParams } from 'react-router-dom';
-import { useModalContext } from '../../context/ModalContext';
 import { showNotification } from '../../helpers/notifications/showNotification';
 
-const CommentForm = () => {
+interface IProps {
+  toggle: () => void;
+}
+
+const CommentForm = ({ toggle }: IProps) => {
   const params = useParams();
   const queryClient = useQueryClient();
-  const { toggleModal } = useModalContext();
   const form = useForm<ICommentBase>({
     initialValues: {
       text: '',
@@ -25,7 +27,7 @@ const CommentForm = () => {
       queryClient.invalidateQueries({
         queryKey: ['comments'],
       });
-      toggleModal();
+      toggle();
       showNotification('success', 'KOMMENTAR', 'Erfolgreich gespeichert!');
     },
     onError: (error) => {
