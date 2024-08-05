@@ -1,29 +1,16 @@
-import { useEffect, useState } from 'react';
-import {
-  ActionIcon,
-  Collapse,
-  Divider,
-  Group,
-  Stack,
-  Text,
-  TextInput,
-  Textarea,
-} from '@mantine/core';
-import dayjs from 'dayjs';
-import { useForm } from '@mantine/form';
+import { useEffect } from 'react';
+import { Stack, TextInput, Textarea } from '@mantine/core';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { getIssue } from '../../queries/issues/getIssue';
-import DeleteButton from '../../components/buttons/DeleteButton';
-import CardRow from '../../layout/card/CardRow';
-import SubmitButton from '../../components/buttons/SubmitButton';
 import { deleteIssue } from '../../queries/issues/deleteIssue';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { updateIssue } from '../../queries/issues/updateIssue';
-import CommentButton from '../../components/buttons/CommentButton';
-import { useModalContext } from '../../context/ModalContext';
-import { IconChevronDown } from '@tabler/icons-react';
+import { IssueDetailsFormProvider, useIssueDetailsForm } from './context';
+import StatusSelect from './selects/StatusSelect';
+import SubmitButton from '../../components/buttons/SubmitButton';
+import DeleteButton from '../../components/buttons/DeleteButton';
 
 const IssueDetailsForm = () => {
   const params = useParams();
@@ -32,23 +19,18 @@ const IssueDetailsForm = () => {
 
   const queryClient = useQueryClient();
 
-  const { toggleModal } = useModalContext();
-
-  const [showDetails, setShowDetails] = useState<boolean>(false);
-
-  const form = useForm({
+  const form = useIssueDetailsForm({
     initialValues: {
       title: '',
       description: '',
+      status: {
+        id: undefined,
+        label: '',
+      },
     },
   });
-
   // get issue data from database
-  const {
-    data: issue,
-    isSuccess,
-    isLoading,
-  } = useQuery({
+  const { data: issue, isSuccess } = useQuery({
     queryKey: ['issue'],
     queryFn: () => getIssue(params.id!),
     enabled: !!params.id,
@@ -89,21 +71,47 @@ const IssueDetailsForm = () => {
     },
   });
 
+  const handleDelete = () => {
+    remove(params?.id!);
+  };
+
   useEffect(() => {
     if (isSuccess) {
       form.setFieldValue('title', issue.title);
       form.setFieldValue('description', issue.description);
-
+      form.setFieldValue('status.id', String(issue.status.id));
       form.resetDirty();
     }
   }, [isSuccess]);
 
   return (
-    <form
-      onSubmit={form.onSubmit((values) =>
-        update({ id: issue?.id!, update: values })
-      )}
-    ></form>
+    <IssueDetailsFormProvider form={form}>
+      <form
+        onSubmit={form.onSubmit((values) =>
+          update({ id: issue?.id!, update: values })
+        )}
+      >
+        <Stack>
+          <TextInput
+            label="Titel"
+            withAsterisk
+            {...form.getInputProps('title')}
+          />
+          <Textarea
+            label="Beschreibung"
+            withAsterisk
+            {...form.getInputProps('description')}
+            minRows={5}
+            autosize
+          />
+          <StatusSelect />
+          <Stack>
+            <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>
+            <DeleteButton onClick={handleDelete}>Löschen</DeleteButton>
+          </Stack>
+        </Stack>
+      </form>
+    </IssueDetailsFormProvider>
   );
 };
 

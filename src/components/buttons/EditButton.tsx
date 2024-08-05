@@ -5,19 +5,21 @@ interface IProps {
   disabled?: boolean;
   color?: MantineColor;
   children: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const EditButton = ({
   children,
   color = 'grape',
   disabled = false,
+  onClick,
 }: IProps) => {
   return (
     <Button
       color={color}
       leftSection={<IconPencil size={20} />}
       disabled={disabled}
+      onClick={onClick}
     >
       {children.toUpperCase()}
     </Button>

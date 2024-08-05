@@ -13,7 +13,7 @@ interface IIssueCreate extends IIssueBase {
 
 interface IIssueReceive extends IIssueBase {
   status: {
-    id: number;
+    id: any;
     label: string;
   };
   issue_media: IIssueMediaBase[];

@@ -8,6 +8,7 @@ import { useState } from 'react';
 import CommentButton from '../../buttons/CommentButton';
 import EditButton from '../../buttons/EditButton';
 import CommentModal from '../../../modals/comment/CommentModal';
+import IssueEditModal from '../../../modals/issues/IssueEditModal';
 
 const IssueCard = () => {
   const [commentOpen, setCommentOpen] = useState<boolean>(false);
@@ -25,6 +26,7 @@ const IssueCard = () => {
         open={commentOpen}
         toggle={() => setCommentOpen(!commentOpen)}
       />
+      <IssueEditModal open={editOpen} toggle={() => setEditOpen(!editOpen)} />
       <Stack>
         <CardRow label="ID" value={issue?.id!} loading={isLoading} />
         <CardRow
