@@ -53,6 +53,9 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
       queryClient.invalidateQueries({
         queryKey: ['issue'],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['issue_status'],
+      });
       showNotification(
         'success',
         'UPDATE!',
