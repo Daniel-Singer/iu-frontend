@@ -112,6 +112,7 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
             label="Titel"
             withAsterisk
             {...form.getInputProps('title')}
+            data-autofocus
           />
           <Textarea
             label="Beschreibung"
