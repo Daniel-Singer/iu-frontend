@@ -67,10 +67,11 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
     let values: any = {};
     for (let value in form.values) {
       const typedKey = value as keyof IIssueDetailsFormValues;
-      if (form.isDirty(typedKey) && typedKey !== 'status') {
+      if (form.isDirty(typedKey)) {
         values[typedKey] = form.values[typedKey];
       }
     }
+    // update everything except status
     update({ id: params?.id!, update: values });
   };
 
