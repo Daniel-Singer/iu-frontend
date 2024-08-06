@@ -13,7 +13,7 @@ const IssueEditModal = ({ open, toggle }: IProps) => {
       onClose={toggle}
       title={<Text c="blue">FEHLERMELDUNG BEARBEITEN</Text>}
     >
-      <IssueDetailsForm />
+      <IssueDetailsForm toggle={toggle} />
     </Modal>
   );
 };

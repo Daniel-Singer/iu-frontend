@@ -7,12 +7,19 @@ import { getIssue } from '../../queries/issues/getIssue';
 import { deleteIssue } from '../../queries/issues/deleteIssue';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { updateIssue } from '../../queries/issues/updateIssue';
-import { IssueDetailsFormProvider, useIssueDetailsForm } from './context';
+import {
+  IIssueDetailsFormValues,
+  IssueDetailsFormProvider,
+  useIssueDetailsForm,
+} from './context';
 import StatusSelect from './selects/StatusSelect';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import DeleteButton from '../../components/buttons/DeleteButton';
 
-const IssueDetailsForm = () => {
+interface IProps {
+  toggle: () => void;
+}
+const IssueDetailsForm = ({ toggle }: IProps) => {
   const params = useParams();
 
   const navigate = useNavigate();
@@ -46,14 +53,30 @@ const IssueDetailsForm = () => {
       queryClient.invalidateQueries({
         queryKey: ['issue'],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['issue_status'],
+      });
       showNotification(
         'success',
         'UPDATE!',
         `Update für ${issue?.title} erfolgreich`
       );
       form.resetDirty();
+      toggle();
     },
   });
+
+  const handleUpdate = () => {
+    let values: any = {};
+    for (let value in form.values) {
+      const typedKey = value as keyof IIssueDetailsFormValues;
+      if (form.isDirty(typedKey)) {
+        values[typedKey] = form.values[typedKey];
+      }
+    }
+    // update everything except status
+    update({ id: params?.id!, update: values });
+  };
 
   // remove issue from database
   const { mutate: remove } = useMutation({
@@ -86,16 +109,13 @@ const IssueDetailsForm = () => {
 
   return (
     <IssueDetailsFormProvider form={form}>
-      <form
-        onSubmit={form.onSubmit((values) =>
-          update({ id: issue?.id!, update: values })
-        )}
-      >
+      <form onSubmit={form.onSubmit(() => handleUpdate())}>
         <Stack>
           <TextInput
             label="Titel"
             withAsterisk
             {...form.getInputProps('title')}
+            data-autofocus
           />
           <Textarea
             label="Beschreibung"

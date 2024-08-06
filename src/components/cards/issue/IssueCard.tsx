@@ -9,6 +9,8 @@ import CommentButton from '../../buttons/CommentButton';
 import EditButton from '../../buttons/EditButton';
 import CommentModal from '../../../modals/comment/CommentModal';
 import IssueEditModal from '../../../modals/issues/IssueEditModal';
+import { ModalProvider } from '../../../context/ModalContext';
+import StatusLabel from '../../status/StatusLabel';
 
 const IssueCard = () => {
   const [commentOpen, setCommentOpen] = useState<boolean>(false);
@@ -22,12 +24,25 @@ const IssueCard = () => {
   });
   return (
     <Paper p="xs">
-      <CommentModal
-        open={commentOpen}
-        toggle={() => setCommentOpen(!commentOpen)}
-      />
-      <IssueEditModal open={editOpen} toggle={() => setEditOpen(!editOpen)} />
+      <ModalProvider>
+        <CommentModal
+          open={commentOpen}
+          toggle={() => setCommentOpen(!commentOpen)}
+        />
+      </ModalProvider>
+      <ModalProvider>
+        <IssueEditModal open={editOpen} toggle={() => setEditOpen(!editOpen)} />
+      </ModalProvider>
       <Stack>
+        <CardRow
+          label="Status"
+          value={
+            <StatusLabel
+              id={issue?.status?.id!}
+              label={issue?.status?.label!}
+            />
+          }
+        />
         <CardRow label="ID" value={issue?.id!} loading={isLoading} />
         <CardRow
           label="Kurs"
@@ -49,7 +64,6 @@ const IssueCard = () => {
           label="Letzte Änderung"
           value={dayjs(issue?.updated_at).format('DD.MM.YYYY')}
         />
-        <CardRow label="Status" value={issue?.status?.label!} />
       </Stack>
       <Group mt="sm" justify="space-between">
         <CommentButton

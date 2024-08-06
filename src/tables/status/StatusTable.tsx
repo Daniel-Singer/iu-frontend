@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getIssueStatus } from '../../queries/status/getIssueStatus';
 import { IconAlertTriangle } from '@tabler/icons-react';
 import dayjs from 'dayjs';
+import StatusLabel from '../../components/status/StatusLabel';
 
 const StatusTable = () => {
   const params = useParams();
@@ -28,19 +29,27 @@ const StatusTable = () => {
           <Table.Tr>
             <Table.Th>Status</Table.Th>
             <Table.Th>Erstellt von</Table.Th>
-            <Table.Th>Datum</Table.Th>
+            <Table.Th>Geändert</Table.Th>
+            <Table.Th>Zeit</Table.Th>
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
           {status?.map((element) => (
             <Table.Tr key={element.id}>
-              <Table.Td>{element.status.label}</Table.Td>
+              <Table.Td>
+                <StatusLabel
+                  size="sm"
+                  id={element?.status?.id!}
+                  label={element.status.label!}
+                />
+              </Table.Td>
               <Table.Td>{`${element?.created_from?.first_name!} ${
                 element?.created_from?.last_name
               }`}</Table.Td>
               <Table.Td>
                 {dayjs(element.created_at).format('DD.MM.YYYY')}
               </Table.Td>
+              <Table.Td>{dayjs(element.created_at).format('hh:mm')}</Table.Td>
             </Table.Tr>
           ))}
         </Table.Tbody>
