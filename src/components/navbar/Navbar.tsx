@@ -6,7 +6,6 @@ import {
   IconMessage,
   IconPower,
   IconSchool,
-  IconSettings,
   IconUser,
 } from '@tabler/icons-react';
 import Navlink from '../navlink/Navlink';
@@ -50,11 +49,6 @@ const navLinks: INavLinks = {
       path: 'courses',
       label: 'Kurse',
       icon: <IconBook size={20} />,
-    },
-    {
-      path: 'settings',
-      label: 'Einstellungen',
-      icon: <IconSettings size={20} />,
     },
   ],
   student: [

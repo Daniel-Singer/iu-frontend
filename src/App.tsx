@@ -15,7 +15,6 @@ import MessagesScreen from './screens/MessagesScreen';
 import NotFoundScreen from './screens/NotFoundScreen';
 import ScreenLayout from './layout/ScreenLayout';
 import AccountScreen from './screens/AccountScreen';
-import SettingsScreen from './screens/SettingsScreen';
 
 import { theme } from './theme';
 import AdminDashboardScreen from './screens/AdminDashboardScreen';
@@ -56,7 +55,6 @@ const App = () => {
                 />
                 <Route path="messages" element={<MessagesScreen />} />
                 <Route path="account" element={<AccountScreen />} />
-                <Route path="settings" element={<SettingsScreen />} />
                 <Route path="admin" element={<AdminDashboardScreen />} />
                 <Route
                   path="users"
