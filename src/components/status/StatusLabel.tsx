@@ -7,6 +7,7 @@ import {
 } from '@mantine/core';
 import {
   IconCheck,
+  IconClock,
   IconDownload,
   IconPencil,
   IconX,
@@ -22,6 +23,7 @@ const statusColors: IStatusColor = {
   2: 'grape',
   3: 'green',
   4: 'red',
+  5: 'orange',
 };
 
 interface IStatusIcon {
@@ -33,6 +35,7 @@ const statusIcon: IStatusIcon = {
   2: <IconPencil size={14} />,
   3: <IconCheck size={14} />,
   4: <IconX size={14} />,
+  5: <IconClock size={14} />,
 };
 
 interface IProps {

@@ -1,4 +1,5 @@
 import { MantineColor, Table, Text } from '@mantine/core';
+import StatusLabel from '../../components/status/StatusLabel';
 
 interface IProps {
   id: number;
@@ -11,17 +12,16 @@ interface IColorMap {
 
 const colorMap: IColorMap = {
   1: 'blue',
-  2: 'orange',
+  2: 'grape',
   3: 'green',
   4: 'red',
+  5: 'orange',
 };
 
 const Status = ({ id, label }: IProps) => {
   return (
     <Table.Td>
-      <Text size="sm" c={id ? colorMap[id] : 'default'}>
-        {label}
-      </Text>
+      <StatusLabel id={id!} label={label} size="sm" />
     </Table.Td>
   );
 };
