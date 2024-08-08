@@ -28,7 +28,7 @@ const IssueDetailsScreen = () => {
             <IssueCard />
           </Stack>
           <Stack>
-            <Text c="blue">FORTSCHRITT</Text>
+            <Text c="blue">AUDIT</Text>
             <TimelineTabs />
           </Stack>
         </SimpleGrid>
