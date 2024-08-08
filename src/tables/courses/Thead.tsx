@@ -1,5 +1,7 @@
 import { Table } from '@mantine/core';
 
+// TODO - 1.1 - Neue Spalte für Überschrift hinzufügen. Table.Th sollte dazu verwendet werden.
+
 const Thead = () => {
   return (
     <Table.Thead>

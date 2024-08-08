@@ -5,6 +5,8 @@ interface IProps {
   courses: ICourseReceive[];
 }
 
+// TODO - 1.1 - Neue Spalte für Wert "active" anlegen. Muss an selber stelle wie die Überschrift sein. Table.Td sollte dazu verwendet werden
+
 const Tbody = ({ courses }: IProps) => {
   const navigate = useNavigate();
   return (
