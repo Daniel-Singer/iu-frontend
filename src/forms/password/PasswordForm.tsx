@@ -49,7 +49,6 @@ const PasswordForm = () => {
       form.reset();
     },
     onError: (error: any) => {
-      console.log(error);
       showNotification(
         'error',
         'FEHLER',
