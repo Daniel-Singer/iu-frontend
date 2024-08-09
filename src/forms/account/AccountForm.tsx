@@ -2,12 +2,15 @@ import { Group, SimpleGrid, Stack, Text, TextInput } from '@mantine/core';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import { useForm } from '@mantine/form';
 import { useAuthContext } from '../../context/AuthContext';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { getMyAccount } from '../../queries/users/getMyAccount';
+import { updateAccount } from '../../queries/users/updateAccount';
+import { showNotification } from '../../helpers/notifications/showNotification';
 
 const AccountForm = () => {
   const { auth } = useAuthContext();
+  const queryClient = useQueryClient();
   const { data: myaccount, isSuccess } = useQuery({
     queryKey: ['myaccount'],
     queryFn: getMyAccount,
@@ -22,6 +25,26 @@ const AccountForm = () => {
     },
   });
 
+  const { mutate: updateUserData } = useMutation({
+    mutationFn: updateAccount,
+    onSuccess: () => {
+      showNotification(
+        'success',
+        'UPDATE ERFOLGREICH',
+        'Dein Daten wurden erfolgreich geändert'
+      );
+      queryClient.invalidateQueries({ queryKey: ['myaccount'] });
+    },
+    onError: (error: any) => {
+      showNotification(
+        'error',
+        'UPDATE FEHLGESCHLAGEN',
+        error?.response?.data?.message ??
+          'Deine Daten konnten nicht geändert werden'
+      );
+    },
+  });
+
   useEffect(() => {
     if (isSuccess) {
       form.setFieldValue('first_name', myaccount?.first_name!);
@@ -32,7 +55,11 @@ const AccountForm = () => {
   }, [isSuccess]);
 
   return (
-    <form onSubmit={form.onSubmit((values) => console.log(values))}>
+    <form
+      onSubmit={form.onSubmit((values) =>
+        updateUserData({ id: auth.id, update: values })
+      )}
+    >
       <Stack>
         <Text size="sm" c="green">
           Stammdaten
@@ -54,7 +81,7 @@ const AccountForm = () => {
           <TextInput label="E-Mail" {...form.getInputProps('email')} />
         </SimpleGrid>
         <Group>
-          <SubmitButton>Stammdaten ändern</SubmitButton>
+          <SubmitButton type="submit">Stammdaten ändern</SubmitButton>
         </Group>
       </Stack>
     </form>
