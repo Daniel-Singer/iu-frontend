@@ -1,8 +1,13 @@
 import { Group, PasswordInput, SimpleGrid, Stack, Text } from '@mantine/core';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import { useForm } from '@mantine/form';
+import { useMutation } from '@tanstack/react-query';
+import { updateAccount } from '../../queries/users/updateAccount';
+import { useAuthContext } from '../../context/AuthContext';
+import { showNotification } from '../../helpers/notifications/showNotification';
 
 const PasswordForm = () => {
+  const { auth } = useAuthContext();
   const form = useForm({
     initialValues: {
       currentPassword: '',
@@ -32,8 +37,32 @@ const PasswordForm = () => {
       },
     },
   });
+
+  const { mutate: updatePassword } = useMutation({
+    mutationFn: updateAccount,
+    onSuccess: () => {
+      showNotification(
+        'success',
+        'USER ACCOUNT',
+        'Passwort Update erfolgreich!'
+      );
+      form.reset();
+    },
+    onError: (error: any) => {
+      console.log(error);
+      showNotification(
+        'error',
+        'FEHLER',
+        error?.response?.data?.message ?? 'Passwort Update fehlgeschlagen'
+      );
+    },
+  });
   return (
-    <form onSubmit={form.onSubmit((values) => console.log(values))}>
+    <form
+      onSubmit={form.onSubmit((values) =>
+        updatePassword({ id: auth.id!, update: values })
+      )}
+    >
       <Stack>
         <Text size="sm" c="green">
           Passwort ändern
@@ -55,7 +84,7 @@ const PasswordForm = () => {
           />
         </SimpleGrid>
         <Group>
-          <SubmitButton>Passwort ändern</SubmitButton>
+          <SubmitButton type="submit">Passwort ändern</SubmitButton>
         </Group>
       </Stack>
     </form>
