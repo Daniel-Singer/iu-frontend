@@ -108,8 +108,8 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
   });
 
   const handleDelete = () => {
-    // remove(params?.id!);
-    console.log(form.values.status.id);
+    remove(params?.id!);
+    
   };
 
   useEffect(() => {
@@ -141,7 +141,7 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
           <StatusSelect />
           <Stack>
             <SubmitButton disabled={!form.isDirty()}>
-              {buttonStatusText[form.values.status.id]}
+              {buttonStatusText[form.values.status.id] ??'Updates'}
             </SubmitButton>
             <DeleteButton onClick={handleDelete}>Löschen</DeleteButton>
           </Stack>
