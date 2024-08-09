@@ -9,6 +9,28 @@ const PasswordForm = () => {
       newPassword: '',
       confirmNewPassword: '',
     },
+    validate: {
+      currentPassword: (value) =>
+        !value || value === '' ? 'Bitte Passwort angeben' : null,
+      newPassword: (value, values) => {
+        if (!value || value === '') {
+          return 'Neues Passwort muss angegeben werden';
+        } else if (value !== values.confirmNewPassword) {
+          return 'Die Passwörter stimmen nicht überein';
+        } else {
+          return null;
+        }
+      },
+      confirmNewPassword: (value, values) => {
+        if (!value || value === '') {
+          return 'Neues Passwort muss bestätigt werden';
+        } else if (value !== values.newPassword) {
+          return 'Die Passwörter stimmen nicht überein';
+        } else {
+          return null;
+        }
+      },
+    },
   });
   return (
     <form onSubmit={form.onSubmit((values) => console.log(values))}>
