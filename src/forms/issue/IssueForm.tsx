@@ -50,8 +50,8 @@ const IssueForm = () => {
       });
       showNotification(
         'success',
-        'FEHLERMELDUNG',
-        `Fehlermeldung ${issue.title} erfolgreich erstellt!`
+        'ERFOLG',
+        `Ticket ${issue.title} wurde erfolgreich erstellt!`
       );
       toggleModal();
     },
