@@ -19,6 +19,19 @@ import DeleteButton from '../../components/buttons/DeleteButton';
 interface IProps {
   toggle: () => void;
 }
+
+interface IButtonStatusText {
+  [key: string]: string;
+}
+
+const buttonStatusText: IButtonStatusText = {
+  '1': 'Einreichen',
+  '2': 'Update',
+  '3': 'Ticket schließen',
+  '4': 'Ablehnen',
+  '5': 'Ticket aussetzen',
+};
+
 const IssueDetailsForm = ({ toggle }: IProps) => {
   const params = useParams();
 
@@ -95,7 +108,8 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
   });
 
   const handleDelete = () => {
-    remove(params?.id!);
+    // remove(params?.id!);
+    console.log(form.values.status.id);
   };
 
   useEffect(() => {
@@ -126,7 +140,9 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
           />
           <StatusSelect />
           <Stack>
-            <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>
+            <SubmitButton disabled={!form.isDirty()}>
+              {buttonStatusText[form.values.status.id]}
+            </SubmitButton>
             <DeleteButton onClick={handleDelete}>Löschen</DeleteButton>
           </Stack>
         </Stack>
