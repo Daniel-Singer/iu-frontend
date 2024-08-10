@@ -11,6 +11,7 @@ const Thead = () => {
         <Table.Th>Bezeichnung</Table.Th>
         <Table.Th>Tutor</Table.Th>
         <Table.Th>Gemeldete Fehler</Table.Th>
+        <Table.Th>Aktiv</Table.Th>
       </Table.Tr>
     </Table.Thead>
   );

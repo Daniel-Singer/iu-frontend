@@ -29,6 +29,11 @@ const Tbody = ({ courses }: IProps) => {
               {course.issues.count}
             </Text>
           </Table.Td>
+          <Table.Td>
+            <Text c={course.active ? 'green' : 'red'} size="sm">
+              {course.active ? 'Aktiv' : 'Inaktiv'}
+            </Text>
+          </Table.Td>
         </Table.Tr>
       ))}
     </Table.Tbody>

@@ -2,6 +2,7 @@ interface ICourseBase {
   id?: number;
   code: string;
   title: string;
+  active?: boolean;
 }
 
 // TODO - 1.1 - key active muss in type ICourseBase hinzugefügt werden. Dabei sollte er optinoal sein. Das wird mittels Fragezeichen zwischen Bezeichung und : gemacht.
