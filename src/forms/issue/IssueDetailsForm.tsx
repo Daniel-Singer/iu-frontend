@@ -109,7 +109,6 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
 
   const handleDelete = () => {
     remove(params?.id!);
-    
   };
 
   useEffect(() => {
@@ -130,6 +129,7 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
             withAsterisk
             {...form.getInputProps('title')}
             data-autofocus
+            disabled
           />
           <Textarea
             label="Beschreibung"
@@ -137,11 +137,12 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
             {...form.getInputProps('description')}
             minRows={5}
             autosize
+            disabled
           />
           <StatusSelect />
           <Stack>
             <SubmitButton disabled={!form.isDirty()}>
-              {buttonStatusText[form.values.status.id] ??'Updates'}
+              {buttonStatusText[form.values.status.id] ?? 'Updates'}
             </SubmitButton>
             <DeleteButton onClick={handleDelete}>Löschen</DeleteButton>
           </Stack>
