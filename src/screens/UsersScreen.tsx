@@ -15,10 +15,6 @@ const headerLabel: IHeaderLabel = {
   tutor: 'Tutorenübersicht',
 };
 
-// TODO - Wenn keine User von Backend geladen wurden oder es keine gibt,
-//        Soll anstatt einer Tabelle eine Alert Komponente angezeigt werden.
-//        Beispiele sind im Ordner tables in verschiedenen Tabellen schon implementiert
-
 const UsersScreen = () => {
   const location = useLocation();
   return (
