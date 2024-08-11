@@ -8,12 +8,13 @@ import WelcomeUser from '../layout/dashboard/WelcomeUser';
 import StatsContainer from '../layout/stats/StatsContainer';
 import UnseenComments from '../components/stats/dashboard/UnseenComments';
 import UnseenMessages from '../components/stats/dashboard/UnseenMessages';
+import { SearchProvider } from '../context/SearchContext';
 
 // TODO - Logik für Searchbar einbinden
 const DashboardScreen = () => {
   const { open, toggleModal } = useModalContext();
   return (
-    <>
+    <SearchProvider>
       <IssueModal open={open} onClose={toggleModal} />
       <ScreenHeader label="Dashboard">
         <SearchBar />
@@ -25,7 +26,7 @@ const DashboardScreen = () => {
         <UnseenMessages />
       </StatsContainer>
       <IssuesTable />
-    </>
+    </SearchProvider>
   );
 };
 

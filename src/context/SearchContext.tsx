@@ -20,7 +20,7 @@ interface ISearchProviderProps {
 }
 
 export const SearchProvider = ({ children }: ISearchProviderProps) => {
-  const [searchValue, setSearchValue] = useState<string | undefined>(undefined);
+  const [searchValue, setSearchValue] = useState<string | undefined>('');
   return (
     <SearchContext.Provider value={{ searchValue, setSearchValue }}>
       {children}
