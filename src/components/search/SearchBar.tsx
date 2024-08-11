@@ -2,8 +2,10 @@ import { ActionIcon, TextInput } from '@mantine/core';
 import { IconSearch, IconX } from '@tabler/icons-react';
 import { useEffect, useRef } from 'react';
 import { useSearchContext } from '../../context/SearchContext';
+import { useLocation } from 'react-router-dom';
 
 const SearchBar = () => {
+  const location = useLocation();
   const { searchValue, setSearchValue } = useSearchContext();
   const ref = useRef<HTMLInputElement | null>(null);
   const handleClearSearch = () => {
@@ -12,7 +14,9 @@ const SearchBar = () => {
   };
   useEffect(() => {
     ref.current?.focus();
-  }, []);
+    return () => ref.current?.blur();
+  }, [location]);
+
   return (
     <TextInput
       w={200}
