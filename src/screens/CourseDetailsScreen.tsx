@@ -10,9 +10,7 @@ const CourseDetailsScreen = () => {
 
   return (
     <>
-      <ScreenHeader
-        label={course?.title ? `${course.code} - ${course.title}` : ''}
-      />
+      <ScreenHeader label="kursdetails" />
       <Grid flex={1}>
         <Grid.Col span={4}>
           <DetailsCard
