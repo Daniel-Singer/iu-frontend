@@ -10,24 +10,26 @@ import UnseenComments from '../components/stats/dashboard/UnseenComments';
 import UnseenMessages from '../components/stats/dashboard/UnseenMessages';
 import { SearchProvider } from '../context/SearchContext';
 import FilterBar from '../layout/search/FilterBar';
+import { FilterProvider } from '../context/IssueFilterContext';
 
-// TODO - Logik für Searchbar einbinden
 const DashboardScreen = () => {
   const { open, toggleModal } = useModalContext();
   return (
     <SearchProvider>
-      <IssueModal open={open} onClose={toggleModal} />
-      <ScreenHeader label="Dashboard">
-        <SearchBar />
-        <AddButton onClick={toggleModal}>Neue Meldung</AddButton>
-      </ScreenHeader>
-      <WelcomeUser />
-      <StatsContainer>
-        <UnseenComments />
-        <UnseenMessages />
-      </StatsContainer>
-      <FilterBar />
-      <IssuesTable />
+      <FilterProvider>
+        <IssueModal open={open} onClose={toggleModal} />
+        <ScreenHeader label="Dashboard">
+          <SearchBar />
+          <AddButton onClick={toggleModal}>Neue Meldung</AddButton>
+        </ScreenHeader>
+        <WelcomeUser />
+        <StatsContainer>
+          <UnseenComments />
+          <UnseenMessages />
+        </StatsContainer>
+        <FilterBar />
+        <IssuesTable />
+      </FilterProvider>
     </SearchProvider>
   );
 };

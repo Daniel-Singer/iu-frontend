@@ -1,5 +1,6 @@
 import { Select } from '@mantine/core';
 import { IconAdjustments } from '@tabler/icons-react';
+import { useFilterContext } from '../../../context/IssueFilterContext';
 
 const filters = [
   {
@@ -25,11 +26,14 @@ const filters = [
 ];
 
 const IssueFilterSelect = () => {
+  const { filterValue, setFilterValue } = useFilterContext();
   return (
     <Select
       data={filters}
       leftSection={<IconAdjustments size={18} />}
       placeholder="Nach Status filtern"
+      value={filterValue?.toString()!}
+      onChange={(value) => setFilterValue(parseInt(value!))}
     />
   );
 };
