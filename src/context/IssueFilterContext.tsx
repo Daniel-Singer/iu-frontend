@@ -7,8 +7,8 @@ import {
 } from 'react';
 
 interface IFilterContext {
-  filterValue: number | undefined;
-  setFilterValue: React.Dispatch<SetStateAction<number | undefined>>;
+  filterValue: number | null;
+  setFilterValue: React.Dispatch<SetStateAction<number | null>>;
 }
 
 export const FilterContext = createContext<IFilterContext | undefined>(
@@ -20,7 +20,7 @@ interface IFilterProviderProps {
 }
 
 export const FilterProvider = ({ children }: IFilterProviderProps) => {
-  const [filterValue, setFilterValue] = useState<number | undefined>(undefined);
+  const [filterValue, setFilterValue] = useState<number | null>(null);
   return (
     <FilterContext.Provider value={{ filterValue, setFilterValue }}>
       {children}

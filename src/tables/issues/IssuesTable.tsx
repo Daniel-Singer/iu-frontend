@@ -6,21 +6,38 @@ import classes from './IssuesTable.module.css';
 import Thead from './Thead';
 import Tbody from './Tbody';
 import { useSearchContext } from '../../context/SearchContext';
+import { useFilterContext } from '../../context/IssueFilterContext';
 
 const IssuesTable = () => {
   const { searchValue } = useSearchContext();
+  const { filterValue } = useFilterContext();
   const { data: myIssues } = useQuery({
     queryKey: ['my_issues'],
     queryFn: listMyIssues,
     select: (issues) => {
-      if (!searchValue || searchValue === '') {
-        return issues;
+      if (filterValue) {
+        let filterdIssues = issues.filter(
+          ({ status }) => status.id === filterValue
+        );
+        if (searchValue && searchValue !== '') {
+          filterdIssues = filterdIssues?.filter(
+            ({ course, category }) =>
+              course.code.toLowerCase().includes(searchValue?.toLowerCase()) ||
+              category.label.toLowerCase().includes(searchValue?.toLowerCase())
+          );
+        }
+        return filterdIssues;
+      } else {
+        if (!searchValue || searchValue === '') {
+          return issues;
+        } else {
+          return issues?.filter(
+            ({ course, category }) =>
+              course.code.toLowerCase().includes(searchValue?.toLowerCase()) ||
+              category.label.toLowerCase().includes(searchValue?.toLowerCase())
+          );
+        }
       }
-      return issues?.filter(
-        ({ course, category }) =>
-          course.code.toLowerCase().includes(searchValue?.toLowerCase()) ||
-          category.label.toLowerCase().includes(searchValue?.toLowerCase())
-      );
     },
   });
   if (myIssues?.length! > 0) {

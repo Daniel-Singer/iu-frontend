@@ -27,13 +27,16 @@ const filters = [
 
 const IssueFilterSelect = () => {
   const { filterValue, setFilterValue } = useFilterContext();
+  const handleSelect = (value: string | null) => {
+    setFilterValue(parseInt(value!));
+  };
   return (
     <Select
       data={filters}
       leftSection={<IconAdjustments size={18} />}
       placeholder="Nach Status filtern"
-      value={filterValue?.toString()!}
-      onChange={(value) => setFilterValue(parseInt(value!))}
+      value={filterValue ? filterValue?.toString()! : null}
+      onChange={handleSelect}
     />
   );
 };
