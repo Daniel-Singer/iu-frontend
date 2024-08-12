@@ -9,7 +9,6 @@ const TimelineTabs = () => {
         <Tabs.List>
           <Tabs.Tab value="comments">Kommentare</Tabs.Tab>
           <Tabs.Tab value="status">Status</Tabs.Tab>
-          <Tabs.Tab value="audit">Audit</Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="comments">
           <CommentList />
@@ -17,7 +16,6 @@ const TimelineTabs = () => {
         <Tabs.Panel value="status">
           <StatusTable />
         </Tabs.Panel>
-        <Tabs.Panel value="audit">test</Tabs.Panel>
       </Tabs>
     </Paper>
   );

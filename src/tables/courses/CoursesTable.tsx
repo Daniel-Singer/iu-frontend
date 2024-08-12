@@ -7,6 +7,8 @@ import { useQuery } from '@tanstack/react-query';
 import { listCourses } from '../../queries/courses/listCourses';
 import { IconAlertTriangle } from '@tabler/icons-react';
 
+// TODO - 1.2 - Rand bei Tabelle entfernen. Dazu bei Paper Komponente withBorder Attribut entfernen
+
 const CoursesTable = () => {
   const { data: courses, isLoading } = useQuery({
     queryKey: ['courses'],

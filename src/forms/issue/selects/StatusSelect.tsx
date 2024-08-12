@@ -24,6 +24,7 @@ const StatusSelect = () => {
         label="Status"
         withAsterisk
         {...form.getInputProps('status.id')}
+        allowDeselect={false}
       />
     );
   } else {

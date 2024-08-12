@@ -19,6 +19,19 @@ import DeleteButton from '../../components/buttons/DeleteButton';
 interface IProps {
   toggle: () => void;
 }
+
+interface IButtonStatusText {
+  [key: string]: string;
+}
+
+const buttonStatusText: IButtonStatusText = {
+  '1': 'Einreichen',
+  '2': 'Update',
+  '3': 'Ticket schließen',
+  '4': 'Ablehnen',
+  '5': 'Ticket aussetzen',
+};
+
 const IssueDetailsForm = ({ toggle }: IProps) => {
   const params = useParams();
 
@@ -116,6 +129,7 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
             withAsterisk
             {...form.getInputProps('title')}
             data-autofocus
+            disabled
           />
           <Textarea
             label="Beschreibung"
@@ -123,10 +137,13 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
             {...form.getInputProps('description')}
             minRows={5}
             autosize
+            disabled
           />
           <StatusSelect />
           <Stack>
-            <SubmitButton disabled={!form.isDirty()}>Update</SubmitButton>
+            <SubmitButton disabled={!form.isDirty()}>
+              {buttonStatusText[form.values.status.id] ?? 'Updates'}
+            </SubmitButton>
             <DeleteButton onClick={handleDelete}>Löschen</DeleteButton>
           </Stack>
         </Stack>

@@ -1,14 +1,12 @@
 import { Table, Text } from '@mantine/core';
-import { useQuery } from '@tanstack/react-query';
-import { listUsers } from '../../../queries/users/listUsers';
 
 import classes from '../UsersTable.module.css';
 
-const StudentBody = () => {
-  const { data: users } = useQuery({
-    queryKey: [`students`],
-    queryFn: () => listUsers('student'),
-  });
+interface IProps {
+  users: IStudent[];
+}
+
+const StudentBody = ({ users }: IProps) => {
   return (
     <Table.Tbody>
       {users?.map((student) => (

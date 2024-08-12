@@ -22,3 +22,5 @@ interface ITutor extends IUserBase {
 interface IAdmin extends IUserBase {
   role: 'admin';
 }
+
+type IMessageUser = Pick<IUserBase, 'id' | 'first_name' | 'last_name'>;

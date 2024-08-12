@@ -1,10 +1,11 @@
 import { useLocation } from 'react-router-dom';
 import ScreenHeader from '../components/screen/ScreenHeader';
 import SearchBar from '../components/search/SearchBar';
-import { ModalProvider } from '../context/ModalContext';
+import { useModalContext } from '../context/ModalContext';
 import { SearchProvider } from '../context/SearchContext';
-import StudentModal from '../modals/student/StudentModal';
 import UsersTable from '../tables/users/UsersTable';
+import AddButton from '../components/buttons/AddButton';
+import UserModal from '../modals/user/UserModal';
 
 interface IHeaderLabel {
   [key: string]: string;
@@ -15,21 +16,17 @@ const headerLabel: IHeaderLabel = {
   tutor: 'Tutorenübersicht',
 };
 
-// TODO - Wenn keine User von Backend geladen wurden oder es keine gibt,
-//        Soll anstatt einer Tabelle eine Alert Komponente angezeigt werden.
-//        Beispiele sind im Ordner tables in verschiedenen Tabellen schon implementiert
-
 const UsersScreen = () => {
   const location = useLocation();
+  const { toggleModal } = useModalContext();
   return (
     <SearchProvider>
-      <ModalProvider>
-        <StudentModal />
-        <ScreenHeader label={headerLabel[location.search.split('=')[1]]}>
-          <SearchBar />
-        </ScreenHeader>
-        <UsersTable role={location.search.split('=')[1]} />
-      </ModalProvider>
+      <UserModal />
+      <ScreenHeader label={headerLabel[location.search.split('=')[1]]}>
+        <SearchBar />
+        <AddButton onClick={toggleModal}>Neuer User</AddButton>
+      </ScreenHeader>
+      <UsersTable role={location.search.split('=')[1]} />
     </SearchProvider>
   );
 };
