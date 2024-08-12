@@ -9,6 +9,7 @@ import StatsContainer from '../layout/stats/StatsContainer';
 import UnseenComments from '../components/stats/dashboard/UnseenComments';
 import UnseenMessages from '../components/stats/dashboard/UnseenMessages';
 import { SearchProvider } from '../context/SearchContext';
+import FilterBar from '../layout/search/FilterBar';
 
 // TODO - Logik für Searchbar einbinden
 const DashboardScreen = () => {
@@ -25,6 +26,7 @@ const DashboardScreen = () => {
         <UnseenComments />
         <UnseenMessages />
       </StatsContainer>
+      <FilterBar />
       <IssuesTable />
     </SearchProvider>
   );
