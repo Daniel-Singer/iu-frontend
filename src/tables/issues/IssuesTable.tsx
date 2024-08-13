@@ -8,6 +8,8 @@ import Tbody from './Tbody';
 import { useSearchContext } from '../../context/SearchContext';
 import { useFilterContext } from '../../context/IssueFilterContext';
 
+// TODO - IssueTable soll die Fehlermeldungen als Prop erhalten. So wird die Reusability erhöht.
+
 const IssuesTable = () => {
   const { searchValue } = useSearchContext();
   const { filterValue } = useFilterContext();
