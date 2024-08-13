@@ -7,6 +7,8 @@ import Thead from '../issues/Thead';
 import Tbody from '../issues/Tbody';
 import TablePlaceholer from '../../layout/tables/TablePlaceholder';
 
+import classes from './CoursesTable.module.css';
+
 const CourseIssuesTable = () => {
   const params = useParams();
 
@@ -24,7 +26,7 @@ const CourseIssuesTable = () => {
     return (
       <ScrollArea.Autosize>
         <Paper flex={1} radius="sm">
-          <Table highlightOnHover>
+          <Table highlightOnHover className={classes.issuetable}>
             <Thead hasCode={false} />
             <Tbody issues={issues!} />
           </Table>

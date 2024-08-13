@@ -6,3 +6,19 @@
 .table td:last-of-type {
     text-align: right;
 }
+
+.issuetable {
+    cursor: pointer;
+}
+
+.issuetable th:last-of-type,
+.issuetable th:nth-last-of-type(2) {
+    text-align: right;
+
+}
+
+.issuetable td:last-of-type,
+.issuetable td:nth-last-of-type(2) {
+    text-align: right;
+
+}

@@ -27,6 +27,7 @@ const DashboardScreen = () => {
           <UnseenComments />
           <UnseenMessages />
         </StatsContainer>
+        <ScreenHeader label="Deine Fehlermeldungen" />
         <FilterBar />
         <IssuesTable />
       </FilterProvider>

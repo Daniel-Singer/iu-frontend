@@ -1,5 +1,5 @@
 import ScreenHeader from '../components/screen/ScreenHeader';
-import { Grid, Group } from '@mantine/core';
+import { Grid, Group, Text } from '@mantine/core';
 import SubmitButton from '../components/buttons/SubmitButton';
 import DeleteButton from '../components/buttons/DeleteButton';
 import DetailsCard from '../layout/card/DetailsCard';
@@ -38,6 +38,7 @@ const CourseDetailsScreen = () => {
         </Grid.Col>
         <Grid.Col span={8}></Grid.Col>
       </Grid>
+      <ScreenHeader label="Für diesen Kurs gemeldete Fehler" />
       <CourseIssuesTable />
     </>
   );
