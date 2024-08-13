@@ -4,6 +4,7 @@ import SubmitButton from '../components/buttons/SubmitButton';
 import DeleteButton from '../components/buttons/DeleteButton';
 import DetailsCard from '../layout/card/DetailsCard';
 import { useCourseActions } from '../hooks/course/useCourseActions';
+import CourseIssuesTable from '../tables/courses/CourseIssueTable';
 
 const CourseDetailsScreen = () => {
   const { removeCourse, course } = useCourseActions();
@@ -11,7 +12,7 @@ const CourseDetailsScreen = () => {
   return (
     <>
       <ScreenHeader label="kursdetails" />
-      <Grid flex={1}>
+      <Grid>
         <Grid.Col span={4}>
           <DetailsCard
             span={4}
@@ -37,6 +38,7 @@ const CourseDetailsScreen = () => {
         </Grid.Col>
         <Grid.Col span={8}></Grid.Col>
       </Grid>
+      <CourseIssuesTable />
     </>
   );
 };

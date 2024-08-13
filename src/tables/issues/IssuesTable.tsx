@@ -8,8 +8,6 @@ import Tbody from './Tbody';
 import { useSearchContext } from '../../context/SearchContext';
 import { useFilterContext } from '../../context/IssueFilterContext';
 
-// TODO - IssueTable soll die Fehlermeldungen als Prop erhalten. So wird die Reusability erhöht.
-
 const IssuesTable = () => {
   const { searchValue } = useSearchContext();
   const { filterValue } = useFilterContext();
@@ -45,7 +43,7 @@ const IssuesTable = () => {
   if (myIssues?.length! > 0) {
     return (
       <ScrollArea.Autosize>
-        <Paper flex={1} withBorder radius="sm">
+        <Paper flex={1} radius="sm">
           <Table className={classes.table} highlightOnHover>
             <Thead />
             <Tbody issues={myIssues!} />

@@ -18,15 +18,17 @@ const Tbody = ({ issues }: IProps) => {
             onDoubleClick={() => navigate(`/issue/${id}`)}
           >
             <Table.Td>{id}</Table.Td>
-            <Table.Td>
-              <Anchor
-                size="sm"
-                c="green"
-                onClick={() => navigate(`/courses/${course.id!}`)}
-              >
-                {course.code}
-              </Anchor>
-            </Table.Td>
+            {course?.code ? (
+              <Table.Td>
+                <Anchor
+                  size="sm"
+                  c="green"
+                  onClick={() => navigate(`/courses/${course.id!}`)}
+                >
+                  {course.code}
+                </Anchor>
+              </Table.Td>
+            ) : null}
             <Table.Td>{title}</Table.Td>
             <Table.Td>
               <Text c={!category.label ? 'red' : 'default'} size="sm">
