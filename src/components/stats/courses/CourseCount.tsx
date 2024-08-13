@@ -12,7 +12,7 @@ interface IProps {
 
 const CoursePanel = ({ label, value, color, icon }: IProps) => {
   return (
-    <StatsCard>
+    <StatsCard span={2}>
       <Paper p="xs">
         <Stack>
           <StatsLabel icon={icon}>{label}</StatsLabel>
