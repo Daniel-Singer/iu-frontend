@@ -1,19 +1,20 @@
 import ScreenHeader from '../components/screen/ScreenHeader';
 import { Grid, Group } from '@mantine/core';
-import SubmitButton from '../components/buttons/SubmitButton';
-import DeleteButton from '../components/buttons/DeleteButton';
 import DetailsCard from '../layout/card/DetailsCard';
 import { useCourseActions } from '../hooks/course/useCourseActions';
+import CourseIssuesTable from '../tables/courses/CourseIssueTable';
+import EditButton from '../components/buttons/EditButton';
+import { useModalContext } from '../context/ModalContext';
+import CourseModal from '../modals/course/CourseModal';
 
 const CourseDetailsScreen = () => {
-  const { removeCourse, course } = useCourseActions();
-
+  const { course } = useCourseActions();
+  const { toggleModal } = useModalContext();
   return (
     <>
-      <ScreenHeader
-        label={course?.title ? `${course.code} - ${course.title}` : ''}
-      />
-      <Grid flex={1}>
+      <CourseModal />
+      <ScreenHeader label="kursdetails" />
+      <Grid>
         <Grid.Col span={4}>
           <DetailsCard
             span={4}
@@ -30,15 +31,14 @@ const CourseDetailsScreen = () => {
             ]}
           >
             <Group justify="space-between">
-              <SubmitButton disabled>Update</SubmitButton>
-              <DeleteButton onClick={() => removeCourse(course?.id!)}>
-                Löschen
-              </DeleteButton>
+              <EditButton onClick={toggleModal}>Bearbeiten</EditButton>
             </Group>
           </DetailsCard>
         </Grid.Col>
         <Grid.Col span={8}></Grid.Col>
       </Grid>
+      <ScreenHeader label="Für diesen Kurs gemeldete Fehler" />
+      <CourseIssuesTable />
     </>
   );
 };

@@ -81,7 +81,14 @@ const App = () => {
                       </ModalProvider>
                     }
                   />
-                  <Route path=":id" element={<CourseDetailsScreen />} />
+                  <Route
+                    path=":id"
+                    element={
+                      <ModalProvider>
+                        <CourseDetailsScreen />
+                      </ModalProvider>
+                    }
+                  />
                 </Route>
                 <Route
                   path="tutors"

@@ -1,11 +1,15 @@
 import { Table } from '@mantine/core';
 
-const Thead = () => {
+interface IProps {
+  hasCode?: boolean;
+}
+
+const Thead = ({ hasCode = true }: IProps) => {
   return (
     <Table.Thead>
       <Table.Tr>
         <Table.Th>ID</Table.Th>
-        <Table.Th>Kurs</Table.Th>
+        {hasCode ? <Table.Th>Kurs</Table.Th> : null}
         <Table.Th>Kurzbeschreibung</Table.Th>
         <Table.Th>Kategorie</Table.Th>
         <Table.Th>Status</Table.Th>

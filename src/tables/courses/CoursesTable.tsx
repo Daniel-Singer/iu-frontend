@@ -6,26 +6,21 @@ import Tbody from './Tbody';
 import { useQuery } from '@tanstack/react-query';
 import { listCourses } from '../../queries/courses/listCourses';
 import { IconAlertTriangle } from '@tabler/icons-react';
-
-// TODO - 1.2 - Rand bei Tabelle entfernen. Dazu bei Paper Komponente withBorder Attribut entfernen
+import TablePlaceholer from '../../layout/tables/TablePlaceholder';
 
 const CoursesTable = () => {
-  const { data: courses, isLoading } = useQuery({
+  const {
+    data: courses,
+    isSuccess,
+    isLoading,
+  } = useQuery({
     queryKey: ['courses'],
     queryFn: listCourses,
   });
-  if (!courses || (courses.length < 1 && !isLoading)) {
-    return (
-      <Alert icon={<IconAlertTriangle size={20} />}>
-        <Text c="blue" size="sm">
-          Keine Kurse in Datenbank hinterlegt
-        </Text>
-      </Alert>
-    );
-  } else {
+  if (courses?.length! > 0 && isSuccess) {
     return (
       <ScrollArea.Autosize>
-        <Paper withBorder>
+        <Paper>
           <Table highlightOnHover className={classes.table}>
             <Thead />
             <Tbody courses={courses!} />
@@ -33,6 +28,18 @@ const CoursesTable = () => {
         </Paper>
       </ScrollArea.Autosize>
     );
+  } else {
+    if (isLoading) {
+      return <TablePlaceholer />;
+    } else {
+      return (
+        <Alert icon={<IconAlertTriangle size={20} />}>
+          <Text c="blue" size="sm">
+            Keine Kurse in Datenbank hinterlegt
+          </Text>
+        </Alert>
+      );
+    }
   }
 };
 
