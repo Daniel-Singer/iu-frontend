@@ -8,11 +8,15 @@ import { useModalContext } from '../../context/ModalContext';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { useCourseActions } from '../../hooks/course/useCourseActions';
 import { useEffect, useMemo } from 'react';
+import { updateCourse } from '../../queries/courses/updateCourse';
+import { useParams } from 'react-router-dom';
 
 const CourseForm = () => {
   const { toggleModal } = useModalContext();
   const queryClient = useQueryClient();
   const { course, isSuccess } = useCourseActions();
+  const params = useParams();
+
   const { mutate: addCourse } = useMutation({
     mutationFn: createCourse,
     onSuccess: (course) => {
@@ -26,6 +30,22 @@ const CourseForm = () => {
       queryClient.invalidateQueries({
         queryKey: ['courses'],
       });
+    },
+  });
+
+  const { mutate: update } = useMutation({
+    mutationFn: updateCourse,
+    onSuccess: (course) => {
+      toggleModal();
+      form.reset();
+      queryClient.invalidateQueries({
+        queryKey: ['courses'],
+      });
+      showNotification(
+        'success',
+        'KURS',
+        `Update für Kurs ${course.code} erfolgreich`
+      );
     },
   });
 
@@ -54,9 +74,17 @@ const CourseForm = () => {
 
   const isUpdate = useMemo(() => !!course && !!course.id, [course]);
 
+  const handleSubmit = (values: ICourseCreate) => {
+    if (!isUpdate) {
+      addCourse(values);
+    } else {
+      update({ id: params?.id!, update: values });
+    }
+  };
+
   return (
     <CourseFormProvider form={form}>
-      <form onSubmit={form.onSubmit((values) => addCourse(values))}>
+      <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Stack>
           <TextInput
             label="Code"
