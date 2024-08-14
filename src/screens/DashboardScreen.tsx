@@ -11,6 +11,7 @@ import UnseenMessages from '../components/stats/dashboard/UnseenMessages';
 import { SearchProvider } from '../context/SearchContext';
 import FilterBar from '../layout/search/FilterBar';
 import { FilterProvider } from '../context/IssueFilterContext';
+import IssuesCount from '../components/stats/dashboard/IssuesCount';
 
 const DashboardScreen = () => {
   const { open, toggleModal } = useModalContext();
@@ -24,6 +25,7 @@ const DashboardScreen = () => {
         </ScreenHeader>
         <WelcomeUser />
         <StatsContainer>
+          <IssuesCount />
           <UnseenComments />
           <UnseenMessages />
         </StatsContainer>
