@@ -10,6 +10,7 @@ import TablePlaceholer from '../../layout/tables/TablePlaceholder';
 import classes from './CoursesTable.module.css';
 import { useEffect } from 'react';
 
+// TODO - 2.1 - Table muss teilweise Responsive gestaltet werden. Overflow der Zellen muss versteckt werden
 const CourseIssuesTable = () => {
   const params = useParams();
   const queryClient = useQueryClient();

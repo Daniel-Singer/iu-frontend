@@ -1,5 +1,5 @@
 import ScreenHeader from '../components/screen/ScreenHeader';
-import { Grid, Group } from '@mantine/core';
+import { Grid, Group, Text } from '@mantine/core';
 import DetailsCard from '../layout/card/DetailsCard';
 import { useCourseActions } from '../hooks/course/useCourseActions';
 import CourseIssuesTable from '../tables/courses/CourseIssueTable';
@@ -13,13 +13,28 @@ const CourseDetailsScreen = () => {
   return (
     <>
       <CourseModal />
-      <ScreenHeader label="kursdetails" />
+      <Grid>
+        <Grid.Col span={4}>
+          <ScreenHeader label="kursdetails" />
+        </Grid.Col>
+        <Grid.Col span={8}>
+          <ScreenHeader label="Für diesen Kurs gemeldete Fehler" />
+        </Grid.Col>
+      </Grid>
       <Grid>
         <Grid.Col span={4}>
           <DetailsCard
             span={4}
             data={[
               { label: 'ID', value: course?.id },
+              {
+                label: 'Code',
+                value: <Text c="green">{course?.code!}</Text>,
+              },
+              {
+                label: 'Bezeichnung',
+                value: course?.title!,
+              },
               {
                 label: 'Tutor',
                 value: `${course?.tutor.first_name} ${course?.tutor.last_name}`,
@@ -35,10 +50,10 @@ const CourseDetailsScreen = () => {
             </Group>
           </DetailsCard>
         </Grid.Col>
-        <Grid.Col span={8}></Grid.Col>
+        <Grid.Col span={8}>
+          <CourseIssuesTable />
+        </Grid.Col>
       </Grid>
-      <ScreenHeader label="Für diesen Kurs gemeldete Fehler" />
-      <CourseIssuesTable />
     </>
   );
 };

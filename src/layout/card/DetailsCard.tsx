@@ -15,7 +15,7 @@ interface IProps {
 
 const DetailsCard = ({ span = 2, data, children }: IProps) => {
   return (
-    <Paper withBorder p="sm">
+    <Paper p="sm">
       <Stack>
         {data?.map((item) => (
           <CardRow
