@@ -23,4 +23,9 @@ interface IAdmin extends IUserBase {
   role: 'admin';
 }
 
+type TUserCreate = Omit<IUserBase, 'id' | 'accessToken'> & {
+  matrikel_nr: number | null;
+  confirmPassword: string;
+};
+
 type IMessageUser = Pick<IUserBase, 'id' | 'first_name' | 'last_name'>;
