@@ -1,4 +1,5 @@
 import {
+  Alert,
   NumberInput,
   PasswordInput,
   Select,
@@ -14,6 +15,8 @@ import { addUser } from '../../queries/users/addUser';
 import { useModalContext } from '../../context/ModalContext';
 import { useLocation } from 'react-router-dom';
 import { showNotification } from '../../helpers/notifications/showNotification';
+import { useRef, useState } from 'react';
+import { IconAlertTriangle } from '@tabler/icons-react';
 
 const roles = [
   {
@@ -34,6 +37,10 @@ const UserForm = () => {
   const { toggleModal } = useModalContext();
   const queryClient = useQueryClient();
   const location = useLocation();
+  const firstNameRef = useRef<HTMLInputElement | null>(null);
+  const [displayError, setDisplayError] = useState<string | undefined>(
+    undefined
+  );
   const form = useForm<TUserCreate>({
     initialValues: {
       first_name: '',
@@ -93,12 +100,19 @@ const UserForm = () => {
       );
     },
     onError: (error: any) => {
-      // TODO - 2.2 - Fehlermeldung von Server implementieren
-      showNotification(
-        'error',
-        'FEHELER',
-        'User konnte nicht hinzugefügt werden'
-      );
+      if (error.response.status === 409) {
+        setDisplayError(
+          error?.response?.data?.message ?? 'User existiert bereits'
+        );
+        firstNameRef.current?.focus();
+        setTimeout(() => setDisplayError(undefined), 2000);
+      } else {
+        showNotification(
+          'error',
+          'FEHLER',
+          error?.response?.data?.message ?? 'User konnte nicht angelegt werden'
+        );
+      }
     },
   });
 
@@ -109,12 +123,20 @@ const UserForm = () => {
   return (
     <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
       <Stack gap="xs">
+        {displayError ? (
+          <Alert icon={<IconAlertTriangle size={20} />} color="red">
+            <Text c="red" size="sm">
+              {displayError}
+            </Text>
+          </Alert>
+        ) : null}
         <SimpleGrid cols={2}>
           <TextInput
             label="Vorname"
             withAsterisk
             data-autofocus
             {...form.getInputProps('first_name')}
+            ref={firstNameRef}
           />
           <TextInput
             label="Nachname"
@@ -150,8 +172,16 @@ const UserForm = () => {
           />
         ) : null}
         <SimpleGrid cols={2}>
-          <PasswordInput label="Passwort" withAsterisk />
-          <PasswordInput label="Passwort bestätigen" withAsterisk />
+          <PasswordInput
+            label="Passwort"
+            withAsterisk
+            {...form.getInputProps('password')}
+          />
+          <PasswordInput
+            label="Passwort bestätigen"
+            withAsterisk
+            {...form.getInputProps('confirmPassword')}
+          />
         </SimpleGrid>
         <Text size="xs" c="dimmed">
           Passwort kann später von User geändert werden
