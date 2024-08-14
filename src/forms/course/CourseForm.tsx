@@ -66,8 +66,8 @@ const CourseForm = () => {
 
   useEffect(() => {
     if (course && isSuccess) {
-      const { code, title, tutor } = course;
-      form.setValues({ code, title, tutor_id: String(tutor.id) });
+      const { code, title, tutor, active } = course;
+      form.setValues({ code, title, tutor_id: String(tutor.id), active });
       form.resetDirty();
     }
   }, [course, isSuccess]);
@@ -99,7 +99,8 @@ const CourseForm = () => {
           />
           <TutorInput />
           <Checkbox
-            label="Kurs aktiv"
+            label="Aktiv/Inaktiv"
+            description="Wird Haken nicht gesetzt können keine Weiteren Fehlermeldungen, Kommentare usw. für diesen Kurs erstellt werden"
             {...form.getInputProps('active', { type: 'checkbox' })}
           />
           <SubmitButton disabled={!form.isDirty() && isUpdate}>
