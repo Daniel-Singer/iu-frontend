@@ -13,7 +13,6 @@ import SubmitButton from '../../components/buttons/SubmitButton';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { addUser } from '../../queries/users/addUser';
 import { useModalContext } from '../../context/ModalContext';
-import { useLocation } from 'react-router-dom';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { useRef, useState } from 'react';
 import { IconAlertTriangle } from '@tabler/icons-react';
@@ -36,7 +35,6 @@ const roles = [
 const UserForm = () => {
   const { toggleModal } = useModalContext();
   const queryClient = useQueryClient();
-  const location = useLocation();
   const firstNameRef = useRef<HTMLInputElement | null>(null);
   const [displayError, setDisplayError] = useState<string | undefined>(
     undefined
@@ -89,9 +87,11 @@ const UserForm = () => {
     mutationFn: addUser,
     onSuccess: (user) => {
       toggleModal();
-      const list = location.search.split('=')[1];
       queryClient.invalidateQueries({
-        queryKey: [list === 'students' ? 'students' : 'tutors'],
+        queryKey: ['students'],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ['tutors'],
       });
       showNotification(
         'success',
