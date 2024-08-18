@@ -7,8 +7,10 @@ import { useQuery } from '@tanstack/react-query';
 import { listCourses } from '../../queries/courses/listCourses';
 import { IconAlertTriangle } from '@tabler/icons-react';
 import TablePlaceholer from '../../layout/tables/TablePlaceholder';
+import { useScrollingContext } from '../../context/ScrollingContext';
 
 const CoursesTable = () => {
+  const { setIsScrolling } = useScrollingContext();
   const {
     data: courses,
     isSuccess,
@@ -19,7 +21,9 @@ const CoursesTable = () => {
   });
   if (courses?.length! > 0 && isSuccess) {
     return (
-      <ScrollArea.Autosize>
+      <ScrollArea.Autosize
+        onScrollPositionChange={({ y }) => setIsScrolling(y !== 0)}
+      >
         <Paper>
           <Table highlightOnHover className={classes.table}>
             <Thead />

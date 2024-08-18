@@ -6,6 +6,7 @@ import { SearchProvider } from '../context/SearchContext';
 import UsersTable from '../tables/users/UsersTable';
 import AddButton from '../components/buttons/AddButton';
 import UserModal from '../modals/user/UserModal';
+import { ScrollingProvider } from '../context/ScrollingContext';
 
 interface IHeaderLabel {
   [key: string]: string;
@@ -26,7 +27,9 @@ const UsersScreen = () => {
         <SearchBar />
         <AddButton onClick={toggleModal}>Neuer User</AddButton>
       </ScreenHeader>
-      <UsersTable role={location.search.split('=')[1]} />
+      <ScrollingProvider>
+        <UsersTable role={location.search.split('=')[1]} />
+      </ScrollingProvider>
     </SearchProvider>
   );
 };

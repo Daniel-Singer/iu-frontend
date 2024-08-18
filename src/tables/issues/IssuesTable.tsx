@@ -7,10 +7,12 @@ import Thead from './Thead';
 import Tbody from './Tbody';
 import { useSearchContext } from '../../context/SearchContext';
 import { useFilterContext } from '../../context/IssueFilterContext';
+import { useScrollingContext } from '../../context/ScrollingContext';
 
 const IssuesTable = () => {
   const { searchValue } = useSearchContext();
   const { filterValue } = useFilterContext();
+  const { setIsScrolling } = useScrollingContext();
   const { data: myIssues } = useQuery({
     queryKey: ['my_issues'],
     queryFn: listMyIssues,
@@ -42,7 +44,9 @@ const IssuesTable = () => {
   });
   if (myIssues?.length! > 0) {
     return (
-      <ScrollArea.Autosize>
+      <ScrollArea.Autosize
+        onScrollPositionChange={({ y }) => setIsScrolling(y !== 0)}
+      >
         <Paper flex={1} radius="sm">
           <Table className={classes.table} highlightOnHover>
             <Thead />
