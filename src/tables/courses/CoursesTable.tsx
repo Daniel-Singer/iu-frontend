@@ -8,9 +8,11 @@ import { listCourses } from '../../queries/courses/listCourses';
 import { IconAlertTriangle } from '@tabler/icons-react';
 import TablePlaceholer from '../../layout/tables/TablePlaceholder';
 import { useScrollingContext } from '../../context/ScrollingContext';
+import { useSearchContext } from '../../context/SearchContext';
 
 const CoursesTable = () => {
   const { setIsScrolling } = useScrollingContext();
+  const { searchValue } = useSearchContext();
   const {
     data: courses,
     isSuccess,
@@ -18,6 +20,16 @@ const CoursesTable = () => {
   } = useQuery({
     queryKey: ['courses'],
     queryFn: listCourses,
+    select: (courses) => {
+      if (!searchValue || searchValue === '') {
+        return courses;
+      }
+      return courses?.filter(
+        ({ code, title }) =>
+          code.toLowerCase().includes(searchValue?.toLowerCase()) ||
+          title.toLowerCase().includes(searchValue?.toLowerCase())
+      );
+    },
   });
   if (courses?.length! > 0 && isSuccess) {
     return (
