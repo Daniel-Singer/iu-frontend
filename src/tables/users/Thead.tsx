@@ -1,9 +1,9 @@
 import { Table } from '@mantine/core';
 import classes from './UsersTable.module.css';
+import { useScrollingContext } from '../../context/ScrollingContext';
 
 interface IProps {
   role: string;
-  scrolling: boolean;
 }
 
 interface ITheadLabels {
@@ -16,7 +16,8 @@ const labels: ITheadLabels = {
   student: ['ID', 'Matrikel-Nr.', 'Name', 'E-Mail'],
 };
 
-const Thead = ({ role, scrolling }: IProps) => {
+const Thead = ({ role }: IProps) => {
+  const { scrolling } = useScrollingContext();
   return (
     <Table.Thead
       className={classes.header}

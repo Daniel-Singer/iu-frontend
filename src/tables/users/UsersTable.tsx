@@ -2,13 +2,14 @@ import { Paper, ScrollArea, Table } from '@mantine/core';
 import Thead from './Thead';
 
 import classes from './UsersTable.module.css';
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import StudentBody from './body/StudentBody';
 import TutorBody from './body/TutorBody';
 import { useQuery } from '@tanstack/react-query';
 import { listUsers } from '../../queries/users/listUsers';
 import { useSearchContext } from '../../context/SearchContext';
 import NoUsersFound from '../../components/search/NoUsersFound';
+import { useScrollingContext } from '../../context/ScrollingContext';
 
 interface IRow {
   [key: string]: ReactNode;
@@ -20,7 +21,7 @@ interface IProps {
 
 const UsersTable = ({ role }: IProps) => {
   const { searchValue } = useSearchContext();
-  const [scrolling, setScrolling] = useState<boolean>(false);
+  const { setIsScrolling } = useScrollingContext();
 
   const { data: students, isLoading: studentLoading } = useQuery({
     queryKey: [`students`],
@@ -59,12 +60,12 @@ const UsersTable = ({ role }: IProps) => {
 
   return (
     <ScrollArea.Autosize
-      onScrollPositionChange={({ y }) => setScrolling(y !== 0)}
+      onScrollPositionChange={({ y }) => setIsScrolling(y !== 0)}
     >
       <Paper withBorder style={{ flex: 1 }}>
         {role === 'student' && students?.length! > 0 ? (
           <Table highlightOnHover className={classes.table}>
-            <Thead role={role} scrolling={scrolling} />
+            <Thead role={role} />
             {userRows[role]}
           </Table>
         ) : role === 'student' && !studentLoading ? (
@@ -72,7 +73,7 @@ const UsersTable = ({ role }: IProps) => {
         ) : null}
         {role === 'tutor' && tutors?.length! > 0 ? (
           <Table highlightOnHover className={classes.table}>
-            <Thead role={role} scrolling={scrolling} />
+            <Thead role={role} />
             {userRows[role]}
           </Table>
         ) : role === 'tutor' && !tutorLoading ? (
