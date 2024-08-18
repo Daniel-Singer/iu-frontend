@@ -1,8 +1,14 @@
 import { Table } from '@mantine/core';
+import classes from './CoursesTable.module.css';
+import { useScrollingContext } from '../../context/ScrollingContext';
 
 const Thead = () => {
+  const { scrolling } = useScrollingContext();
   return (
-    <Table.Thead>
+    <Table.Thead
+      className={classes.header}
+      data-scrolling={scrolling === true || undefined}
+    >
       <Table.Tr>
         <Table.Th>ID</Table.Th>
         <Table.Th>Code</Table.Th>

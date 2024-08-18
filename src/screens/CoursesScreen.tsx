@@ -15,6 +15,7 @@ import {
   IconCheck,
   IconSquareRotatedForbid,
 } from '@tabler/icons-react';
+import { ScrollingProvider } from '../context/ScrollingContext';
 
 const CoursesScreen = () => {
   const { toggleModal } = useModalContext();
@@ -66,7 +67,9 @@ const CoursesScreen = () => {
           icon={<IconSquareRotatedForbid />}
         />
       </StatsContainer>
-      <CoursesTable />
+      <ScrollingProvider>
+        <CoursesTable />
+      </ScrollingProvider>
     </SearchProvider>
   );
 };
