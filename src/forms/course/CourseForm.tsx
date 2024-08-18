@@ -1,4 +1,4 @@
-import { Checkbox, Stack, TextInput } from '@mantine/core';
+import { Stack, Switch, TextInput } from '@mantine/core';
 import { CourseFormProvider, useCourseForm } from './context';
 import TutorInput from './TutorInput';
 import SubmitButton from '../../components/buttons/SubmitButton';
@@ -98,10 +98,13 @@ const CourseForm = () => {
             withAsterisk
           />
           <TutorInput />
-          <Checkbox
-            label="Aktiv/Inaktiv"
-            description="Wird Haken nicht gesetzt können keine Weiteren Fehlermeldungen, Kommentare usw. für diesen Kurs erstellt werden"
-            {...form.getInputProps('active', { type: 'checkbox' })}
+          <Switch
+            label={form.values.active ? 'Aktiv' : 'Deaktiviert'}
+            checked={form.values.active}
+            description="Das Einreichen von Fehlermeldung, Kommentaren usw. ist nicht möglich wenn Kurs nicht aktiv ist"
+            onChange={(e) =>
+              form.setFieldValue('active', e.currentTarget.checked)
+            }
           />
           <SubmitButton disabled={!form.isDirty() && isUpdate}>
             {isUpdate ? 'Update' : 'Speichern'}
