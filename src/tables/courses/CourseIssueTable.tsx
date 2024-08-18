@@ -9,12 +9,13 @@ import TablePlaceholer from '../../layout/tables/TablePlaceholder';
 
 import classes from './CoursesTable.module.css';
 import { useEffect } from 'react';
+import { useScrollingContext } from '../../context/ScrollingContext';
 
 // TODO - 2.1 - Table muss teilweise Responsive gestaltet werden. Overflow der Zellen muss versteckt werden
 const CourseIssuesTable = () => {
   const params = useParams();
   const queryClient = useQueryClient();
-
+  const { setIsScrolling } = useScrollingContext();
   const {
     data: issues,
     isSuccess,
@@ -34,7 +35,9 @@ const CourseIssuesTable = () => {
 
   if (issues?.length! > 0 && isSuccess) {
     return (
-      <ScrollArea.Autosize>
+      <ScrollArea.Autosize
+        onScrollPositionChange={({ y }) => setIsScrolling(y !== 0)}
+      >
         <Paper flex={1} radius="sm">
           <Table highlightOnHover className={classes.issuetable}>
             <Thead hasCode={false} />
