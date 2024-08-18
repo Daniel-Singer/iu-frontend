@@ -24,7 +24,6 @@ import LogoutScreen from './screens/LogoutScreen';
 import IssueDetailsScreen from './screens/IssueDetailsScreen';
 import { ModalProvider } from './context/ModalContext';
 import CoursesScreen from './screens/CoursesScreen';
-import TutorsScreen from './screens/TutorsScreen';
 import CourseDetailsScreen from './screens/CourseDetailsScreen';
 import UsersScreen from './screens/UsersScreen';
 
@@ -89,12 +88,6 @@ const App = () => {
                       </ModalProvider>
                     }
                   />
-                </Route>
-                <Route
-                  path="tutors"
-                  element={<AuthWrapper allowedRoles={['admin']} />}
-                >
-                  <Route index element={<TutorsScreen />} />
                 </Route>
                 <Route path="issue/:id" element={<IssueDetailsScreen />} />
                 <Route path="logout" element={<LogoutScreen />} />
