@@ -6,6 +6,7 @@ import CourseIssuesTable from '../tables/courses/CourseIssueTable';
 import EditButton from '../components/buttons/EditButton';
 import { useModalContext } from '../context/ModalContext';
 import CourseModal from '../modals/course/CourseModal';
+import { ScrollingProvider } from '../context/ScrollingContext';
 
 const CourseDetailsScreen = () => {
   const { course } = useCourseActions();
@@ -51,7 +52,9 @@ const CourseDetailsScreen = () => {
           </DetailsCard>
         </Grid.Col>
         <Grid.Col span={8}>
-          <CourseIssuesTable />
+          <ScrollingProvider>
+            <CourseIssuesTable />
+          </ScrollingProvider>
         </Grid.Col>
       </Grid>
     </>
