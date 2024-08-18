@@ -7,12 +7,12 @@ import Thead from './Thead';
 import Tbody from './Tbody';
 import { useSearchContext } from '../../context/SearchContext';
 import { useFilterContext } from '../../context/IssueFilterContext';
-import { useState } from 'react';
+import { useScrollingContext } from '../../context/ScrollingContext';
 
 const IssuesTable = () => {
   const { searchValue } = useSearchContext();
   const { filterValue } = useFilterContext();
-  const [scrolling, setIsScrolling] = useState<boolean>(false);
+  const { setIsScrolling } = useScrollingContext();
   const { data: myIssues } = useQuery({
     queryKey: ['my_issues'],
     queryFn: listMyIssues,
@@ -49,7 +49,7 @@ const IssuesTable = () => {
       >
         <Paper flex={1} radius="sm">
           <Table className={classes.table} highlightOnHover>
-            <Thead scrolling={scrolling} />
+            <Thead />
             <Tbody issues={myIssues!} />
           </Table>
         </Paper>

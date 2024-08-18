@@ -12,6 +12,7 @@ import { SearchProvider } from '../context/SearchContext';
 import FilterBar from '../layout/search/FilterBar';
 import { FilterProvider } from '../context/IssueFilterContext';
 import IssuesCount from '../components/stats/dashboard/IssuesCount';
+import { ScrollingProvider } from '../context/ScrollingContext';
 
 const DashboardScreen = () => {
   const { open, toggleModal } = useModalContext();
@@ -31,7 +32,9 @@ const DashboardScreen = () => {
         </StatsContainer>
         <ScreenHeader label="Deine Fehlermeldungen" />
         <FilterBar />
-        <IssuesTable />
+        <ScrollingProvider>
+          <IssuesTable />
+        </ScrollingProvider>
       </FilterProvider>
     </SearchProvider>
   );

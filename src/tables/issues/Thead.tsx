@@ -1,12 +1,13 @@
 import { Table } from '@mantine/core';
 import classes from './IssuesTable.module.css';
+import { useScrollingContext } from '../../context/ScrollingContext';
 
 interface IProps {
   hasCode?: boolean;
-  scrolling?: boolean;
 }
 
-const Thead = ({ hasCode = true, scrolling = false }: IProps) => {
+const Thead = ({ hasCode = true }: IProps) => {
+  const { scrolling } = useScrollingContext();
   return (
     <Table.Thead
       className={classes.header}
