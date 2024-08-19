@@ -27,6 +27,7 @@ import CoursesScreen from './screens/CoursesScreen';
 import CourseDetailsScreen from './screens/CourseDetailsScreen';
 import UsersScreen from './screens/UsersScreen';
 import NotificationScreen from './screens/NotificationScreen';
+import NotificationDetailsScreen from './screens/NotificationDetailsScreen';
 
 // instantiate QueryClient
 const queryClient = new QueryClient();
@@ -55,6 +56,10 @@ const App = () => {
                 />
                 <Route path="messages" element={<MessagesScreen />} />
                 <Route path="notifications" element={<NotificationScreen />} />
+                <Route
+                  path="notifications/:id"
+                  element={<NotificationDetailsScreen />}
+                />
                 <Route path="account" element={<AccountScreen />} />
                 <Route path="admin" element={<AdminDashboardScreen />} />
                 <Route
