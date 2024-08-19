@@ -18,6 +18,7 @@ export const NotificationsProvider = ({ children }: INotificationsProps) => {
   const { data: notifications } = useQuery({
     queryKey: ['notifications'],
     queryFn: listNotifications,
+    refetchInterval: 5000,
   });
   return (
     <NotificationsContext.Provider value={{ notifications }}>
