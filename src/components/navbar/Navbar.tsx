@@ -1,6 +1,7 @@
 import { Stack } from '@mantine/core';
 import classes from './Navbar.module.css';
 import {
+  IconAlertCircle,
   IconBook,
   IconHome,
   IconMessage,
@@ -12,6 +13,7 @@ import Navlink from '../navlink/Navlink';
 import ColorSchemeButton from '../buttons/ColorSchemeButton';
 import { ReactNode } from 'react';
 import { useAuthContext } from '../../context/AuthContext';
+import NotificationsLink from '../navlink/NotificationsLink';
 
 interface INavLinkInfo {
   path: string;
@@ -57,6 +59,7 @@ const navLinks: INavLinks = {
       label: 'Dashboard',
       icon: <IconHome size={20} />,
     },
+
     {
       path: 'messages',
       label: 'Nachrichten',
@@ -95,6 +98,11 @@ const Navbar = () => {
         {navLinks[auth?.role]?.map((link) => (
           <Navlink key={link.path} {...link} />
         ))}
+        <NotificationsLink
+          path="notifications"
+          label="Benachrichtigungen"
+          icon={<IconAlertCircle size={20} />}
+        />
       </Stack>
       <Stack gap={0}>
         <ColorSchemeButton />

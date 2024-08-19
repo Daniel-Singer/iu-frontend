@@ -6,6 +6,7 @@ import { useQueries } from '@tanstack/react-query';
 import { AuthProvider } from '../context/AuthContext';
 import { listCourses } from '../queries/courses/listCourses';
 import { listStatus } from '../queries/status/listStatus';
+import { NotificationsProvider } from '../context/NotificationsContext';
 
 /**
  * ScreenLayout
@@ -41,12 +42,14 @@ const ScreenLayout = () => {
   });
   return (
     <AuthProvider>
-      <div className={classes.screen}>
-        <Navbar />
-        <div className={classes.main}>
-          <Outlet />
+      <NotificationsProvider>
+        <div className={classes.screen}>
+          <Navbar />
+          <div className={classes.main}>
+            <Outlet />
+          </div>
         </div>
-      </div>
+      </NotificationsProvider>
     </AuthProvider>
   );
 };
