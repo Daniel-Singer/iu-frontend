@@ -1,17 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
 import { Anchor, Table, Text, ThemeIcon } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
-import { listNotifications } from '../../queries/notifications/listNotifications';
 import classes from './NotificationsTable.module.css';
 import { IconMail, IconMailOpened } from '@tabler/icons-react';
+import { useNotificationsContext } from '../../context/NotificationsContext';
 
 const NotificationsTable = () => {
-  const { data: notifications } = useQuery({
-    queryKey: ['notifications'],
-    queryFn: listNotifications,
-  });
+  const { notifications } = useNotificationsContext();
   const navigate = useNavigate();
   return (
     <Table highlightOnHover className={classes.table}>
