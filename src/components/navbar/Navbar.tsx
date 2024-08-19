@@ -1,6 +1,7 @@
 import { Stack } from '@mantine/core';
 import classes from './Navbar.module.css';
 import {
+  IconAlertCircle,
   IconBook,
   IconHome,
   IconMessage,
@@ -36,6 +37,11 @@ const navLinks: INavLinks = {
       icon: <IconMessage size={20} />,
     },
     {
+      path: 'notifications',
+      label: 'Benachrichtigungen',
+      icon: <IconAlertCircle size={20} />,
+    },
+    {
       path: 'users?role=student',
       label: 'Studierende',
       icon: <IconSchool size={20} />,
@@ -57,10 +63,16 @@ const navLinks: INavLinks = {
       label: 'Dashboard',
       icon: <IconHome size={20} />,
     },
+
     {
       path: 'messages',
       label: 'Nachrichten',
       icon: <IconMessage size={20} />,
+    },
+    {
+      path: 'notifications',
+      label: 'Benachrichtigungen',
+      icon: <IconAlertCircle size={20} />,
     },
   ],
   tutor: [
@@ -73,6 +85,11 @@ const navLinks: INavLinks = {
       path: 'messages',
       label: 'Nachrichten',
       icon: <IconMessage size={20} />,
+    },
+    {
+      path: 'notifications',
+      label: 'Benachrichtigungen',
+      icon: <IconAlertCircle size={20} />,
     },
     {
       path: 'users?role=student',
