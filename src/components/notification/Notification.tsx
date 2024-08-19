@@ -28,7 +28,7 @@ const Notification = () => {
       {isSuccess && !isLoading ? (
         <Stack>
           <Text>{notification?.head}</Text>
-          <Text>{notification?.body}</Text>
+          <div dangerouslySetInnerHTML={{ __html: notification?.body }}></div>
           <Group>
             <Text>Folgender Link führt Sie zur Meldung: </Text>
             <Anchor
