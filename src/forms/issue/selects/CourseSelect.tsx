@@ -8,10 +8,12 @@ const CourseSelect = () => {
     queryKey: ['courses'],
     queryFn: listCourses,
     select: (data) => {
-      return data?.map(({ id, code, title }) => ({
-        value: String(id!),
-        label: `${code} - ${title}`,
-      }));
+      return data
+        ?.filter(({ active }) => active)
+        .map(({ id, code, title }) => ({
+          value: String(id!),
+          label: `${code} - ${title}`,
+        }));
     },
   });
 
