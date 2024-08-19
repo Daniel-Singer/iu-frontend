@@ -28,6 +28,7 @@ import CourseDetailsScreen from './screens/CourseDetailsScreen';
 import UsersScreen from './screens/UsersScreen';
 import NotificationScreen from './screens/NotificationScreen';
 import NotificationDetailsScreen from './screens/NotificationDetailsScreen';
+import UserDetailsScreen from './screens/UserDetailsScreen';
 
 // instantiate QueryClient
 const queryClient = new QueryClient();
@@ -74,6 +75,7 @@ const App = () => {
                       </ModalProvider>
                     }
                   />
+                  <Route path=":id" element={<UserDetailsScreen />} />
                 </Route>
                 <Route
                   path="courses"

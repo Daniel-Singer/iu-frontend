@@ -1,10 +1,12 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getUser } from '../queries/users/getUser';
 import ScreenHeader from '../components/screen/ScreenHeader';
+import { useEffect } from 'react';
 
 const UserDetailsScreen = () => {
   const params = useParams();
+  const queryClient = useQueryClient();
   const {
     data: user,
     isSuccess,
@@ -14,6 +16,11 @@ const UserDetailsScreen = () => {
     queryFn: () => getUser(params?.id!),
     enabled: !!params.id,
   });
+
+  useEffect(() => {
+    return () => queryClient.removeQueries({ queryKey: ['user'] });
+  }, []);
+
   return (
     <>
       <ScreenHeader
