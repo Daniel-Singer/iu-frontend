@@ -11,6 +11,7 @@ const CommentList = () => {
     queryKey: ['comments'],
     queryFn: () => listIssuesComments(params?.id!),
     enabled: !!params.id,
+    refetchInterval: 5000,
   });
   if (isSuccess && comments?.length! > 0) {
     return (
