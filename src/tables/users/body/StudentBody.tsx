@@ -3,7 +3,7 @@ import { Table, Text } from '@mantine/core';
 import classes from '../UsersTable.module.css';
 
 interface IProps {
-  users: IStudent[];
+  users: IUserReceive[];
 }
 
 const StudentBody = ({ users }: IProps) => {
@@ -21,6 +21,11 @@ const StudentBody = ({ users }: IProps) => {
             className={classes.name}
           >{`${student.first_name} ${student.last_name}`}</Table.Td>
           <Table.Td>{student.email}</Table.Td>
+          <Table.Td>
+            <Text size="sm" c={student.issues_count > 0 ? 'red' : 'green'}>
+              {student.issues_count}
+            </Text>
+          </Table.Td>
         </Table.Tr>
       ))}
     </Table.Tbody>

@@ -1,9 +1,9 @@
-import { Table } from '@mantine/core';
+import { Table, Text } from '@mantine/core';
 
 import classes from '../UsersTable.module.css';
 
 interface IProps {
-  users: IStudent[];
+  users: IUserReceive[];
 }
 
 const TutorBody = ({ users }: IProps) => {
@@ -16,6 +16,11 @@ const TutorBody = ({ users }: IProps) => {
             className={classes.name}
           >{`${tutor.first_name} ${tutor.last_name}`}</Table.Td>
           <Table.Td>{tutor.email}</Table.Td>
+          <Table.Td>
+            <Text size="sm" c={tutor.assigned_count > 0 ? 'red' : 'green'}>
+              {tutor.assigned_count}
+            </Text>
+          </Table.Td>
         </Table.Tr>
       ))}
     </Table.Tbody>

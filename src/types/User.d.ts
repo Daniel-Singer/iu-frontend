@@ -9,10 +9,15 @@ interface IUserBase {
   accessToken?: string;
 }
 
-interface IStudent extends IUserBase {
+interface IUserCreate extends IUserBase {
   matrikel_nr: string | number;
   cos?: string;
-  role: 'student';
+  role: 'student' | 'tutor' | 'admin';
+}
+
+interface IUserReceive extends IUserCreate {
+  issues_count: number;
+  assigned_count: number;
 }
 
 interface ITutor extends IUserBase {

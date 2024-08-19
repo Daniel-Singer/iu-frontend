@@ -12,8 +12,8 @@ interface ITheadLabels {
 
 const labels: ITheadLabels = {
   admin: ['ID', 'Name', 'E-Mail'],
-  tutor: ['ID', 'Name', 'E-Mail'],
-  student: ['ID', 'Matrikel-Nr.', 'Name', 'E-Mail'],
+  tutor: ['ID', 'Name', 'E-Mail', 'Zugewiesene Fehlermeldungen'],
+  student: ['ID', 'Matrikel-Nr.', 'Name', 'E-Mail', 'Anzahl Fehlermeldungen'],
 };
 
 const Thead = ({ role }: IProps) => {
