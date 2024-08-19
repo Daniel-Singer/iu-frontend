@@ -1,16 +1,23 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getNotification } from '../../queries/notifications/getNotification';
 import { Anchor, Group, Paper, Stack, Text } from '@mantine/core';
+import { useEffect } from 'react';
 
 const Notification = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { data: notification } = useQuery({
+  const queryClient = useQueryClient();
+  const { data: notification, isSuccess } = useQuery({
     queryKey: ['notification'],
     queryFn: () => getNotification(params?.id!),
     enabled: !!params?.id,
   });
+  useEffect(() => {
+    if (isSuccess) {
+      queryClient.invalidateQueries({ queryKey: ['notifications'] });
+    }
+  }, [isSuccess]);
   return (
     <Paper flex={1} p="xs">
       <Stack>

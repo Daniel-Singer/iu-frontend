@@ -13,6 +13,7 @@ import Navlink from '../navlink/Navlink';
 import ColorSchemeButton from '../buttons/ColorSchemeButton';
 import { ReactNode } from 'react';
 import { useAuthContext } from '../../context/AuthContext';
+import NotificationsLink from '../navlink/NotificationsLink';
 
 interface INavLinkInfo {
   path: string;
@@ -35,11 +36,6 @@ const navLinks: INavLinks = {
       path: 'messages',
       label: 'Nachrichten',
       icon: <IconMessage size={20} />,
-    },
-    {
-      path: 'notifications',
-      label: 'Benachrichtigungen',
-      icon: <IconAlertCircle size={20} />,
     },
     {
       path: 'users?role=student',
@@ -69,11 +65,6 @@ const navLinks: INavLinks = {
       label: 'Nachrichten',
       icon: <IconMessage size={20} />,
     },
-    {
-      path: 'notifications',
-      label: 'Benachrichtigungen',
-      icon: <IconAlertCircle size={20} />,
-    },
   ],
   tutor: [
     {
@@ -85,11 +76,6 @@ const navLinks: INavLinks = {
       path: 'messages',
       label: 'Nachrichten',
       icon: <IconMessage size={20} />,
-    },
-    {
-      path: 'notifications',
-      label: 'Benachrichtigungen',
-      icon: <IconAlertCircle size={20} />,
     },
     {
       path: 'users?role=student',
@@ -112,6 +98,11 @@ const Navbar = () => {
         {navLinks[auth?.role]?.map((link) => (
           <Navlink key={link.path} {...link} />
         ))}
+        <NotificationsLink
+          path="notifications"
+          label="Benachrichtigungen"
+          icon={<IconAlertCircle size={20} />}
+        />
       </Stack>
       <Stack gap={0}>
         <ColorSchemeButton />
