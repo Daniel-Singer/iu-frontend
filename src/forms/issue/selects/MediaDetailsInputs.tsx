@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { useIssueFormContext } from '../context';
 import { NumberInput, SimpleGrid, TextInput } from '@mantine/core';
+import { TimeInput } from '@mantine/dates'
 
 interface IMediaDetail {
   [key: string]: ReactNode;
@@ -41,7 +42,7 @@ const MediaDetailsInputs = () => {
     video: (
       <SimpleGrid cols={2}>
         <TextInput label="Titel" {...form.getInputProps('issue_media.label')} />
-        <NumberInput
+        <TimeInput withSeconds
           label="Zeitstempel"
           {...form.getInputProps('issue_media.timestamp')}
         />
@@ -55,7 +56,7 @@ const MediaDetailsInputs = () => {
     audio: (
       <SimpleGrid cols={2}>
         <TextInput label="Titel" {...form.getInputProps('issue_media.label')} />
-        <NumberInput
+        <TimeInput withSeconds
           label="Zeitstempel"
           {...form.getInputProps('issue_media.timestamp')}
         />
