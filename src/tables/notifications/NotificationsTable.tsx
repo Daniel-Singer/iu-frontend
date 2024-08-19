@@ -10,6 +10,7 @@ import Thead from './Thead';
 const NotificationsTable = () => {
   const { notifications } = useNotificationsContext();
   const navigate = useNavigate();
+  // TODO - Table muss scrollbar gemacht werden
   if (notifications?.length! > 0) {
     return (
       <Table highlightOnHover className={classes.table}>
