@@ -2,6 +2,7 @@ import { Paper, Tabs } from '@mantine/core';
 import StatusTable from '../../tables/status/StatusTable';
 import CommentList from '../comment/CommentList';
 import MediaTable from '../../tables/media/MediaTable';
+import { ModalProvider } from '../../context/ModalContext';
 
 const TimelineTabs = () => {
   return (
@@ -19,7 +20,9 @@ const TimelineTabs = () => {
           <StatusTable />
         </Tabs.Panel>
         <Tabs.Panel value="media">
-          <MediaTable />
+          <ModalProvider>
+            <MediaTable />
+          </ModalProvider>
         </Tabs.Panel>
       </Tabs>
     </Paper>

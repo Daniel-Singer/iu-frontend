@@ -4,7 +4,9 @@ interface IReturnDownload {
   imgUrl: string;
 }
 
-export const downloadMedia = async (id: string): Promise<IReturnDownload> => {
+export const downloadMedia = async (
+  id: string | number
+): Promise<IReturnDownload> => {
   const { data } = await axios.get(`/api/v1/media/${id}`, {
     responseType: 'blob',
   });
