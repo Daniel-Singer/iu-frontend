@@ -11,6 +11,7 @@ import { IssueFormProvider, useIssueForm } from './context';
 import CategorySelect from './selects/CategorySelect';
 import MediaSelect from './selects/MediaSelect';
 import MediaDetailsInputs from './selects/MediaDetailsInputs';
+import FileSelect from './selects/FileSelect';
 
 const IssueForm = () => {
   const { toggleModal } = useModalContext();
@@ -20,7 +21,7 @@ const IssueForm = () => {
       description: '',
       course_id: undefined,
       category_id: undefined,
-      attached_file: '',
+      attached_file: null,
       issue_media: {
         file_path: undefined,
         media_type: undefined,
@@ -31,13 +32,13 @@ const IssueForm = () => {
         label: undefined,
       },
     },
-    validate: {
-      category_id: (value) => (value ? null : 'Kategorie erforderlich'),
-      course_id: (value) => (value ? null : 'KursID erforderlich'),
-      title: (value) => (value !== '' ? null : 'Kurzbeschreibung erforderlich'),
-      description: (value) =>
-        value !== '' ? null : 'Beschreibung erforderlich',
-    },
+    // validate: {
+    //   category_id: (value) => (value ? null : 'Kategorie erforderlich'),
+    //   course_id: (value) => (value ? null : 'KursID erforderlich'),
+    //   title: (value) => (value !== '' ? null : 'Kurzbeschreibung erforderlich'),
+    //   description: (value) =>
+    //     value !== '' ? null : 'Beschreibung erforderlich',
+    // },
   });
 
   const queryClient = useQueryClient();
@@ -72,7 +73,7 @@ const IssueForm = () => {
   };
   return (
     <IssueFormProvider form={form}>
-      <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
+      <form onSubmit={form.onSubmit((values) => console.log(values))}>
         <Stack>
           <CourseSelect />
           <CategorySelect />
@@ -90,11 +91,7 @@ const IssueForm = () => {
           />
           <MediaSelect />
           <MediaDetailsInputs />
-          <FileInput
-            label="Datei anhängen"
-            leftSection={<IconPaperclip size={18} />}
-            {...form.getInputProps('attached_file')}
-          />
+          <FileSelect />
           <SubmitButton>Speichern</SubmitButton>
         </Stack>
       </form>
