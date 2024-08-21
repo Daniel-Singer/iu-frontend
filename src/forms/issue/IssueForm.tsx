@@ -1,5 +1,4 @@
-import { FileInput, Stack, TextInput, Textarea } from '@mantine/core';
-import { IconPaperclip } from '@tabler/icons-react';
+import { Stack, TextInput, Textarea } from '@mantine/core';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import SubmitButton from '../../components/buttons/SubmitButton';
@@ -32,13 +31,13 @@ const IssueForm = () => {
         label: undefined,
       },
     },
-    // validate: {
-    //   category_id: (value) => (value ? null : 'Kategorie erforderlich'),
-    //   course_id: (value) => (value ? null : 'KursID erforderlich'),
-    //   title: (value) => (value !== '' ? null : 'Kurzbeschreibung erforderlich'),
-    //   description: (value) =>
-    //     value !== '' ? null : 'Beschreibung erforderlich',
-    // },
+    validate: {
+      category_id: (value) => (value ? null : 'Kategorie erforderlich'),
+      course_id: (value) => (value ? null : 'KursID erforderlich'),
+      title: (value) => (value !== '' ? null : 'Kurzbeschreibung erforderlich'),
+      description: (value) =>
+        value !== '' ? null : 'Beschreibung erforderlich',
+    },
   });
 
   const queryClient = useQueryClient();
@@ -73,7 +72,7 @@ const IssueForm = () => {
   };
   return (
     <IssueFormProvider form={form}>
-      <form onSubmit={form.onSubmit((values) => console.log(values))}>
+      <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Stack>
           <CourseSelect />
           <CategorySelect />
