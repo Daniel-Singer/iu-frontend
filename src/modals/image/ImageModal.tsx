@@ -32,10 +32,11 @@ const ImageModal = ({ imgUrl }: IProps) => {
 
   const { mutate: deleteFile } = useMutation({
     mutationFn: deleteMediaFile,
-    onSuccess: (data) => {
+    onSuccess: () => {
+      navigate(location.pathname, { replace: true });
       showNotification('success', 'DATEI', 'Datei erfolgreich entfernt');
-      queryClient.invalidateQueries({
-        queryKey: ['image_media'],
+      queryClient.removeQueries({
+        queryKey: ['issue_media'],
       });
       toggleModal();
     },
