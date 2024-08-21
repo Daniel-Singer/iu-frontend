@@ -1,6 +1,7 @@
 interface IIssueMediaBase {
   id?: number;
   file_path: string | undefined;
+  mimetype?: string | undefined;
   media_type: string | undefined;
   page: number | undefined;
   line: number | undefined;
