@@ -8,6 +8,14 @@ export const createIssue = async (
     course_id: parseInt(issue.course_id!),
     category_id: parseInt(issue.category_id!),
   };
-  const { data } = await axios.post(`/api/v1/issues`, formattedData);
-  return data;
+  const { data: issueData } = await axios.post(
+    `/api/v1/issues`,
+    formattedData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }
+  );
+  return issueData;
 };
