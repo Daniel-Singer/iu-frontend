@@ -1,8 +1,12 @@
-import { Alert, Image, Modal, Text } from '@mantine/core';
+import { Alert, Group, Image, Modal, Stack, Text } from '@mantine/core';
 import { useModalContext } from '../../context/ModalContext';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { downloadMedia } from '../../queries/media/downloadMedia';
+import DeleteButton from '../../components/buttons/DeleteButton';
+import { deleteMediaFile } from '../../queries/media/deleteMediaFile';
+import { showNotification } from '../../helpers/notifications/showNotification';
+import { useMemo } from 'react';
 
 interface IProps {
   imgUrl: string;
@@ -15,11 +19,26 @@ const ImageModal = ({ imgUrl }: IProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const mediaId = useMemo(() => {
+    return location.search?.split('=')[1];
+  }, [location]);
+
   const { data } = useQuery({
     queryKey: ['img_url'],
-    queryFn: () => downloadMedia(location.search?.split('=')[1]),
-    enabled: !!location.search.split('=')[1] && open,
+    queryFn: () => downloadMedia(mediaId!),
+    enabled: !!mediaId && open,
     retry: false,
+  });
+
+  const { mutate: deleteFile } = useMutation({
+    mutationFn: deleteMediaFile,
+    onSuccess: (data) => {
+      showNotification('success', 'DATEI', 'Datei erfolgreich entfernt');
+      queryClient.invalidateQueries({
+        queryKey: ['image_media'],
+      });
+      toggleModal();
+    },
   });
 
   const handleClose = () => {
@@ -33,7 +52,14 @@ const ImageModal = ({ imgUrl }: IProps) => {
   return (
     <Modal opened={open} onClose={handleClose} size="xl">
       {data?.imgUrl ? (
-        <Image src={data?.imgUrl} />
+        <Stack>
+          <Image src={data?.imgUrl} />
+          <Group>
+            <DeleteButton onClick={() => deleteFile(mediaId!)}>
+              Datei Löschen
+            </DeleteButton>
+          </Group>
+        </Stack>
       ) : (
         <Alert color="red" m="xs">
           <Text c="red" size="sm">
