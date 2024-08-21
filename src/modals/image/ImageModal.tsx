@@ -15,7 +15,7 @@ const ImageModal = ({ imgUrl }: IProps) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { data, isError, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ['img_url'],
     queryFn: () => downloadMedia(location.search?.split('=')[1]),
     enabled: !!location.search.split('=')[1] && open,
