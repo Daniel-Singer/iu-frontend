@@ -19,6 +19,7 @@ const ImageModal = ({ imgUrl }: IProps) => {
     queryKey: ['img_url'],
     queryFn: () => downloadMedia(location.search?.split('=')[1]),
     enabled: !!location.search.split('=')[1] && open,
+    retry: false,
   });
 
   const handleClose = () => {
