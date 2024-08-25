@@ -5,6 +5,7 @@ import { Alert, Group, Stack, Table, Text } from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 import ImageColumn from './ImageColumn';
 import UploadButton from '../../components/buttons/UploadButton';
+import { useRef } from 'react';
 
 const MediaTable = () => {
   const params = useParams();
@@ -13,6 +14,8 @@ const MediaTable = () => {
     queryFn: () => getIssueMedia(params?.id!),
     enabled: !!params.id,
   });
+
+  const ref = useRef<HTMLInputElement | null>(null);
 
   if (media?.length! > 0) {
     return (
@@ -38,8 +41,11 @@ const MediaTable = () => {
   } else {
     return (
       <Stack gap="xs" p="xs">
+        <input type="file" ref={ref} style={{ display: 'none' }} />
         <Group justify="flex-end">
-          <UploadButton>Datei hochladen</UploadButton>
+          <UploadButton onClick={() => ref.current?.click()}>
+            Datei hochladen
+          </UploadButton>
         </Group>
         <Alert icon={<IconAlertCircle size={18} />}>
           <Text size="sm" c="blue">
