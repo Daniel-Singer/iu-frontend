@@ -90,7 +90,7 @@ const IssueForm = () => {
           />
           <MediaSelect />
           <MediaDetailsInputs />
-          <FileSelect />
+          <FileSelect form={form} />
           <SubmitButton>Speichern</SubmitButton>
         </Stack>
       </form>

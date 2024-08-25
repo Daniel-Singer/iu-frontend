@@ -1,9 +1,11 @@
 import { FileInput } from '@mantine/core';
 import { IconPaperclip } from '@tabler/icons-react';
-import { useIssueFormContext } from '../context';
 
-const FileSelect = () => {
-  const form = useIssueFormContext();
+interface IProps {
+  form: any;
+}
+
+const FileSelect = ({ form }: IProps) => {
   if (
     form.values.issue_media.media_type !== 'video' &&
     form.values.issue_media.media_type !== 'audio' &&
