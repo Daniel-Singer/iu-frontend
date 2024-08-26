@@ -5,6 +5,19 @@ import { listStatus } from '../../queries/status/listStatus';
 import { useParams } from 'react-router-dom';
 import { getIssue } from '../../queries/issues/getIssue';
 import { useEffect } from 'react';
+import SubmitButton from '../../components/buttons/SubmitButton';
+
+interface IButtonStatusText {
+  [key: string]: string;
+}
+
+const buttonStatusText: IButtonStatusText = {
+  '1': 'Einreichen',
+  '2': 'Update',
+  '3': 'Ticket schließen',
+  '4': 'Ablehnen',
+  '5': 'Ticket aussetzen',
+};
 
 const StatusForm = () => {
   const params = useParams();
@@ -39,7 +52,7 @@ const StatusForm = () => {
     }
   }, [issue, isLoading]);
   return (
-    <form>
+    <form onSubmit={form.onSubmit((values) => console.log(values))}>
       <Stack>
         <Select
           data={status}
@@ -48,6 +61,9 @@ const StatusForm = () => {
           {...form.getInputProps('status.id')}
           allowDeselect={false}
         />
+        <SubmitButton disabled={!form.isDirty()}>
+          {buttonStatusText[form.values.status.id] ?? 'Updates'}
+        </SubmitButton>
       </Stack>
     </form>
   );
