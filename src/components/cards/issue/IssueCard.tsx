@@ -47,7 +47,6 @@ const IssueCard = () => {
         <CardRow label="ID" value={issue?.id!} loading={isLoading} />
         <CardRow label="Titel" value={issue?.title} loading={isLoading} />
         <CardRow label="Beschreibung" value={issue?.description} />
-        <Divider />
         <MediaInfo />
         <Divider />
         <CardRow
