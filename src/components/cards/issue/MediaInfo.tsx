@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { getIssueMedia } from '../../../queries/media/getIssueMedia';
 import CardRow from '../../../layout/card/CardRow';
-import { mediaLabels } from '../../../constants/media';
+import { mediaDetailLabels, mediaLabels } from '../../../constants/media';
 import { Group, Text, ThemeIcon } from '@mantine/core';
 
 const MediaInfo = () => {
@@ -25,6 +25,18 @@ const MediaInfo = () => {
           </Group>
         }
       />
+      {media?.page ? (
+        <CardRow label={mediaDetailLabels.page} value={media?.page} />
+      ) : null}
+      {media?.line ? (
+        <CardRow label={mediaDetailLabels.line} value={media?.line} />
+      ) : null}
+      {media?.url ? (
+        <CardRow label={mediaDetailLabels.url} value={media?.url} />
+      ) : null}
+      {media?.chapter ? (
+        <CardRow label={mediaDetailLabels.chapter} value={media?.chapter} />
+      ) : null}
     </>
   );
 };

@@ -29,6 +29,7 @@ const IssueForm = () => {
         timestamp: undefined,
         url: undefined,
         label: undefined,
+        chapter: undefined,
       },
     },
     validate: {

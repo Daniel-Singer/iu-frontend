@@ -43,6 +43,10 @@ interface IMediaLabel {
   };
 }
 
+interface IMediaDetailLabel {
+  [key: string]: string;
+}
+
 export const mediaLabels: IMediaLabel = {
   pdf: {
     label: 'Skript/PDF',
@@ -64,4 +68,12 @@ export const mediaLabels: IMediaLabel = {
     label: 'Audio',
     icon: <IconRadio size={16} />,
   },
+};
+
+export const mediaDetailLabels: IMediaDetailLabel = {
+  page: 'Seite',
+  line: 'Zeile',
+  timestamp: 'Zeitstempel',
+  url: 'URL',
+  chapter: 'Kapitel',
 };
