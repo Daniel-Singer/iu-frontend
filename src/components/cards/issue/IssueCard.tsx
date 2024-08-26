@@ -1,4 +1,4 @@
-import { Group, Paper, Stack } from '@mantine/core';
+import { Divider, Group, Paper, Stack } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import { getIssue } from '../../../queries/issues/getIssue';
 import { useParams } from 'react-router-dom';
@@ -11,6 +11,7 @@ import CommentModal from '../../../modals/comment/CommentModal';
 import IssueEditModal from '../../../modals/issues/IssueEditModal';
 import { ModalProvider } from '../../../context/ModalContext';
 import StatusLabel from '../../status/StatusLabel';
+import MediaInfo from './MediaInfo';
 
 const IssueCard = () => {
   const [commentOpen, setCommentOpen] = useState<boolean>(false);
@@ -44,6 +45,11 @@ const IssueCard = () => {
           }
         />
         <CardRow label="ID" value={issue?.id!} loading={isLoading} />
+        <CardRow label="Titel" value={issue?.title} loading={isLoading} />
+        <CardRow label="Beschreibung" value={issue?.description} />
+        <Divider />
+        <MediaInfo />
+        <Divider />
         <CardRow
           label="Kurs"
           value={`${issue?.course.code!} - ${issue?.course.title!}`}
@@ -54,16 +60,16 @@ const IssueCard = () => {
           value={`${issue?.course.tutor.first_name} ${issue?.course?.tutor.last_name}`}
           loading={isLoading}
         />
-        <CardRow label="Titel" value={issue?.title} loading={isLoading} />
+        <Divider />
         <CardRow
           label="Erstellt"
           value={dayjs(issue?.created_at).format('DD.MM.YYYY')}
         />
-        <CardRow label="Beschreibung" value={issue?.description} />
         <CardRow
           label="Letzte Änderung"
           value={dayjs(issue?.updated_at).format('DD.MM.YYYY')}
         />
+        <Divider />
       </Stack>
       <Group mt="sm" justify="space-between">
         <CommentButton
