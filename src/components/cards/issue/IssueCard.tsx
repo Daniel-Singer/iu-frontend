@@ -8,15 +8,15 @@ import { useState } from 'react';
 import CommentButton from '../../buttons/CommentButton';
 import EditButton from '../../buttons/EditButton';
 import CommentModal from '../../../modals/comment/CommentModal';
-import IssueEditModal from '../../../modals/issues/IssueEditModal';
-import { ModalProvider } from '../../../context/ModalContext';
 import StatusLabel from '../../status/StatusLabel';
 import MediaInfo from './MediaInfo';
 import CardLabel from '../label/CardLabel';
+import AdminOnly from '../../../auth/AdminOnly';
+import { ModalProvider } from '../../../context/ModalContext';
+import MediaModal from '../../../modals/media/MediaModal';
 
 const IssueCard = () => {
   const [commentOpen, setCommentOpen] = useState<boolean>(false);
-  const [editOpen, setEditOpen] = useState<boolean>(false);
 
   const params = useParams();
   const { data: issue, isLoading } = useQuery({
@@ -26,15 +26,13 @@ const IssueCard = () => {
   });
   return (
     <Paper p="xs">
-      <ModalProvider>
-        <CommentModal
-          open={commentOpen}
-          toggle={() => setCommentOpen(!commentOpen)}
-        />
-      </ModalProvider>
-      <ModalProvider>
+      <CommentModal
+        open={commentOpen}
+        toggle={() => setCommentOpen(!commentOpen)}
+      />
+      {/* <ModalProvider>
         <IssueEditModal open={editOpen} toggle={() => setEditOpen(!editOpen)} />
-      </ModalProvider>
+      </ModalProvider> */}
       <Stack>
         <CardLabel>Übersicht</CardLabel>
         <CardRow
@@ -55,7 +53,15 @@ const IssueCard = () => {
         />
         <CardRow label="Titel" value={issue?.title} loading={isLoading} />
         <CardRow label="Beschreibung" value={issue?.description} />
-        <MediaInfo />
+        <AdminOnly>
+          <Group>
+            <EditButton variant="light">status ändern</EditButton>
+          </Group>
+        </AdminOnly>
+        <ModalProvider>
+          <MediaModal />
+          <MediaInfo />
+        </ModalProvider>
         <Divider />
         <CardLabel>Kursinformationen</CardLabel>
         <CardRow
@@ -87,9 +93,6 @@ const IssueCard = () => {
         >
           Kommentieren
         </CommentButton>
-        <EditButton onClick={() => setEditOpen(!editOpen)}>
-          Bearbeiten
-        </EditButton>
       </Group>
     </Paper>
   );
