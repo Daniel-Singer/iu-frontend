@@ -1,23 +1,21 @@
 import { Modal, Text } from '@mantine/core';
 import CommentForm from '../../forms/comment/CommentForm';
+import { useModalContext } from '../../context/ModalContext';
 
-interface IProps {
-  open: boolean;
-  toggle: () => void;
-}
+const CommentModal = () => {
+  const { open, toggleModal } = useModalContext();
 
-const CommentModal = ({ open, toggle }: IProps) => {
   return (
     <Modal
       opened={open}
-      onClose={toggle}
+      onClose={toggleModal}
       title={
         <Text size="sm" c="blue">
           KOMMENTAR ERSTELLEN
         </Text>
       }
     >
-      <CommentForm toggle={toggle} />
+      <CommentForm toggle={toggleModal} />
     </Modal>
   );
 };

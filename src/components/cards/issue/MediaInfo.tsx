@@ -4,6 +4,9 @@ import { getIssueMedia } from '../../../queries/media/getIssueMedia';
 import CardRow from '../../../layout/card/CardRow';
 import { mediaDetailLabels, mediaLabels } from '../../../constants/media';
 import { Divider, Group, Text, ThemeIcon } from '@mantine/core';
+import CardLabel from '../label/CardLabel';
+import EditButton from '../../buttons/EditButton';
+import { useModalContext } from '../../../context/ModalContext';
 
 const MediaInfo = () => {
   const params = useParams();
@@ -12,12 +15,28 @@ const MediaInfo = () => {
     queryFn: () => getIssueMedia(params?.id!),
     enabled: !!params?.id,
   });
+  const { toggleModal } = useModalContext();
   if (!media?.media_type) {
-    return null;
+    return (
+      <>
+        <Divider />
+        <CardLabel>Medium</CardLabel>
+        <Text size="sm" c="red">
+          Noch keine Details zur Identifikation des Fehlers in Kursmedien
+          hinzugefügt
+        </Text>
+        <Group>
+          <EditButton onClick={toggleModal} variant="light">
+            Details ändern
+          </EditButton>
+        </Group>
+      </>
+    );
   } else {
     return (
       <>
         <Divider />
+        <CardLabel>Medium</CardLabel>
         <CardRow
           label="Lehrmaterial"
           value={
@@ -41,6 +60,9 @@ const MediaInfo = () => {
         {media?.chapter ? (
           <CardRow label={mediaDetailLabels.chapter} value={media?.chapter} />
         ) : null}
+        <EditButton onClick={toggleModal} variant="light">
+          Details ändern
+        </EditButton>
       </>
     );
   }

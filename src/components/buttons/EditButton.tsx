@@ -6,6 +6,7 @@ interface IProps {
   color?: MantineColor;
   children: string;
   onClick?: () => void;
+  variant?: string;
 }
 
 const EditButton = ({
@@ -13,6 +14,7 @@ const EditButton = ({
   color = 'grape',
   disabled = false,
   onClick,
+  variant = 'filled',
 }: IProps) => {
   return (
     <Button
@@ -20,6 +22,7 @@ const EditButton = ({
       leftSection={<IconPencil size={20} />}
       disabled={disabled}
       onClick={onClick}
+      variant={variant}
     >
       {children.toUpperCase()}
     </Button>
