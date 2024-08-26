@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { getIssueMedia } from '../../../queries/media/getIssueMedia';
 import CardRow from '../../../layout/card/CardRow';
 import { mediaDetailLabels, mediaLabels } from '../../../constants/media';
-import { Alert, Divider, Group, Text, ThemeIcon } from '@mantine/core';
+import { Divider, Group, Text, ThemeIcon } from '@mantine/core';
+import CardLabel from '../label/CardLabel';
 
 const MediaInfo = () => {
   const params = useParams();
@@ -16,17 +17,18 @@ const MediaInfo = () => {
     return (
       <>
         <Divider />
-        <Alert>
-          <Text size="sm" c="blue">
-            Keine Details zu Kursunterlagen hinterlegt
-          </Text>
-        </Alert>
+        <CardLabel>Medium</CardLabel>
+        <Text size="sm" c="red">
+          Noch keine Details zur Identifikation des Fehlers in Kursmedien
+          hinzugefügt
+        </Text>
       </>
     );
   } else {
     return (
       <>
         <Divider />
+        <CardLabel>Medium</CardLabel>
         <CardRow
           label="Lehrmaterial"
           value={

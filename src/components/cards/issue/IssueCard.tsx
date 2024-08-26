@@ -12,6 +12,7 @@ import IssueEditModal from '../../../modals/issues/IssueEditModal';
 import { ModalProvider } from '../../../context/ModalContext';
 import StatusLabel from '../../status/StatusLabel';
 import MediaInfo from './MediaInfo';
+import CardLabel from '../label/CardLabel';
 
 const IssueCard = () => {
   const [commentOpen, setCommentOpen] = useState<boolean>(false);
@@ -35,6 +36,7 @@ const IssueCard = () => {
         <IssueEditModal open={editOpen} toggle={() => setEditOpen(!editOpen)} />
       </ModalProvider>
       <Stack>
+        <CardLabel>Übersicht</CardLabel>
         <CardRow
           label="Status"
           value={
@@ -49,6 +51,7 @@ const IssueCard = () => {
         <CardRow label="Beschreibung" value={issue?.description} />
         <MediaInfo />
         <Divider />
+        <CardLabel>Kursinformationen</CardLabel>
         <CardRow
           label="Kurs"
           value={`${issue?.course.code!} - ${issue?.course.title!}`}
@@ -60,6 +63,7 @@ const IssueCard = () => {
           loading={isLoading}
         />
         <Divider />
+        <CardLabel>Zusätzliche Informationen</CardLabel>
         <CardRow
           label="Erstellt"
           value={dayjs(issue?.created_at).format('DD.MM.YYYY')}
