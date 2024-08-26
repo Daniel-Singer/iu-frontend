@@ -9,4 +9,5 @@ interface IIssueMediaBase {
   timestamp: number | undefined;
   url: string | undefined;
   media_label?: string | undefined;
+  chapter: string | undefined;
 }

@@ -26,18 +26,11 @@ const MediaDetailsInputs = () => {
       </SimpleGrid>
     ),
     app: (
-      <SimpleGrid cols={2}>
-        <NumberInput
-          label="Seite"
-          min={1}
-          {...form.getInputProps('issue_media.page')}
-        />
-        <NumberInput
-          label="Zeile"
-          min={1}
-          {...form.getInputProps('issue_media.line')}
-        />
-      </SimpleGrid>
+      <TextInput
+        label="Kapitel"
+        min={1}
+        {...form.getInputProps('issue_media.chapter')}
+      />
     ),
     video: (
       <SimpleGrid cols={2}>
@@ -50,9 +43,7 @@ const MediaDetailsInputs = () => {
       </SimpleGrid>
     ),
     mycampus: (
-      <SimpleGrid cols={2}>
-        <TextInput label="URL" {...form.getInputProps('issue_media.url')} />
-      </SimpleGrid>
+      <TextInput label="URL" {...form.getInputProps('issue_media.url')} />
     ),
     audio: (
       <SimpleGrid cols={2}>

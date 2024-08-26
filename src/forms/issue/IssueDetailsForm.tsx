@@ -15,6 +15,7 @@ import {
 import StatusSelect from './selects/StatusSelect';
 import SubmitButton from '../../components/buttons/SubmitButton';
 import DeleteButton from '../../components/buttons/DeleteButton';
+import FileSelect from './selects/FileSelect';
 
 interface IProps {
   toggle: () => void;
@@ -46,6 +47,16 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
       status: {
         id: undefined,
         label: '',
+      },
+      attached_file: null,
+      issue_media: {
+        file_path: undefined,
+        media_type: undefined,
+        page: undefined,
+        line: undefined,
+        timestamp: undefined,
+        url: undefined,
+        label: undefined,
       },
     },
   });
@@ -140,6 +151,7 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
             disabled
           />
           <StatusSelect />
+          <FileSelect form={form} />
           <Stack>
             <SubmitButton disabled={!form.isDirty()}>
               {buttonStatusText[form.values.status.id] ?? 'Updates'}

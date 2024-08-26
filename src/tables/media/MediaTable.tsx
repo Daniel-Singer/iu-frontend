@@ -1,19 +1,49 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getIssueMedia } from '../../queries/media/getIssueMedia';
 import { useParams } from 'react-router-dom';
-import { Alert, Table, Text } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons-react';
+import { Alert, FileInput, Group, Stack, Table, Text } from '@mantine/core';
+import { IconAlertCircle, IconPaperclip } from '@tabler/icons-react';
 import ImageColumn from './ImageColumn';
+import UploadButton from '../../components/buttons/UploadButton';
+import { useForm } from '@mantine/form';
+import { uploadMedia } from '../../queries/media/uploadMedia';
+import { showNotification } from '../../helpers/notifications/showNotification';
 
 const MediaTable = () => {
   const params = useParams();
+  const queryClient = useQueryClient();
   const { data: media } = useQuery({
     queryKey: ['issue_media'],
     queryFn: () => getIssueMedia(params?.id!),
     enabled: !!params.id,
   });
 
-  if (media?.length! > 0) {
+  const form = useForm({
+    initialValues: {
+      attached_file: null,
+    },
+    validate: {
+      attached_file: (value) => (!value ? 'Bitte Datei auswählen' : null),
+    },
+  });
+
+  const { mutate: uploadFile } = useMutation({
+    mutationFn: uploadMedia,
+    onSuccess: () => {
+      form.reset();
+      showNotification('success', 'DATEI', `Upload erfolgreich!`);
+      queryClient.invalidateQueries({
+        queryKey: ['issue_media'],
+      });
+    },
+    onError: (error: any) => {
+      const message = error?.response?.data?.message ?? 'Uplaod fehlgechlagen!';
+      form.reset();
+      showNotification('error', 'DATEI', message);
+    },
+  });
+
+  if (media?.file_path) {
     return (
       <>
         <Table>
@@ -24,23 +54,45 @@ const MediaTable = () => {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {media?.map(({ id, media_label, mimetype }) => (
-              <Table.Tr key={id}>
-                <ImageColumn media_label={media_label!} id={id!} />
-                <Table.Td>{mimetype}</Table.Td>
-              </Table.Tr>
-            ))}
+            <Table.Tr>
+              <ImageColumn media_label={media?.media_label!} id={media?.id!} />
+              <Table.Td>{media?.mimetype!}</Table.Td>
+            </Table.Tr>
           </Table.Tbody>
         </Table>
       </>
     );
   } else {
     return (
-      <Alert icon={<IconAlertCircle size={18} />} m="xs">
-        <Text size="sm" c="blue">
-          Keine Dateien für diese Fehlermeldung hinzugefügt
-        </Text>
-      </Alert>
+      <Stack gap="xs" p="xs">
+        <form
+          onSubmit={form.onSubmit((values) =>
+            uploadFile({
+              id: params?.id!,
+              attached_file: values.attached_file!,
+            })
+          )}
+        >
+          <Group>
+            <FileInput
+              flex={1}
+              leftSection={<IconPaperclip size={16} />}
+              placeholder="Datei wählen"
+              accept={'image/jpeg, image/png, application/pdf'}
+              {...form.getInputProps('attached_file')}
+              clearable
+            />
+            <UploadButton disabled={!form.values.attached_file} type="submit">
+              hochladen
+            </UploadButton>
+          </Group>
+        </form>
+        <Alert icon={<IconAlertCircle size={18} />}>
+          <Text size="sm" c="blue">
+            Keine Dateien für diese Fehlermeldung hinzugefügt
+          </Text>
+        </Alert>
+      </Stack>
     );
   }
 };

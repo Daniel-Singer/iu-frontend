@@ -29,6 +29,7 @@ const IssueForm = () => {
         timestamp: undefined,
         url: undefined,
         label: undefined,
+        chapter: undefined,
       },
     },
     validate: {
@@ -90,7 +91,7 @@ const IssueForm = () => {
           />
           <MediaSelect />
           <MediaDetailsInputs />
-          <FileSelect />
+          <FileSelect form={form} />
           <SubmitButton>Speichern</SubmitButton>
         </Stack>
       </form>
