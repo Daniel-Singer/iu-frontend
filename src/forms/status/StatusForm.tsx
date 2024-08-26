@@ -64,7 +64,8 @@ const StatusForm = () => {
       toggleModal();
     },
     onError: (error: any) => {
-      showNotification('error', 'STATUS', 'Update fehlgeschlagen');
+      const message = error?.response?.data?.message ?? 'Update fehlgeschlagen';
+      showNotification('error', 'STATUS', message);
       toggleModal();
     },
   });
