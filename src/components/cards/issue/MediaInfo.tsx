@@ -16,7 +16,7 @@ const MediaInfo = () => {
     enabled: !!params?.id,
   });
   const { toggleModal } = useModalContext();
-  if (!media?.media_type) {
+  if (!media?.id) {
     return (
       <>
         <Divider />
@@ -60,9 +60,11 @@ const MediaInfo = () => {
         {media?.chapter ? (
           <CardRow label={mediaDetailLabels.chapter} value={media?.chapter} />
         ) : null}
-        <EditButton onClick={toggleModal} variant="light">
-          Details ändern
-        </EditButton>
+        <Group>
+          <EditButton onClick={toggleModal} variant="light">
+            Details ändern
+          </EditButton>
+        </Group>
       </>
     );
   }
