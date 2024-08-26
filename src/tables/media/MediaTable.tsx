@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { getIssueMedia } from '../../queries/media/getIssueMedia';
 import { useParams } from 'react-router-dom';
-import { Alert, Group, Stack, Table, Text } from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons-react';
+import { Alert, FileInput, Group, Stack, Table, Text } from '@mantine/core';
+import { IconAlertCircle, IconPaperclip } from '@tabler/icons-react';
 import ImageColumn from './ImageColumn';
 import UploadButton from '../../components/buttons/UploadButton';
-import { useRef } from 'react';
+import { useForm } from '@mantine/form';
 
 const MediaTable = () => {
   const params = useParams();
@@ -15,9 +15,16 @@ const MediaTable = () => {
     enabled: !!params.id,
   });
 
-  const ref = useRef<HTMLInputElement | null>(null);
+  const form = useForm({
+    initialValues: {
+      attached_file: null,
+    },
+    validate: {
+      attached_file: (value) => (!value ? 'Bitte Datei auswählen' : null),
+    },
+  });
 
-  if (media?.length! > 0) {
+  if (media?.file_path) {
     return (
       <>
         <Table>
@@ -28,12 +35,10 @@ const MediaTable = () => {
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
-            {media?.map(({ id, media_label, mimetype }) => (
-              <Table.Tr key={id}>
-                <ImageColumn media_label={media_label!} id={id!} />
-                <Table.Td>{mimetype}</Table.Td>
-              </Table.Tr>
-            ))}
+            <Table.Tr>
+              <ImageColumn media_label={media?.media_label!} id={media?.id!} />
+              <Table.Td>{media?.mimetype!}</Table.Td>
+            </Table.Tr>
           </Table.Tbody>
         </Table>
       </>
@@ -41,12 +46,18 @@ const MediaTable = () => {
   } else {
     return (
       <Stack gap="xs" p="xs">
-        <input type="file" ref={ref} style={{ display: 'none' }} />
-        <Group justify="flex-end">
-          <UploadButton onClick={() => ref.current?.click()}>
-            Datei hochladen
-          </UploadButton>
-        </Group>
+        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+          <Group>
+            <FileInput
+              flex={1}
+              leftSection={<IconPaperclip size={16} />}
+              placeholder="Datei wählen"
+              accept={'image/jpeg, image/png, application/pdf'}
+              {...form.getInputProps('attached_file')}
+            />
+            <UploadButton type="submit">hochladen</UploadButton>
+          </Group>
+        </form>
         <Alert icon={<IconAlertCircle size={18} />}>
           <Text size="sm" c="blue">
             Keine Dateien für diese Fehlermeldung hinzugefügt

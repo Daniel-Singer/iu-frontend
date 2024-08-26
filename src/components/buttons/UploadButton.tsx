@@ -6,6 +6,7 @@ interface IProps {
   onClick?: () => void;
   children: string;
   disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset' | undefined;
 }
 
 const UploadButton = ({
@@ -13,6 +14,7 @@ const UploadButton = ({
   onClick,
   children,
   disabled = false,
+  type = 'button',
 }: IProps) => {
   return (
     <Button
@@ -20,6 +22,7 @@ const UploadButton = ({
       color={color}
       onClick={onClick}
       disabled={disabled}
+      type={type}
     >
       {children.toUpperCase()}
     </Button>
