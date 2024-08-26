@@ -1,5 +1,6 @@
 import { Modal, Text } from '@mantine/core';
 import { useModalContext } from '../../context/ModalContext';
+import StatusForm from '../../forms/status/StatusForm';
 
 const StatusModal = () => {
   const { open, toggleModal } = useModalContext();
@@ -9,7 +10,9 @@ const StatusModal = () => {
       opened={open}
       onClose={toggleModal}
       title={<Text c="blue">STATUS ÄNDERN</Text>}
-    ></Modal>
+    >
+      <StatusForm />
+    </Modal>
   );
 };
 
