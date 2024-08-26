@@ -57,6 +57,7 @@ const IssueDetailsForm = ({ toggle }: IProps) => {
         timestamp: undefined,
         url: undefined,
         label: undefined,
+        chapter: undefined,
       },
     },
   });
