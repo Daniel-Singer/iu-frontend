@@ -1,10 +1,10 @@
 import { Group } from '@mantine/core';
-import AdminOnly from '../../../auth/AdminOnly';
 import CardRow from '../../../layout/card/CardRow';
 import StatusLabel from '../../status/StatusLabel';
 import CardLabel from '../label/CardLabel';
 import EditButton from '../../buttons/EditButton';
 import { useModalContext } from '../../../context/ModalContext';
+import AdminAndTutorOnly from '../../../auth/AdminAndTutorOnly';
 
 interface IProps {
   issue: IIssueReceive;
@@ -31,13 +31,13 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
       />
       <CardRow label="Titel" value={issue?.title} loading={isLoading} />
       <CardRow label="Beschreibung" value={issue?.description} />
-      <AdminOnly>
+      <AdminAndTutorOnly>
         <Group>
           <EditButton onClick={toggleModal} variant="light">
             status ändern
           </EditButton>
         </Group>
-      </AdminOnly>
+      </AdminAndTutorOnly>
     </>
   );
 };
