@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getIssueMedia } from '../../../queries/media/getIssueMedia';
 import CardRow from '../../../layout/card/CardRow';
 import { mediaDetailLabels, mediaLabels } from '../../../constants/media';
-import { Divider, Group, Text, ThemeIcon } from '@mantine/core';
+import { Alert, Divider, Group, Text, ThemeIcon } from '@mantine/core';
 
 const MediaInfo = () => {
   const params = useParams();
@@ -13,7 +13,16 @@ const MediaInfo = () => {
     enabled: !!params?.id,
   });
   if (!media?.media_type) {
-    return null;
+    return (
+      <>
+        <Divider />
+        <Alert>
+          <Text size="sm" c="blue">
+            Keine Details zu Kursunterlagen hinterlegt
+          </Text>
+        </Alert>
+      </>
+    );
   } else {
     return (
       <>
