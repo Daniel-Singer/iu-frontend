@@ -49,8 +49,9 @@ const IssueCard = () => {
         <CardRow label="ID" value={issue?.id!} loading={isLoading} />
         <CardRow
           label="Eingereicht von"
-          value={`${issue?.created_from.first_name!} ${issue?.created_from
+          value={`${issue?.created_from?.first_name!} ${issue?.created_from
             ?.last_name!}`}
+          loading={isLoading}
         />
         <CardRow label="Titel" value={issue?.title} loading={isLoading} />
         <CardRow label="Beschreibung" value={issue?.description} />
