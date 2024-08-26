@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
-import { ScrollArea, SimpleGrid, Stack, Text } from '@mantine/core';
+import { Group, ScrollArea, SimpleGrid, Stack, Text } from '@mantine/core';
 import { useQueryClient } from '@tanstack/react-query';
 
 import IssueCard from '../components/cards/issue/IssueCard';
 import TimelineTabs from '../components/timeline/TimelineTabs';
+import CommentButton from '../components/buttons/CommentButton';
+import { ModalProvider } from '../context/ModalContext';
+import AuditCard from '../components/cards/audit/AuditCard';
 
 const IssueDetailsScreen = () => {
   const queryClient = useQueryClient();
@@ -29,7 +32,9 @@ const IssueDetailsScreen = () => {
           </Stack>
           <Stack>
             <Text c="blue">AUDIT</Text>
-            <TimelineTabs />
+            <ModalProvider>
+              <AuditCard />
+            </ModalProvider>
           </Stack>
         </SimpleGrid>
       </ScrollArea.Autosize>

@@ -1,12 +1,9 @@
-import { Divider, Group, Paper, Stack } from '@mantine/core';
+import { Divider, Paper, Stack } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
-import { getIssue } from '../../../queries/issues/getIssue';
-import { useParams } from 'react-router-dom';
-import CardRow from '../../../layout/card/CardRow';
 import dayjs from 'dayjs';
-import { useState } from 'react';
-import CommentButton from '../../buttons/CommentButton';
-import CommentModal from '../../../modals/comment/CommentModal';
+import { useParams } from 'react-router-dom';
+
+import CardRow from '../../../layout/card/CardRow';
 import MediaInfo from './MediaInfo';
 import CardLabel from '../label/CardLabel';
 import { ModalProvider } from '../../../context/ModalContext';
@@ -14,9 +11,9 @@ import MediaModal from '../../../modals/media/MediaModal';
 import OverviewInfo from './OverviewInfo';
 import StatusModal from '../../../modals/status/StatusModal';
 
-const IssueCard = () => {
-  const [commentOpen, setCommentOpen] = useState<boolean>(false);
+import { getIssue } from '../../../queries/issues/getIssue';
 
+const IssueCard = () => {
   const params = useParams();
   const { data: issue, isLoading } = useQuery({
     queryKey: ['issue'],
@@ -25,10 +22,6 @@ const IssueCard = () => {
   });
   return (
     <Paper p="xs">
-      <CommentModal
-        open={commentOpen}
-        toggle={() => setCommentOpen(!commentOpen)}
-      />
       <Stack>
         <ModalProvider>
           <StatusModal />
@@ -60,16 +53,7 @@ const IssueCard = () => {
           label="Letzte Änderung"
           value={dayjs(issue?.updated_at).format('DD.MM.YYYY')}
         />
-        <Divider />
       </Stack>
-      <Group mt="sm" justify="space-between">
-        <CommentButton
-          color="blue"
-          onClick={() => setCommentOpen(!commentOpen)}
-        >
-          Kommentieren
-        </CommentButton>
-      </Group>
     </Paper>
   );
 };
