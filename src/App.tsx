@@ -11,7 +11,6 @@ import './App.css';
 
 // Screen imports
 import DashboardScreen from './screens/DashboardScreen';
-import MessagesScreen from './screens/MessagesScreen';
 import NotFoundScreen from './screens/NotFoundScreen';
 import ScreenLayout from './layout/ScreenLayout';
 import AccountScreen from './screens/AccountScreen';
@@ -55,7 +54,6 @@ const App = () => {
                     </ModalProvider>
                   }
                 />
-                <Route path="messages" element={<MessagesScreen />} />
                 <Route path="notifications" element={<NotificationScreen />} />
                 <Route
                   path="notifications/:id"
