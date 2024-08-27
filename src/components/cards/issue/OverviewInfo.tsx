@@ -27,6 +27,13 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
       {issue?.status?.reason ? (
         <CardRow label="Begründung" value={issue?.status?.reason!} />
       ) : null}
+      <AdminAndTutorOnly>
+        <Group>
+          <EditButton onClick={toggleModal} variant="light">
+            status ändern
+          </EditButton>
+        </Group>
+      </AdminAndTutorOnly>
       <Divider />
       <CardRow label="ID" value={issue?.id!} loading={isLoading} />
       <CardRow
@@ -42,13 +49,6 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
       />
       <CardRow label="Titel" value={issue?.title} loading={isLoading} />
       <CardRow label="Beschreibung" value={issue?.description} />
-      <AdminAndTutorOnly>
-        <Group>
-          <EditButton onClick={toggleModal} variant="light">
-            status ändern
-          </EditButton>
-        </Group>
-      </AdminAndTutorOnly>
     </>
   );
 };
