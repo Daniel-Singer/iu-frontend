@@ -37,7 +37,6 @@ const MediaForm = () => {
   const form = useMediaForm({
     initialValues: {
       issue_id: undefined,
-      file_path: undefined,
       media_type: undefined,
       page: undefined,
       line: undefined,
