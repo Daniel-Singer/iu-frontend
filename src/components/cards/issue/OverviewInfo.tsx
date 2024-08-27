@@ -1,10 +1,11 @@
-import { Group } from '@mantine/core';
+import { Anchor, Group } from '@mantine/core';
 import CardRow from '../../../layout/card/CardRow';
 import StatusLabel from '../../status/StatusLabel';
 import CardLabel from '../label/CardLabel';
 import EditButton from '../../buttons/EditButton';
 import { useModalContext } from '../../../context/ModalContext';
 import AdminAndTutorOnly from '../../../auth/AdminAndTutorOnly';
+import { useNavigate } from 'react-router-dom';
 
 interface IProps {
   issue: IIssueReceive;
@@ -13,6 +14,7 @@ interface IProps {
 
 const OverviewInfo = ({ issue, isLoading }: IProps) => {
   const { toggleModal } = useModalContext();
+  const navigate = useNavigate();
   return (
     <>
       <CardLabel>Übersicht</CardLabel>
@@ -25,8 +27,13 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
       <CardRow label="ID" value={issue?.id!} loading={isLoading} />
       <CardRow
         label="Eingereicht von"
-        value={`${issue?.created_from?.first_name!} ${issue?.created_from
-          ?.last_name!}`}
+        value={
+          <Anchor
+            c="green"
+            onClick={() => navigate(`/users/${issue?.created_from?.id!}`)}
+          >{`${issue?.created_from?.first_name!} ${issue?.created_from
+            ?.last_name!}`}</Anchor>
+        }
         loading={isLoading}
       />
       <CardRow label="Titel" value={issue?.title} loading={isLoading} />

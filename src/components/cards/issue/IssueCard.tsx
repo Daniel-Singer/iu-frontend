@@ -1,7 +1,7 @@
-import { Divider, Paper, Stack } from '@mantine/core';
+import { Anchor, Divider, Paper, Stack } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import CardRow from '../../../layout/card/CardRow';
 import MediaInfo from './MediaInfo';
@@ -15,6 +15,7 @@ import { getIssue } from '../../../queries/issues/getIssue';
 
 const IssueCard = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const { data: issue, isLoading } = useQuery({
     queryKey: ['issue'],
     queryFn: () => getIssue(params.id!),
@@ -35,12 +36,21 @@ const IssueCard = () => {
         <CardLabel>Kursinformationen</CardLabel>
         <CardRow
           label="Kurs"
-          value={`${issue?.course.code!} - ${issue?.course.title!}`}
+          value={
+            <Anchor
+              onClick={() => navigate(`/courses/${issue?.course?.id!}`)}
+            >{`${issue?.course.code!} - ${issue?.course.title!}`}</Anchor>
+          }
           loading={isLoading}
         />
         <CardRow
           label="Tutor"
-          value={`${issue?.course.tutor.first_name} ${issue?.course?.tutor.last_name}`}
+          value={
+            <Anchor
+              c="green"
+              onClick={() => navigate(`/users/${issue?.course?.tutor?.id!}`)}
+            >{`${issue?.course.tutor.first_name} ${issue?.course?.tutor.last_name}`}</Anchor>
+          }
           loading={isLoading}
         />
         <Divider />
