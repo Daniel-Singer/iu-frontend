@@ -58,6 +58,9 @@ const StatusForm = () => {
         queryKey: ['issue'],
       });
       queryClient.invalidateQueries({
+        queryKey: ['my_issues'],
+      });
+      queryClient.invalidateQueries({
         queryKey: ['issue_status'],
       });
       showNotification('success', 'STATUS', 'Statusupdate erfolgreich');
