@@ -7,6 +7,7 @@ import DeleteButton from '../../components/buttons/DeleteButton';
 import { deleteMediaFile } from '../../queries/media/deleteMediaFile';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { useMemo } from 'react';
+import AdminAndTutorOnly from '../../auth/AdminAndTutorOnly';
 
 interface IProps {
   imgUrl: string;
@@ -36,7 +37,7 @@ const ImageModal = ({ imgUrl }: IProps) => {
       navigate(location.pathname, { replace: true });
       showNotification('success', 'DATEI', 'Datei erfolgreich entfernt');
       queryClient.removeQueries({
-        queryKey: ['issue_media'],
+        queryKey: ['media'],
       });
       toggleModal();
     },
@@ -55,11 +56,13 @@ const ImageModal = ({ imgUrl }: IProps) => {
       {data?.imgUrl ? (
         <Stack>
           <Image src={data?.imgUrl} />
-          <Group>
-            <DeleteButton onClick={() => deleteFile(mediaId!)}>
-              Datei Löschen
-            </DeleteButton>
-          </Group>
+          <AdminAndTutorOnly>
+            <Group>
+              <DeleteButton onClick={() => deleteFile(mediaId!)}>
+                Datei Löschen
+              </DeleteButton>
+            </Group>
+          </AdminAndTutorOnly>
         </Stack>
       ) : (
         <Alert color="red" m="xs">

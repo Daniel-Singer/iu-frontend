@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { getIssueMedia } from '../../queries/media/getIssueMedia';
 import { useParams } from 'react-router-dom';
 import { Alert, FileInput, Group, Stack, Table, Text } from '@mantine/core';
 import { IconAlertCircle, IconPaperclip } from '@tabler/icons-react';
@@ -8,13 +7,15 @@ import UploadButton from '../../components/buttons/UploadButton';
 import { useForm } from '@mantine/form';
 import { uploadMedia } from '../../queries/media/uploadMedia';
 import { showNotification } from '../../helpers/notifications/showNotification';
+import { getMediaFileInfo } from '../../queries/media/getMediaFileInfo';
 
 const MediaTable = () => {
   const params = useParams();
   const queryClient = useQueryClient();
+
   const { data: media } = useQuery({
-    queryKey: ['issue_media'],
-    queryFn: () => getIssueMedia(params?.id!),
+    queryKey: ['media'],
+    queryFn: () => getMediaFileInfo(params?.id!),
     enabled: !!params.id,
   });
 
@@ -33,7 +34,7 @@ const MediaTable = () => {
       form.reset();
       showNotification('success', 'DATEI', `Upload erfolgreich!`);
       queryClient.invalidateQueries({
-        queryKey: ['issue_media'],
+        queryKey: ['media'],
       });
     },
     onError: (error: any) => {
@@ -55,7 +56,7 @@ const MediaTable = () => {
           </Table.Thead>
           <Table.Tbody>
             <Table.Tr>
-              <ImageColumn media_label={media?.media_label!} id={media?.id!} />
+              <ImageColumn media_label={media?.name!} id={media?.id!} />
               <Table.Td>{media?.mimetype!}</Table.Td>
             </Table.Tr>
           </Table.Tbody>
