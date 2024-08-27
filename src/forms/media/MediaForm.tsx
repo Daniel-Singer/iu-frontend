@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { MediaFormProvider, useMediaForm } from './context';
+import { MediaFormProvider, TMediaFormValues, useMediaForm } from './context';
 import { useParams } from 'react-router-dom';
 import { getIssueMedia } from '../../queries/media/getIssueMedia';
 import { useEffect } from 'react';
@@ -14,11 +14,13 @@ import { useModalContext } from '../../context/ModalContext';
 const MediaForm = () => {
   const params = useParams();
   const { toggleModal } = useModalContext();
+
   const { data: issue_media, isSuccess } = useQuery({
     queryKey: ['issue_media'],
     queryFn: () => getIssueMedia(params?.id!),
     enabled: !!params?.id,
   });
+
   const { mutate: addDescription } = useMutation({
     mutationFn: addMediaDescription,
     onSuccess: () => {
@@ -34,6 +36,7 @@ const MediaForm = () => {
 
   const form = useMediaForm({
     initialValues: {
+      issue_id: undefined,
       file_path: undefined,
       media_type: undefined,
       page: undefined,
@@ -44,23 +47,36 @@ const MediaForm = () => {
       chapter: undefined,
     },
   });
+
+  const handleSubmit = (values: TMediaFormValues) => {
+    let data: any = { ...values };
+    for (let key in values) {
+      //@ts-ignore
+      if (values[key] === '') {
+        //@ts-ignore
+        data[key] = undefined;
+      }
+    }
+    addDescription({ ...data, issue_id: params?.id! });
+  };
+
   useEffect(() => {
     if (issue_media && isSuccess) {
-      form.setFieldValue('media_type', issue_media?.media_type!);
-      form.resetDirty(issue_media);
+      form.setValues(issue_media);
+      form.resetDirty();
+    } else {
+      form.reset();
     }
   }, [issue_media, isSuccess]);
   return (
     <MediaFormProvider form={form}>
-      <form
-        onSubmit={form.onSubmit((values) =>
-          addDescription({ issue_id: params?.id!, ...values })
-        )}
-      >
+      <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
         <Stack>
           <MediaSelect />
           <MediaDetailsInputs />
-          <SubmitButton type="submit">speichern</SubmitButton>
+          <SubmitButton type="submit">
+            {!form.values?.issue_id ? 'Update' : 'Speichern'}
+          </SubmitButton>
         </Stack>
       </form>
     </MediaFormProvider>

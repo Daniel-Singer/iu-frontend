@@ -60,11 +60,13 @@ const MediaInfo = () => {
         {media?.chapter ? (
           <CardRow label={mediaDetailLabels.chapter} value={media?.chapter} />
         ) : null}
-        <Group>
-          <EditButton onClick={toggleModal} variant="light">
-            Details ändern
-          </EditButton>
-        </Group>
+        {media ? null : (
+          <Group>
+            <EditButton onClick={toggleModal} variant="light">
+              Details ändern
+            </EditButton>
+          </Group>
+        )}
       </>
     );
   }
