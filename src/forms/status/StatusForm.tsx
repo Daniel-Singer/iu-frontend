@@ -1,4 +1,4 @@
-import { Select, Stack } from '@mantine/core';
+import { Select, Stack, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { listStatus } from '../../queries/status/listStatus';
@@ -31,6 +31,7 @@ const StatusForm = () => {
       status: {
         id: undefined,
       },
+      reason: '',
     },
   });
 
@@ -73,6 +74,14 @@ const StatusForm = () => {
     },
   });
 
+  const handleUpdate = (values: any) => {
+    if (form.values.status.id <= 2) {
+      update({ ...values, reason: null });
+    } else {
+      update({ ...values });
+    }
+  };
+
   useEffect(() => {
     if (issue && !isLoading) {
       form.setFieldValue('status.id', String(issue?.status?.id!));
@@ -82,7 +91,7 @@ const StatusForm = () => {
   return (
     <form
       onSubmit={form.onSubmit((values) =>
-        update({ id: params?.id, update: { ...values } })
+        handleUpdate({ id: params?.id, update: { ...values } })
       )}
     >
       <Stack>
@@ -93,6 +102,9 @@ const StatusForm = () => {
           {...form.getInputProps('status.id')}
           allowDeselect={false}
         />
+        {form.values.status.id > 2 ? (
+          <TextInput label="Begründung" {...form.getInputProps('reason')} />
+        ) : null}
         <SubmitButton disabled={!form.isDirty()}>
           {buttonStatusText[form.values.status.id] ?? 'Updates'}
         </SubmitButton>

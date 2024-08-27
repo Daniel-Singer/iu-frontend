@@ -1,4 +1,4 @@
-import { Anchor, Group } from '@mantine/core';
+import { Anchor, Divider, Group } from '@mantine/core';
 import CardRow from '../../../layout/card/CardRow';
 import StatusLabel from '../../status/StatusLabel';
 import CardLabel from '../label/CardLabel';
@@ -24,6 +24,17 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
           <StatusLabel id={issue?.status?.id!} label={issue?.status?.label!} />
         }
       />
+      {issue?.status?.reason ? (
+        <CardRow label="Begründung" value={issue?.status?.reason!} />
+      ) : null}
+      <AdminAndTutorOnly>
+        <Group>
+          <EditButton onClick={toggleModal} variant="light">
+            status ändern
+          </EditButton>
+        </Group>
+      </AdminAndTutorOnly>
+      <Divider />
       <CardRow label="ID" value={issue?.id!} loading={isLoading} />
       <CardRow
         label="Eingereicht von"
@@ -38,13 +49,6 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
       />
       <CardRow label="Titel" value={issue?.title} loading={isLoading} />
       <CardRow label="Beschreibung" value={issue?.description} />
-      <AdminAndTutorOnly>
-        <Group>
-          <EditButton onClick={toggleModal} variant="light">
-            status ändern
-          </EditButton>
-        </Group>
-      </AdminAndTutorOnly>
     </>
   );
 };

@@ -15,6 +15,7 @@ interface IIssueReceive extends IIssueBase {
   status: {
     id: any;
     label: string;
+    reason: string | null;
   };
   issue_media: IIssueMediaBase;
   course: ICourseReceive;
