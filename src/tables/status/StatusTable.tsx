@@ -49,7 +49,7 @@ const StatusTable = () => {
               <Table.Td>
                 {dayjs(element.created_at).format('DD.MM.YYYY')}
               </Table.Td>
-              <Table.Td>{dayjs(element.created_at).format('hh:mm')}</Table.Td>
+              <Table.Td>{dayjs(element.created_at).format('HH:mm')}</Table.Td>
             </Table.Tr>
           ))}
         </Table.Tbody>
