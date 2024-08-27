@@ -1,4 +1,13 @@
-import { Alert, Group, Image, Modal, Stack, Text } from '@mantine/core';
+import {
+  Alert,
+  Center,
+  Group,
+  Image,
+  Loader,
+  Modal,
+  Stack,
+  Text,
+} from '@mantine/core';
 import { useModalContext } from '../../context/ModalContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -24,7 +33,7 @@ const ImageModal = ({ imgUrl }: IProps) => {
     return location.search?.split('=')[1];
   }, [location]);
 
-  const { data } = useQuery({
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: ['img_url'],
     queryFn: () => downloadMedia(mediaId!),
     enabled: !!mediaId && open,
@@ -45,25 +54,32 @@ const ImageModal = ({ imgUrl }: IProps) => {
 
   const handleClose = () => {
     navigate(location.pathname, { replace: true });
-    queryClient.removeQueries({ queryKey: ['img_url'] });
-    URL.revokeObjectURL(imgUrl);
-    // remove query string
+    setTimeout(() => {
+      queryClient.removeQueries({ queryKey: ['img_url'] });
+      URL.revokeObjectURL(imgUrl);
+    }, 500);
     toggleModal();
   };
 
   return (
     <Modal opened={open} onClose={handleClose} size="xl">
-      {data?.imgUrl ? (
+      {data?.imgUrl && !isLoading ? (
         <Stack>
           <Image src={data?.imgUrl} />
-          <AdminAndTutorOnly>
-            <Group>
-              <DeleteButton onClick={() => deleteFile(mediaId!)}>
-                Datei Löschen
-              </DeleteButton>
-            </Group>
-          </AdminAndTutorOnly>
+          {isSuccess ? (
+            <AdminAndTutorOnly>
+              <Group>
+                <DeleteButton onClick={() => deleteFile(mediaId!)}>
+                  Datei Löschen
+                </DeleteButton>
+              </Group>
+            </AdminAndTutorOnly>
+          ) : null}
         </Stack>
+      ) : isLoading ? (
+        <Center>
+          <Loader />
+        </Center>
       ) : (
         <Alert color="red" m="xs">
           <Text c="red" size="sm">
