@@ -34,7 +34,7 @@ const MediaTable = () => {
       form.reset();
       showNotification('success', 'DATEI', `Upload erfolgreich!`);
       queryClient.invalidateQueries({
-        queryKey: ['issue_media'],
+        queryKey: ['media'],
       });
     },
     onError: (error: any) => {
