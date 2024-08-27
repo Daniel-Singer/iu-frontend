@@ -22,7 +22,6 @@ const IssueForm = () => {
       category_id: undefined,
       attached_file: null,
       issue_media: {
-        file_path: undefined,
         media_type: undefined,
         page: undefined,
         line: undefined,
