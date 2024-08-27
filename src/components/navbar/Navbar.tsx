@@ -4,7 +4,6 @@ import {
   IconAlertCircle,
   IconBook,
   IconHome,
-  IconMessage,
   IconPower,
   IconSchool,
   IconUser,
@@ -33,11 +32,6 @@ const navLinks: INavLinks = {
       icon: <IconHome size={20} />,
     },
     {
-      path: 'messages',
-      label: 'Nachrichten',
-      icon: <IconMessage size={20} />,
-    },
-    {
       path: 'users?role=student',
       label: 'Studierende',
       icon: <IconSchool size={20} />,
@@ -59,23 +53,12 @@ const navLinks: INavLinks = {
       label: 'Dashboard',
       icon: <IconHome size={20} />,
     },
-
-    {
-      path: 'messages',
-      label: 'Nachrichten',
-      icon: <IconMessage size={20} />,
-    },
   ],
   tutor: [
     {
       path: '',
       label: 'Dashboard',
       icon: <IconHome size={20} />,
-    },
-    {
-      path: 'messages',
-      label: 'Nachrichten',
-      icon: <IconMessage size={20} />,
     },
     {
       path: 'users?role=student',
