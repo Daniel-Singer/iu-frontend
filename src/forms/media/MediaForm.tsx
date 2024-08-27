@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { MediaFormProvider, TMediaFormValues, useMediaForm } from './context';
 import { useParams } from 'react-router-dom';
 import { getIssueMedia } from '../../queries/media/getIssueMedia';
@@ -15,6 +15,8 @@ const MediaForm = () => {
   const params = useParams();
   const { toggleModal } = useModalContext();
 
+  const queryClient = useQueryClient();
+
   const { data: issue_media, isSuccess } = useQuery({
     queryKey: ['issue_media'],
     queryFn: () => getIssueMedia(params?.id!),
@@ -24,6 +26,9 @@ const MediaForm = () => {
   const { mutate: addDescription } = useMutation({
     mutationFn: addMediaDescription,
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['issue_media'],
+      });
       showNotification(
         'success',
         'MEDIA',
