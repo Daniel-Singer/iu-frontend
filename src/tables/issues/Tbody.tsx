@@ -29,7 +29,15 @@ const Tbody = ({ issues }: IProps) => {
                 </Anchor>
               </Table.Td>
             ) : null}
-            <Table.Td>{title}</Table.Td>
+            <Table.Td>
+              <Anchor
+                size="sm"
+                c="blue"
+                onClick={() => navigate(`/issue/${id}`)}
+              >
+                {title}
+              </Anchor>
+            </Table.Td>
             <Table.Td>
               <Text c={!category.label ? 'red' : 'default'} size="sm">
                 {!category?.label ? 'k.A' : category?.label!}
