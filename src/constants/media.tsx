@@ -76,4 +76,5 @@ export const mediaDetailLabels: IMediaDetailLabel = {
   timestamp: 'Zeitstempel',
   url: 'URL',
   chapter: 'Kapitel',
+  label: 'Titel',
 };
