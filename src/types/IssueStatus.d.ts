@@ -9,6 +9,7 @@ interface IIssueStatusReceive {
     id: number;
     label: string;
   };
+  reason: string;
   created_at: Date;
   updated_at: Date;
 }
