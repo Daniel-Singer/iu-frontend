@@ -33,6 +33,14 @@ const StatusForm = () => {
       },
       reason: '',
     },
+    validate: {
+      reason: (value, values) => {
+        if (values.status.id == 3 && values.status.id > 0) {
+          return value === '' ? 'Ticketlösung erforderlich' : null;
+        }
+        return value === '' ? 'Begründung erforderlich' : null;
+      },
+    },
   });
 
   const { data: issue, isLoading } = useQuery({
@@ -103,7 +111,10 @@ const StatusForm = () => {
           allowDeselect={false}
         />
         {form.values.status.id > 2 ? (
-          <TextInput label="Begründung" {...form.getInputProps('reason')} />
+          <TextInput
+            label={form.values.status.id == 3 ? 'Ticketlösung' : 'Begründung'}
+            {...form.getInputProps('reason')}
+          />
         ) : null}
         <SubmitButton disabled={!form.isDirty()}>
           {buttonStatusText[form.values.status.id] ?? 'Updates'}
