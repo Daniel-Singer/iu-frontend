@@ -5,6 +5,7 @@ import {
   IconBook,
   IconHome,
   IconPower,
+  IconQuestionMark,
   IconSchool,
   IconUser,
 } from '@tabler/icons-react';
@@ -93,6 +94,11 @@ const Navbar = () => {
           path="account"
           label="Mein Account"
           icon={<IconUser size={20} />}
+        />
+        <Navlink
+          path="faqs"
+          label="FAQ's"
+          icon={<IconQuestionMark size={20} />}
         />
         <Navlink path="logout" label="Logout" icon={<IconPower size={20} />} />
       </Stack>
