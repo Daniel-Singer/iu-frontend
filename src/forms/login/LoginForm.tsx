@@ -16,6 +16,8 @@ import { authenticateUser } from '../../queries/auth/authenticateUser';
 import axios from '../../axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IconAlertTriangle } from '@tabler/icons-react';
+import { useModalContext } from '../../context/ModalContext';
+import LostPasswordModal from '../../modals/lostpassword/LostPasswordModal';
 
 const LoginForm = () => {
   const ref = useRef<HTMLInputElement | null>(null);
@@ -35,6 +37,8 @@ const LoginForm = () => {
   const location = useLocation();
 
   const navigate = useNavigate();
+
+  const { toggleModal } = useModalContext();
 
   const [errorText, setErrorText] = useState<string | null>(null);
 
@@ -73,6 +77,7 @@ const LoginForm = () => {
 
   return (
     <Paper p="md" w={400} withBorder>
+      <LostPasswordModal />
       <form onSubmit={form.onSubmit((values) => login(values))}>
         <Stack>
           <Title style={{ alignSelf: 'center' }}>IU KMS</Title>
@@ -94,7 +99,7 @@ const LoginForm = () => {
             withAsterisk
             {...form.getInputProps('password')}
           />
-          <Anchor>Passwort vergessen?</Anchor>
+          <Anchor onClick={toggleModal}>Passwort vergessen?</Anchor>
           <SubmitButton>login</SubmitButton>
         </Stack>
       </form>
