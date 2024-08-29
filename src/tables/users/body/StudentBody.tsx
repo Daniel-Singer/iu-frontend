@@ -1,4 +1,4 @@
-import { Table, Text, ThemeIcon } from '@mantine/core';
+import { Anchor, Table, Text, ThemeIcon } from '@mantine/core';
 
 import classes from '../UsersTable.module.css';
 import { useNavigate } from 'react-router-dom';
@@ -23,9 +23,12 @@ const StudentBody = ({ users }: IProps) => {
               {student.matrikel_nr}
             </Text>
           </Table.Td>
-          <Table.Td
-            className={classes.name}
-          >{`${student.first_name} ${student.last_name}`}</Table.Td>
+          <Table.Td className={classes.name}>
+            <Anchor
+              size="sm"
+              onClick={() => navigate(`/users/${student.id}`)}
+            >{`${student.first_name} ${student.last_name}`}</Anchor>
+          </Table.Td>
           <Table.Td>{student.email}</Table.Td>
           <Table.Td className={classes.active}>
             <ThemeIcon
