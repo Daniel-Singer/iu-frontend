@@ -1,12 +1,15 @@
 import { Paper, ScrollArea } from '@mantine/core';
 import ScreenHeader from '../components/screen/ScreenHeader';
+import DocumentsTable from '../tables/documents/DocumentsTable';
 
 const DocumentsScreen = () => {
   return (
     <>
-      <ScreenHeader label="Dokumente" />
+      <ScreenHeader label="Verfügbare Dokumente" />
       <ScrollArea.Autosize>
-        <Paper flex={1} p="xs"></Paper>
+        <Paper flex={1}>
+          <DocumentsTable />
+        </Paper>
       </ScrollArea.Autosize>
     </>
   );
