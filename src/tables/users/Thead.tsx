@@ -12,8 +12,15 @@ interface ITheadLabels {
 
 const labels: ITheadLabels = {
   admin: ['ID', 'Name', 'E-Mail'],
-  tutor: ['ID', 'Name', 'E-Mail', 'Zugewiesene Fehlermeldungen'],
-  student: ['ID', 'Matrikel-Nr.', 'Name', 'E-Mail', 'Anzahl Fehlermeldungen'],
+  tutor: ['ID', 'Name', 'E-Mail', 'Aktiv', 'Zugewiesene Fehlermeldungen'],
+  student: [
+    'ID',
+    'Matrikel-Nr.',
+    'Name',
+    'E-Mail',
+    'Aktiv',
+    'Anzahl Fehlermeldungen',
+  ],
 };
 
 const Thead = ({ role }: IProps) => {
@@ -25,7 +32,12 @@ const Thead = ({ role }: IProps) => {
     >
       <Table.Tr>
         {labels[role].map((label) => (
-          <Table.Th key={label}>{label}</Table.Th>
+          <Table.Th
+            key={label}
+            className={label === 'Aktiv' ? classes.active : undefined}
+          >
+            {label}
+          </Table.Th>
         ))}
       </Table.Tr>
     </Table.Thead>
