@@ -35,10 +35,14 @@ const StatusForm = () => {
     },
     validate: {
       reason: (value, values) => {
-        if (values.status.id == 3 && values.status.id > 0) {
-          return value === '' ? 'Ticketlösung erforderlich' : null;
+        if (values.status.id > 2) {
+          if (values.status.id == 3) {
+            return value === '' ? 'Ticketlösung erforderlich' : null;
+          } else {
+            return value === '' ? 'Begründung erforderlich' : null;
+          }
         }
-        return value === '' ? 'Begründung erforderlich' : null;
+        return null;
       },
     },
   });
@@ -90,6 +94,11 @@ const StatusForm = () => {
     }
   };
 
+  const handleChangeValue = (value: string) => {
+    form.clearErrors();
+    form.setFieldValue('status.id', value);
+  };
+
   useEffect(() => {
     if (issue && !isLoading) {
       form.setFieldValue('status.id', String(issue?.status?.id!));
@@ -107,7 +116,8 @@ const StatusForm = () => {
           data={status}
           label="Status"
           withAsterisk
-          {...form.getInputProps('status.id')}
+          value={form.values.status.id}
+          onChange={(value) => handleChangeValue(value!)}
           allowDeselect={false}
         />
         {form.values.status.id > 2 ? (
