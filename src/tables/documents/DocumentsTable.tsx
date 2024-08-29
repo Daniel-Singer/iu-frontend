@@ -1,7 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { listDocuments } from '../../queries/documents/listDocuments';
-import { Anchor, Table, Text } from '@mantine/core';
+import { Table } from '@mantine/core';
 import dayjs from 'dayjs';
+import FileRow from './FileRow';
 
 const DocumentsTable = () => {
   const { data: documents } = useQuery({
@@ -18,17 +19,17 @@ const DocumentsTable = () => {
           <Table.Th>Erstellt</Table.Th>
         </Table.Tr>
       </Table.Thead>
-      {documents?.map((document) => (
-        <Table.Tr>
-          <Table.Td>
-            <Anchor>
-              <Text size="sm">{document.filename}</Text>
-            </Anchor>
-          </Table.Td>
-          <Table.Td>{`${(document.size / 1024).toFixed(2)} KB`}</Table.Td>
-          <Table.Td>{dayjs(document.created_at).format('DD.MM.YYYY')}</Table.Td>
-        </Table.Tr>
-      ))}
+      <Table.Tbody>
+        {documents?.map((document) => (
+          <Table.Tr key={document.filename}>
+            <FileRow>{document.filename!}</FileRow>
+            <Table.Td>{`${(document.size / 1024).toFixed(2)} KB`}</Table.Td>
+            <Table.Td>
+              {dayjs(document.created_at).format('DD.MM.YYYY')}
+            </Table.Td>
+          </Table.Tr>
+        ))}
+      </Table.Tbody>
     </Table>
   );
 };
