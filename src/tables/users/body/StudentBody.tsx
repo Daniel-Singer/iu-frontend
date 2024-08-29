@@ -1,7 +1,8 @@
-import { Table, Text } from '@mantine/core';
+import { Table, Text, ThemeIcon } from '@mantine/core';
 
 import classes from '../UsersTable.module.css';
 import { useNavigate } from 'react-router-dom';
+import { IconCheck, IconX } from '@tabler/icons-react';
 
 interface IProps {
   users: IUserReceive[];
@@ -26,6 +27,15 @@ const StudentBody = ({ users }: IProps) => {
             className={classes.name}
           >{`${student.first_name} ${student.last_name}`}</Table.Td>
           <Table.Td>{student.email}</Table.Td>
+          <Table.Td className={classes.active}>
+            <ThemeIcon
+              variant="light"
+              size="sm"
+              color={student?.active! ? 'green' : 'red'}
+            >
+              {student?.active! ? <IconCheck size={16} /> : <IconX size={16} />}
+            </ThemeIcon>
+          </Table.Td>
           <Table.Td>
             <Text size="sm" c={student.issues_count > 0 ? 'red' : 'green'}>
               {student.issues_count}
