@@ -7,6 +7,7 @@ interface IUserBase {
   password: string;
   role: string;
   accessToken?: string;
+  active?: boolean;
 }
 
 interface IUserCreate extends IUserBase {
