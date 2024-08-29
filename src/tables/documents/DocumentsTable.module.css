@@ -1,0 +1,9 @@
+.table th:last-of-type,
+.table td:last-of-type {
+    text-align: right;
+}
+
+.table th:nth-last-child(2),
+.table th:last-child {
+    width: 15%;
+}

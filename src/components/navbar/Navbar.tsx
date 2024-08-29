@@ -3,6 +3,7 @@ import classes from './Navbar.module.css';
 import {
   IconAlertCircle,
   IconBook,
+  IconFileStack,
   IconHome,
   IconPower,
   IconQuestionMark,
@@ -86,6 +87,11 @@ const Navbar = () => {
           path="notifications"
           label="Benachrichtigungen"
           icon={<IconAlertCircle size={20} />}
+        />
+        <Navlink
+          path="documents"
+          label="Dokumente"
+          icon={<IconFileStack size={20} />}
         />
       </Stack>
       <Stack gap={0}>
