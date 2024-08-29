@@ -79,7 +79,7 @@ const MediaTable = () => {
               flex={1}
               leftSection={<IconPaperclip size={16} />}
               placeholder="Datei wählen"
-              accept={'image/jpeg, image/png, application/pdf'}
+              accept={'image/jpeg, image/png'}
               {...form.getInputProps('attached_file')}
               clearable
             />
