@@ -1,8 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import { listDocuments } from '../../queries/documents/listDocuments';
 import { Table } from '@mantine/core';
 import dayjs from 'dayjs';
+import { useQuery } from '@tanstack/react-query';
+import { listDocuments } from '../../queries/documents/listDocuments';
 import FileRow from './FileRow';
+
+import classes from './DocumentsTable.module.css';
 
 const DocumentsTable = () => {
   const { data: documents } = useQuery({
@@ -11,7 +13,7 @@ const DocumentsTable = () => {
   });
 
   return (
-    <Table>
+    <Table className={classes.table}>
       <Table.Thead>
         <Table.Tr>
           <Table.Th>Dateiname</Table.Th>
