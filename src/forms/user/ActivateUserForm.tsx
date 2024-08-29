@@ -1,31 +1,42 @@
-import { Group, Space, Stack, Switch } from '@mantine/core';
-import { useForm } from '@mantine/form';
-import { useEffect } from 'react';
-
+import { Stack, Switch } from '@mantine/core';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { setUsersActiveStatus } from '../../queries/users/setUsersActiveStatus';
+import { useParams } from 'react-router-dom';
+import { showNotification } from '../../helpers/notifications/showNotification';
 interface IProps {
   active: boolean;
 }
 
 const ActivateUserForm = ({ active }: IProps) => {
-  const form = useForm({
-    initialValues: {
-      active: false,
+  const params = useParams();
+  const queryClient = useQueryClient();
+  const { mutate: changeActiveStatus } = useMutation({
+    mutationFn: setUsersActiveStatus,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['user'],
+      });
+      showNotification(
+        'success',
+        'AKTIV/INAKTIV',
+        'User Status erfolgreich geändert'
+      );
+    },
+    onError: () => {
+      showNotification(
+        'error',
+        'AKTIV/INAKTIV',
+        'User Status konnte nicht geändert werden'
+      );
     },
   });
-
-  useEffect(() => {
-    if (active) {
-      form.setFieldValue('active', active);
-      form.resetDirty();
-    }
-  }, [active]);
   return (
     <form>
       <Stack>
         <Switch
           label="Aktiv"
-          checked={form.values.active}
-          onChange={() => form.setFieldValue('active', !form.values.active)}
+          checked={active}
+          onChange={() => changeActiveStatus(params?.id!)}
           description="Ist User Inaktiv, kann dieser nicht auf die Plattform zugreifen"
         />
       </Stack>
