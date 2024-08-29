@@ -16,9 +16,16 @@ import {
   IconSquareRotatedForbid,
 } from '@tabler/icons-react';
 import { ScrollingProvider } from '../context/ScrollingContext';
+import { Checkbox, Paper } from '@mantine/core';
+import TutorOnly from '../auth/TutorOnly';
+import { useMemo, useState } from 'react';
 
 const CoursesScreen = () => {
   const { toggleModal } = useModalContext();
+
+  const [checked, setChecked] = useState<boolean>(false);
+  const onlyMyCourses = useMemo(() => {}, []);
+
   const { data: courses } = useQuery({
     queryKey: ['courses'],
     queryFn: listCourses,
@@ -67,6 +74,15 @@ const CoursesScreen = () => {
           icon={<IconSquareRotatedForbid />}
         />
       </StatsContainer>
+      <TutorOnly>
+        <Paper p="xs">
+          <Checkbox
+            label="Nur mir zugewiesene Kurse"
+            checked={checked}
+            onChange={() => setChecked(!checked)}
+          />
+        </Paper>
+      </TutorOnly>
       <ScrollingProvider>
         <CoursesTable />
       </ScrollingProvider>
