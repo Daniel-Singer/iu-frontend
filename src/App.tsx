@@ -79,7 +79,7 @@ const App = () => {
                 </Route>
                 <Route
                   path="courses"
-                  element={<AuthWrapper allowedRoles={['admin']} />}
+                  element={<AuthWrapper allowedRoles={['admin', 'tutor']} />}
                 >
                   <Route
                     index

@@ -26,6 +26,7 @@ const UsersTable = ({ role }: IProps) => {
   const { data: students, isLoading: studentLoading } = useQuery({
     queryKey: [`students`],
     queryFn: () => listUsers('student'),
+    retry: false,
     select: (users) => {
       if (!searchValue || searchValue === '') {
         return users;
@@ -41,6 +42,7 @@ const UsersTable = ({ role }: IProps) => {
   const { data: tutors, isLoading: tutorLoading } = useQuery({
     queryKey: [`tutors`],
     queryFn: () => listUsers('tutor'),
+    retry: false,
     select: (users) => {
       if (!searchValue || searchValue === '') {
         return users;

@@ -1,6 +1,7 @@
 import { Paper, Stack } from '@mantine/core';
 import CardRow from '../../../layout/card/CardRow';
 import ActivateUserForm from '../../../forms/user/ActivateUserForm';
+import AdminOnly from '../../../auth/AdminOnly';
 
 type TProps = Partial<IUserCreate>;
 
@@ -20,7 +21,9 @@ const UserCard = ({
         {matrikel_nr ? (
           <CardRow label="Matrikel Nr." value={matrikel_nr!} />
         ) : null}
-        <ActivateUserForm active={active!} />
+        <AdminOnly>
+          <ActivateUserForm active={active!} />
+        </AdminOnly>
       </Stack>
     </Paper>
   );

@@ -19,6 +19,7 @@ import { ScrollingProvider } from '../context/ScrollingContext';
 
 const CoursesScreen = () => {
   const { toggleModal } = useModalContext();
+
   const { data: courses } = useQuery({
     queryKey: ['courses'],
     queryFn: listCourses,
