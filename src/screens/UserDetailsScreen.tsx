@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 import { SimpleGrid, Stack } from '@mantine/core';
 import UserCard from '../components/cards/user/UserCard';
 import ResetPasswordForm from '../forms/password/ResetPasswordForm';
+import AdminOnly from '../auth/AdminOnly';
 
 const UserDetailsScreen = () => {
   const params = useParams();
@@ -34,7 +35,9 @@ const UserDetailsScreen = () => {
       <SimpleGrid cols={2}>
         <Stack>
           <UserCard {...(user! as IUserCreate)} />
-          <ResetPasswordForm />
+          <AdminOnly>
+            <ResetPasswordForm />
+          </AdminOnly>
         </Stack>
       </SimpleGrid>
     </>
