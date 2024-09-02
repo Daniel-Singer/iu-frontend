@@ -25,9 +25,9 @@ const IssuesTable = () => {
         );
         if (searchValue && searchValue !== '') {
           filterdIssues = filterdIssues?.filter(
-            ({ course, category }) =>
+            ({ course, title }) =>
               course.code.toLowerCase().includes(searchValue?.toLowerCase()) ||
-              category.label.toLowerCase().includes(searchValue?.toLowerCase())
+              title?.toLowerCase().includes(searchValue?.toLowerCase())
           );
         }
         return filterdIssues;
@@ -36,9 +36,9 @@ const IssuesTable = () => {
           return issues;
         } else {
           return issues?.filter(
-            ({ course, category }) =>
+            ({ course, title }) =>
               course.code.toLowerCase().includes(searchValue?.toLowerCase()) ||
-              category.label.toLowerCase().includes(searchValue?.toLowerCase())
+              title.toLowerCase().includes(searchValue)
           );
         }
       }
