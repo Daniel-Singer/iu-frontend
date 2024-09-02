@@ -23,7 +23,6 @@ interface IFilterProviderProps {
 
 export const FilterProvider = ({ children }: IFilterProviderProps) => {
   const [filterValue, setFilterValue] = useState<number | null>(null);
-  const [isCreator, setIsCreator] = useState<boolean>(true);
   const [isAssignee, setIsAssignee] = useState<boolean | null>(false);
   return (
     <FilterContext.Provider
