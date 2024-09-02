@@ -8,10 +8,12 @@ import Tbody from './Tbody';
 import { useSearchContext } from '../../context/SearchContext';
 import { useFilterContext } from '../../context/IssueFilterContext';
 import { useScrollingContext } from '../../context/ScrollingContext';
+import { useAuthContext } from '../../context/AuthContext';
 
 const IssuesTable = () => {
+  const { auth } = useAuthContext();
   const { searchValue } = useSearchContext();
-  const { filterValue } = useFilterContext();
+  const { filterValue, isAssignee } = useFilterContext();
   const { setIsScrolling } = useScrollingContext();
   const { data: myIssues } = useQuery({
     queryKey: ['my_issues'],
@@ -50,7 +52,15 @@ const IssuesTable = () => {
         <Paper flex={1} radius="sm">
           <Table className={classes.table} highlightOnHover>
             <Thead />
-            <Tbody issues={myIssues!} />
+            <Tbody
+              issues={
+                !isAssignee
+                  ? myIssues!
+                  : myIssues?.filter(
+                      ({ assigned_to }) => assigned_to.id === auth.id
+                    )
+              }
+            />
           </Table>
         </Paper>
       </ScrollArea.Autosize>
