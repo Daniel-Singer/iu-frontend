@@ -7,7 +7,7 @@ const FilterBar = () => {
   const { isAssignee, setIsAssignee } = useFilterContext();
   return (
     <Paper p="xs">
-      <Group justify="space-between" grow>
+      <Group justify="end" grow>
         <TutorOnly>
           <Group>
             <Checkbox
