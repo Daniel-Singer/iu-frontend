@@ -1,4 +1,4 @@
-import { Table, Text } from '@mantine/core';
+import { Anchor, Table, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
 interface IProps {
@@ -18,9 +18,13 @@ const Tbody = ({ courses }: IProps) => {
         >
           <Table.Td>{course.id!}</Table.Td>
           <Table.Td>
-            <Text size="sm" c="green">
+            <Anchor
+              size="sm"
+              c="green"
+              onClick={() => navigate(`/courses/${course?.id!}`)}
+            >
               {course.code}
-            </Text>
+            </Anchor>
           </Table.Td>
           <Table.Td>{course.title}</Table.Td>
           <Table.Td>{`${course.tutor.first_name} ${course.tutor.last_name}`}</Table.Td>
