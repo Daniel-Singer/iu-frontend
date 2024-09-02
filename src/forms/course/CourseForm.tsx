@@ -41,6 +41,9 @@ const CourseForm = () => {
       queryClient.invalidateQueries({
         queryKey: ['courses'],
       });
+      queryClient.invalidateQueries({
+        queryKey: ['course'],
+      });
       showNotification(
         'success',
         'KURS',
