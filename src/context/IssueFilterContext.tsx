@@ -9,6 +9,8 @@ import {
 interface IFilterContext {
   filterValue: number | null;
   setFilterValue: React.Dispatch<SetStateAction<number | null>>;
+  isAssignee: boolean | null;
+  setIsAssignee: React.Dispatch<SetStateAction<boolean | null>>;
 }
 
 export const FilterContext = createContext<IFilterContext | undefined>(
@@ -21,8 +23,12 @@ interface IFilterProviderProps {
 
 export const FilterProvider = ({ children }: IFilterProviderProps) => {
   const [filterValue, setFilterValue] = useState<number | null>(null);
+  const [isCreator, setIsCreator] = useState<boolean>(true);
+  const [isAssignee, setIsAssignee] = useState<boolean | null>(false);
   return (
-    <FilterContext.Provider value={{ filterValue, setFilterValue }}>
+    <FilterContext.Provider
+      value={{ filterValue, setFilterValue, isAssignee, setIsAssignee }}
+    >
       {children}
     </FilterContext.Provider>
   );

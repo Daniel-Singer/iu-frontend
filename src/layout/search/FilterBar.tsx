@@ -1,11 +1,25 @@
-import { Group, Paper } from '@mantine/core';
+import { Checkbox, Group, Paper } from '@mantine/core';
 import IssueFilterSelect from '../../components/search/issues/IssueFilterSelect';
+import TutorOnly from '../../auth/TutorOnly';
+import { useFilterContext } from '../../context/IssueFilterContext';
 
 const FilterBar = () => {
+  const { isAssignee, setIsAssignee } = useFilterContext();
   return (
     <Paper p="xs">
-      <Group justify="end">
-        <IssueFilterSelect />
+      <Group justify="space-between" grow>
+        <TutorOnly>
+          <Group>
+            <Checkbox
+              checked={isAssignee!}
+              onChange={() => setIsAssignee(!isAssignee)}
+              label="Nur mir zugewiesen"
+            />
+          </Group>
+        </TutorOnly>
+        <Group justify="end">
+          <IssueFilterSelect />
+        </Group>
       </Group>
     </Paper>
   );
