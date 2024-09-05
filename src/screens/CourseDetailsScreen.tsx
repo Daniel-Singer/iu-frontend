@@ -7,6 +7,7 @@ import EditButton from '../components/buttons/EditButton';
 import { useModalContext } from '../context/ModalContext';
 import CourseModal from '../modals/course/CourseModal';
 import { ScrollingProvider } from '../context/ScrollingContext';
+import ResponsibleTutorOnly from '../auth/ResponsibleTutorOnly';
 
 const CourseDetailsScreen = () => {
   const { course } = useCourseActions();
@@ -46,9 +47,11 @@ const CourseDetailsScreen = () => {
               },
             ]}
           >
-            <Group justify="space-between">
-              <EditButton onClick={toggleModal}>Bearbeiten</EditButton>
-            </Group>
+            <ResponsibleTutorOnly tutor_id={course?.tutor.id!}>
+              <Group justify="space-between">
+                <EditButton onClick={toggleModal}>Bearbeiten</EditButton>
+              </Group>
+            </ResponsibleTutorOnly>
           </DetailsCard>
         </Grid.Col>
         <Grid.Col span={8}>
