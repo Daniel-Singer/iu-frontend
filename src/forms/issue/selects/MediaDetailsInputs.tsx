@@ -17,6 +17,7 @@ const MediaDetailsInputs = () => {
           label="Seite"
           min={1}
           {...form.getInputProps('issue_media.page')}
+          withAsterisk
         />
         <NumberInput
           label="Zeile"
@@ -28,6 +29,7 @@ const MediaDetailsInputs = () => {
     app: (
       <TextInput
         label="Kapitel"
+        placeholder="z.B. 3.1 Anforderungen"
         min={1}
         {...form.getInputProps('issue_media.chapter')}
       />

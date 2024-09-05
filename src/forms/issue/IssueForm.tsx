@@ -37,6 +37,45 @@ const IssueForm = () => {
       title: (value) => (value !== '' ? null : 'Kurzbeschreibung erforderlich'),
       description: (value) =>
         value !== '' ? null : 'Beschreibung erforderlich',
+      issue_media: {
+        page: (value, values) => {
+          return values.issue_media.media_type === 'pdf' && !value
+            ? 'Seitenangabe erforderlich'
+            : null;
+        },
+        timestamp: (value, values) => {
+          if (
+            values.issue_media.media_type === 'video' ||
+            values.issue_media.media_type === 'audio'
+          ) {
+            return !value || value === '' ? 'Zeitangabe erforderlich' : null;
+          } else {
+            return null;
+          }
+        },
+        url: (value, values) => {
+          return values.issue_media.media_type === 'mycampus' &&
+            (!value || value === '')
+            ? 'Url erforderlich'
+            : null;
+        },
+        label: (value, values) => {
+          if (
+            values.issue_media.media_type === 'video' ||
+            values.issue_media.media_type === 'audio'
+          ) {
+            return !value || value === '' ? 'Titelangabe erforderlich' : null;
+          } else {
+            return null;
+          }
+        },
+        chapter: (value, values) => {
+          return values.issue_media.media_type === 'app' &&
+            (!value || value === '')
+            ? 'Kapitelangabe erforderlich'
+            : null;
+        },
+      },
     },
   });
 

@@ -4,7 +4,7 @@ interface IIssueMediaBase {
   page: number | undefined;
   line: number | undefined;
   label: string | undefined;
-  timestamp: number | undefined;
+  timestamp: string | undefined;
   url: string | undefined;
   chapter: string | undefined;
 }
