@@ -10,6 +10,7 @@ import { useCourseActions } from '../../hooks/course/useCourseActions';
 import { useEffect, useMemo } from 'react';
 import { updateCourse } from '../../queries/courses/updateCourse';
 import { useParams } from 'react-router-dom';
+import AdminOnly from '../../auth/AdminOnly';
 
 const CourseForm = () => {
   const { toggleModal } = useModalContext();
@@ -100,7 +101,9 @@ const CourseForm = () => {
             {...form.getInputProps('title')}
             withAsterisk
           />
-          <TutorInput />
+          <AdminOnly>
+            <TutorInput />
+          </AdminOnly>
           <Switch
             label={form.values.active ? 'Aktiv' : 'Deaktiviert'}
             checked={form.values.active}
