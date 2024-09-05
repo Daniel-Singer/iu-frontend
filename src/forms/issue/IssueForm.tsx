@@ -37,6 +37,14 @@ const IssueForm = () => {
       title: (value) => (value !== '' ? null : 'Kurzbeschreibung erforderlich'),
       description: (value) =>
         value !== '' ? null : 'Beschreibung erforderlich',
+      issue_media: {
+        chapter: (value, values) => {
+          return values.issue_media.media_type === 'app' &&
+            (!value || value === '')
+            ? 'Kapitelangabe erforderlich'
+            : null;
+        },
+      },
     },
   });
 
