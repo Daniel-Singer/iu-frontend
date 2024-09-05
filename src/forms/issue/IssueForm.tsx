@@ -79,6 +79,20 @@ const IssueForm = () => {
     },
   });
 
+  form.watch('category_id', ({ previousValue, value }) => {
+    if (previousValue !== value) {
+      form.setFieldValue('issue_media', {
+        media_type: null,
+        page: undefined,
+        line: undefined,
+        timestamp: undefined,
+        url: undefined,
+        label: undefined,
+        chapter: undefined,
+      });
+    }
+  });
+
   const queryClient = useQueryClient();
 
   const { mutate: create } = useMutation({

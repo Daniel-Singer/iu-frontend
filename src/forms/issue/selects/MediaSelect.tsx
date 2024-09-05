@@ -11,7 +11,7 @@ const MediaSelect = () => {
     } else if (form.values.category_id === '3') {
       return mediaTypes.filter(({ value }) => value === 'audio');
     } else {
-      return mediaTypes;
+      return !form.values.category_id ? [] : mediaTypes;
     }
   }, [form.values.category_id]);
   const handleChange = (value: string | undefined) => {
