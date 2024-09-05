@@ -13,7 +13,7 @@ const FilterBar = () => {
             <Checkbox
               checked={isAssignee!}
               onChange={() => setIsAssignee(!isAssignee)}
-              label="Nur mir zugewiesen"
+              label="MIR ZUGEWIESEN"
             />
           </Group>
         </TutorOnly>
