@@ -43,6 +43,16 @@ const IssueForm = () => {
             ? 'Seitenangabe erforderlich'
             : null;
         },
+        timestamp: (value, values) => {
+          if (
+            values.issue_media.media_type === 'video' ||
+            values.issue_media.media_type === 'audio'
+          ) {
+            return !value || value === '' ? 'Zeitangabe erforderlich' : null;
+          } else {
+            return null;
+          }
+        },
         label: (value, values) => {
           if (
             values.issue_media.media_type === 'video' ||
