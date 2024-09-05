@@ -51,6 +51,10 @@ const CourseForm = () => {
         `Update für Kurs ${course.code} erfolgreich`
       );
     },
+    onError: (error: any) => {
+      const message = error?.response?.data?.message ?? 'Update Fehlgeschlagen';
+      showNotification('error', 'FEHLER', message);
+    },
   });
 
   const form = useCourseForm({
