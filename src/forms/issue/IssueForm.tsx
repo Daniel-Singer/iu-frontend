@@ -43,6 +43,16 @@ const IssueForm = () => {
             ? 'Seitenangabe erforderlich'
             : null;
         },
+        label: (value, values) => {
+          if (
+            values.issue_media.media_type === 'video' ||
+            values.issue_media.media_type === 'audio'
+          ) {
+            return !value || value === '' ? 'Titelangabe erforderlich' : null;
+          } else {
+            return null;
+          }
+        },
         chapter: (value, values) => {
           return values.issue_media.media_type === 'app' &&
             (!value || value === '')
