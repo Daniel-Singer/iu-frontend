@@ -53,6 +53,12 @@ const IssueForm = () => {
             return null;
           }
         },
+        url: (value, values) => {
+          return values.issue_media.media_type === 'mycampus' &&
+            (!value || value === '')
+            ? 'Url erforderlich'
+            : null;
+        },
         label: (value, values) => {
           if (
             values.issue_media.media_type === 'video' ||
