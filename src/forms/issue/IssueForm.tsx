@@ -38,6 +38,11 @@ const IssueForm = () => {
       description: (value) =>
         value !== '' ? null : 'Beschreibung erforderlich',
       issue_media: {
+        page: (value, values) => {
+          return values.issue_media.media_type === 'pdf' && !value
+            ? 'Seitenangabe erforderlich'
+            : null;
+        },
         chapter: (value, values) => {
           return values.issue_media.media_type === 'app' &&
             (!value || value === '')

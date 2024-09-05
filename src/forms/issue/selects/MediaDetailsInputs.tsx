@@ -17,6 +17,7 @@ const MediaDetailsInputs = () => {
           label="Seite"
           min={1}
           {...form.getInputProps('issue_media.page')}
+          withAsterisk
         />
         <NumberInput
           label="Zeile"
