@@ -11,6 +11,7 @@ import CategorySelect from './selects/CategorySelect';
 import MediaSelect from './selects/MediaSelect';
 import MediaDetailsInputs from './selects/MediaDetailsInputs';
 import FileSelect from './selects/FileSelect';
+import { checkAttackedFileExtension } from '../../helpers/issue/checkAttachedFileExtension';
 
 const IssueForm = () => {
   const { toggleModal } = useModalContext();
@@ -37,6 +38,17 @@ const IssueForm = () => {
       title: (value) => (value !== '' ? null : 'Kurzbeschreibung erforderlich'),
       description: (value) =>
         value !== '' ? null : 'Beschreibung erforderlich',
+      attached_file: (value) => {
+        if (value) {
+          const isAllowed = checkAttackedFileExtension({
+            name: value.name,
+            allowed: ['.png', '.jpg', '.jpeg'],
+          });
+          return isAllowed ? null : 'Ungültiges Dateiformat';
+        } else {
+          return null;
+        }
+      },
       issue_media: {
         page: (value, values) => {
           return values.issue_media.media_type === 'pdf' && !value
