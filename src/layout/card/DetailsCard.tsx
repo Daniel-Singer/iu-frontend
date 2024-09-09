@@ -11,9 +11,10 @@ interface IProps {
   span?: number;
   data: ICardData[];
   children?: ReactNode;
+  loading?: boolean;
 }
 
-const DetailsCard = ({ span = 2, data, children }: IProps) => {
+const DetailsCard = ({ span = 2, data, children, loading }: IProps) => {
   return (
     <Paper p="sm">
       <Stack>
@@ -23,6 +24,7 @@ const DetailsCard = ({ span = 2, data, children }: IProps) => {
             key={`item_${item.label}`}
             label={item.label}
             value={item.value}
+            loading={loading}
           />
         ))}
         {children}
