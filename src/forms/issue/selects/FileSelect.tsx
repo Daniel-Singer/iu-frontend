@@ -14,6 +14,7 @@ const FileSelect = ({ form }: IProps) => {
     return (
       <FileInput
         label="Datei anhängen"
+        description="Es sind nur JPEG und PNG Dateien erlaubt"
         leftSection={<IconPaperclip size={18} />}
         accept={'image/jpeg, image/png'}
         {...form.getInputProps('attached_file')}
