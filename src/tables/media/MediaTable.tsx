@@ -13,6 +13,7 @@ import { getMediaFileInfo } from '../../queries/media/getMediaFileInfo';
 import { checkAttackedFileExtension } from '../../helpers/issue/checkAttachedFileExtension';
 
 import classes from './MediaTable.module.css';
+import { useCourseContext } from '../../context/CourseContext';
 
 interface IFormValues {
   attached_file: any;
@@ -21,6 +22,7 @@ interface IFormValues {
 const MediaTable = () => {
   const params = useParams();
   const queryClient = useQueryClient();
+  const { active } = useCourseContext();
 
   const { data: media, isLoading } = useQuery({
     queryKey: ['media'],
@@ -64,32 +66,36 @@ const MediaTable = () => {
     },
   });
 
-  if (media?.length! > 0 && !isLoading) {
-    return (
-      <Stack gap="xs">
-        <form
-          onSubmit={form.onSubmit((values) =>
-            uploadFile({
-              id: params?.id!,
-              attached_file: values.attached_file!,
-            })
-          )}
-        >
-          <Group align="end" p="xs">
-            <FileInput
-              flex={1}
-              leftSection={<IconPaperclip size={16} />}
-              placeholder="Datei wählen"
-              description="Es sind nur JPEG und PNG Dateien erlaubt"
-              accept={'image/jpeg, image/png'}
-              {...form.getInputProps('attached_file')}
-              clearable
-            />
-            <UploadButton disabled={!form.values.attached_file} type="submit">
-              hochladen
-            </UploadButton>
-          </Group>
-        </form>
+  return (
+    <Stack gap={0}>
+      <form
+        onSubmit={form.onSubmit((values) =>
+          uploadFile({
+            id: params?.id!,
+            attached_file: values.attached_file!,
+          })
+        )}
+      >
+        <Group align="end" p="xs">
+          <FileInput
+            flex={1}
+            leftSection={<IconPaperclip size={16} />}
+            placeholder="Datei wählen"
+            description="Es sind nur JPEG und PNG Dateien erlaubt"
+            accept={'image/jpeg, image/png'}
+            {...form.getInputProps('attached_file')}
+            clearable
+            disabled={!active}
+          />
+          <UploadButton
+            disabled={!form.values.attached_file || !active}
+            type="submit"
+          >
+            hochladen
+          </UploadButton>
+        </Group>
+      </form>
+      {media?.length! > 0 && !isLoading ? (
         <Table className={classes.table}>
           <Table.Thead>
             <Table.Tr>
@@ -110,17 +116,15 @@ const MediaTable = () => {
             ))}
           </Table.Tbody>
         </Table>
-      </Stack>
-    );
-  } else {
-    return (
-      <Alert icon={<IconAlertCircle size={18} />}>
-        <Text size="sm" c="blue">
-          Keine Dateien für diese Fehlermeldung hinzugefügt
-        </Text>
-      </Alert>
-    );
-  }
+      ) : (
+        <Alert icon={<IconAlertCircle size={18} />} mx="xs" mb="xs">
+          <Text size="sm" c="blue">
+            Keine Dateien für diese Fehlermeldung hinzugefügt
+          </Text>
+        </Alert>
+      )}
+    </Stack>
+  );
 };
 
 export default MediaTable;

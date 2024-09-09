@@ -10,7 +10,7 @@ import { ScrollingProvider } from '../context/ScrollingContext';
 import ResponsibleTutorOnly from '../auth/ResponsibleTutorOnly';
 
 const CourseDetailsScreen = () => {
-  const { course } = useCourseActions();
+  const { course, isLoading } = useCourseActions();
   const { toggleModal } = useModalContext();
   return (
     <>
@@ -26,6 +26,7 @@ const CourseDetailsScreen = () => {
       <Grid>
         <Grid.Col span={4}>
           <DetailsCard
+            loading={isLoading}
             span={4}
             data={[
               { label: 'ID', value: course?.id },

@@ -1,7 +1,8 @@
-import { Anchor, Table, Text } from '@mantine/core';
+import { Anchor, Table, Text, Tooltip } from '@mantine/core';
 import Status from './Status';
 import dayjs from 'dayjs';
 import { useNavigate } from 'react-router-dom';
+import AdminOrTutorAnchor from '../../components/anchor/AdminOrTutorAnchor';
 
 interface IProps {
   issues: IIssueReceive[] | undefined;
@@ -19,15 +20,20 @@ const Tbody = ({ issues }: IProps) => {
           >
             <Table.Td>{id}</Table.Td>
             {course?.code ? (
-              <Table.Td>
-                <Anchor
-                  size="sm"
-                  c="green"
-                  onClick={() => navigate(`/courses/${course.id!}`)}
-                >
-                  {course.code}
-                </Anchor>
-              </Table.Td>
+              <Tooltip
+                label={course?.active ? 'Kurs Aktiv' : 'Kurs Inaktiv'}
+                openDelay={1000}
+              >
+                <Table.Td>
+                  <AdminOrTutorAnchor
+                    size="sm"
+                    color={course?.active ? 'green' : 'red'}
+                    path={`/courses/${course.id!}`}
+                  >
+                    {course?.code!}
+                  </AdminOrTutorAnchor>
+                </Table.Td>
+              </Tooltip>
             ) : null}
             <Table.Td>
               <Anchor

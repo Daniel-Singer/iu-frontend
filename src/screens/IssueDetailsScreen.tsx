@@ -1,13 +1,24 @@
 import { useEffect } from 'react';
 import { ScrollArea, SimpleGrid, Stack, Text } from '@mantine/core';
-import { useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 
 import IssueCard from '../components/cards/issue/IssueCard';
 import { ModalProvider } from '../context/ModalContext';
 import AuditCard from '../components/cards/audit/AuditCard';
+import { getIssue } from '../queries/issues/getIssue';
+import { useParams } from 'react-router-dom';
+import { CourseProvider } from '../context/CourseContext';
 
 const IssueDetailsScreen = () => {
   const queryClient = useQueryClient();
+
+  const params = useParams();
+
+  const { data: issue, isLoading } = useQuery({
+    queryKey: ['issue'],
+    queryFn: () => getIssue(params.id!),
+    enabled: !!params.id,
+  });
 
   useEffect(() => {
     return () => {
@@ -21,12 +32,12 @@ const IssueDetailsScreen = () => {
   }, []);
 
   return (
-    <>
+    <CourseProvider issue={issue} isLoading={isLoading}>
       <ScrollArea.Autosize>
         <SimpleGrid cols={2} p={0} spacing="xs">
           <Stack>
             <Text c="blue">DETAILS</Text>
-            <IssueCard />
+            <IssueCard issue={issue!} isLoading={isLoading} />
           </Stack>
           <Stack>
             <Text c="blue">AUDIT</Text>
@@ -36,7 +47,7 @@ const IssueDetailsScreen = () => {
           </Stack>
         </SimpleGrid>
       </ScrollArea.Autosize>
-    </>
+    </CourseProvider>
   );
 };
 

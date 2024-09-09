@@ -1,7 +1,5 @@
-import { Divider, Paper, Stack } from '@mantine/core';
-import { useQuery } from '@tanstack/react-query';
+import { Alert, Divider, Paper, Stack, Text } from '@mantine/core';
 import dayjs from 'dayjs';
-import { useParams } from 'react-router-dom';
 
 import CardRow from '../../../layout/card/CardRow';
 import MediaInfo from './MediaInfo';
@@ -11,18 +9,28 @@ import MediaModal from '../../../modals/media/MediaModal';
 import OverviewInfo from './OverviewInfo';
 import StatusModal from '../../../modals/status/StatusModal';
 
-import { getIssue } from '../../../queries/issues/getIssue';
 import AdminOrTutorAnchor from '../../anchor/AdminOrTutorAnchor';
+import { useCourseContext } from '../../../context/CourseContext';
+import { IconAlertTriangle } from '@tabler/icons-react';
 
-const IssueCard = () => {
-  const params = useParams();
-  const { data: issue, isLoading } = useQuery({
-    queryKey: ['issue'],
-    queryFn: () => getIssue(params.id!),
-    enabled: !!params.id,
-  });
+interface IProps {
+  issue: IIssueReceive;
+  isLoading: boolean;
+}
+
+const IssueCard = ({ issue, isLoading }: IProps) => {
+  const { active } = useCourseContext();
   return (
     <Paper p="xs">
+      {!active && issue ? (
+        <Alert mb="xs" color="red" icon={<IconAlertTriangle size={20} />}>
+          <Text c="red" size="sm">
+            Der dieser Fehlermeldung zugewiesene Kurs ist inaktiv.
+            Fehlermeldungen die diesen betreffen können nicht weiter bearbeitet
+            werden.
+          </Text>
+        </Alert>
+      ) : null}
       <Stack>
         <ModalProvider>
           <StatusModal />
@@ -38,6 +46,7 @@ const IssueCard = () => {
           label="Kurs"
           value={
             <AdminOrTutorAnchor
+              color={issue?.course?.active! ? 'green' : 'red'}
               path={`/courses/${issue?.course?.id!}`}
             >{`${issue?.course.code!} - ${issue?.course
               .title!}`}</AdminOrTutorAnchor>
