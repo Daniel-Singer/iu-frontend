@@ -28,7 +28,7 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
       />
       {issue?.status?.reason ? (
         <CardRow
-          label="Begründung"
+          label={issue.status?.id === 3 ? 'Ticketlösung' : 'Begründung'}
           value={issue?.status?.reason!}
           loading={isLoading}
         />
