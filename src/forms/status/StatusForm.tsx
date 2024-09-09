@@ -9,6 +9,7 @@ import SubmitButton from '../../components/buttons/SubmitButton';
 import { updateIssue } from '../../queries/issues/updateIssue';
 import { useModalContext } from '../../context/ModalContext';
 import { showNotification } from '../../helpers/notifications/showNotification';
+import { validateReason } from '../../helpers/status/validateReason';
 
 interface IButtonStatusText {
   [key: string]: string;
@@ -37,9 +38,21 @@ const StatusForm = () => {
       reason: (value, values) => {
         if (values.status.id > 2) {
           if (values.status.id == 3) {
-            return value === '' ? 'Ticketlösung erforderlich' : null;
+            if (!value || value === '') {
+              return value === '' ? 'Ticketlösung erforderlich' : null;
+            } else {
+              return validateReason(value)
+                ? null
+                : 'Bitte ausführlichere Ticketlösung bereitstellen';
+            }
           } else {
-            return value === '' ? 'Begründung erforderlich' : null;
+            if (!value || value === '') {
+              return value === '' ? 'Begründung erforderlich' : null;
+            } else {
+              return validateReason(value)
+                ? null
+                : 'Bitte ausführlichere Begründung bereitstellen';
+            }
           }
         }
         return null;
