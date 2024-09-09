@@ -1,14 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 import { Alert, FileInput, Group, Stack, Table, Text } from '@mantine/core';
 import { IconAlertCircle, IconPaperclip } from '@tabler/icons-react';
+import { useForm } from '@mantine/form';
+
 import ImageColumn from './ImageColumn';
 import UploadButton from '../../components/buttons/UploadButton';
-import { useForm } from '@mantine/form';
 import { uploadMedia } from '../../queries/media/uploadMedia';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { getMediaFileInfo } from '../../queries/media/getMediaFileInfo';
 import { checkAttackedFileExtension } from '../../helpers/issue/checkAttachedFileExtension';
+
+import classes from './MediaTable.module.css';
 
 interface IFormValues {
   attached_file: any;
@@ -86,11 +90,12 @@ const MediaTable = () => {
             </UploadButton>
           </Group>
         </form>
-        <Table>
+        <Table className={classes.table}>
           <Table.Thead>
             <Table.Tr>
               <Table.Th>Bezeichnung</Table.Th>
               <Table.Th>Typ</Table.Th>
+              <Table.Th>Hochgeladen am</Table.Th>
             </Table.Tr>
           </Table.Thead>
           <Table.Tbody>
@@ -98,6 +103,9 @@ const MediaTable = () => {
               <Table.Tr key={element.id!}>
                 <ImageColumn media_label={element?.name!} id={element?.id!} />
                 <Table.Td>{element?.mimetype!}</Table.Td>
+                <Table.Td>
+                  {dayjs(element?.created_at!).format('DD.mm.YYYY')}
+                </Table.Td>
               </Table.Tr>
             ))}
           </Table.Tbody>

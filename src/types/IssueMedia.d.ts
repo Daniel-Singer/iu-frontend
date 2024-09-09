@@ -14,4 +14,5 @@ interface IMediaFileInfo {
   mimetype: string;
   name: string;
   file_path: string;
+  created_at: Date | null;
 }
