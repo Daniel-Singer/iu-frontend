@@ -12,6 +12,7 @@ import OverviewInfo from './OverviewInfo';
 import StatusModal from '../../../modals/status/StatusModal';
 
 import { getIssue } from '../../../queries/issues/getIssue';
+import AdminOrTutorAnchor from '../../anchor/AdminOrTutorAnchor';
 
 const IssueCard = () => {
   const params = useParams();
@@ -37,9 +38,10 @@ const IssueCard = () => {
         <CardRow
           label="Kurs"
           value={
-            <Anchor
-              onClick={() => navigate(`/courses/${issue?.course?.id!}`)}
-            >{`${issue?.course.code!} - ${issue?.course.title!}`}</Anchor>
+            <AdminOrTutorAnchor
+              path={`/courses/${issue?.course?.id!}`}
+            >{`${issue?.course.code!} - ${issue?.course
+              .title!}`}</AdminOrTutorAnchor>
           }
           loading={isLoading}
         />
