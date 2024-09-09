@@ -1,8 +1,7 @@
-import { createContext, ReactNode, useContext, useState } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 
 interface ICourseContext {
   active: boolean;
-  setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const CourseContext = createContext<ICourseContext | undefined>(
@@ -10,14 +9,13 @@ export const CourseContext = createContext<ICourseContext | undefined>(
 );
 
 interface IContextProviderProps {
+  issue: IIssueReceive | undefined;
   children: ReactNode;
 }
 
-export const CourseProvider = ({ children }: IContextProviderProps) => {
-  const [active, setActive] = useState<boolean>(true);
-
+export const CourseProvider = ({ issue, children }: IContextProviderProps) => {
   return (
-    <CourseContext.Provider value={{ active, setActive }}>
+    <CourseContext.Provider value={{ active: issue?.course?.active! }}>
       {children}
     </CourseContext.Provider>
   );
