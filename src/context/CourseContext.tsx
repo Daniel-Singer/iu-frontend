@@ -2,6 +2,7 @@ import { createContext, ReactNode, useContext } from 'react';
 
 interface ICourseContext {
   active: boolean;
+  status: number;
   isLoading: boolean;
 }
 
@@ -22,7 +23,11 @@ export const CourseProvider = ({
 }: IContextProviderProps) => {
   return (
     <CourseContext.Provider
-      value={{ active: issue?.course?.active!, isLoading }}
+      value={{
+        active: issue?.course?.active!,
+        isLoading,
+        status: issue?.status.id!,
+      }}
     >
       {children}
     </CourseContext.Provider>

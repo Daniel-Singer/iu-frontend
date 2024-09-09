@@ -16,7 +16,8 @@ interface IFormValues {
 const UploadMediaForm = () => {
   const queryClient = useQueryClient();
   const params = useParams();
-  const { active } = useCourseContext();
+
+  const { active, status } = useCourseContext();
   const form = useForm<IFormValues>({
     initialValues: {
       attached_file: null,
@@ -70,10 +71,10 @@ const UploadMediaForm = () => {
           accept={'image/jpeg, image/png'}
           {...form.getInputProps('attached_file')}
           clearable
-          disabled={!active}
+          disabled={!active || status > 2}
         />
         <UploadButton
-          disabled={!form.values.attached_file || !active}
+          disabled={!form.values.attached_file || !active || status > 2}
           type="submit"
         >
           hochladen
