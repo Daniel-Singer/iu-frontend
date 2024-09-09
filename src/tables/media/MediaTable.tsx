@@ -114,7 +114,7 @@ const MediaTable = () => {
     );
   } else {
     return (
-      <Alert icon={<IconAlertCircle size={18} />}>
+      <Alert icon={<IconAlertCircle size={18} />} m="xs">
         <Text size="sm" c="blue">
           Keine Dateien für diese Fehlermeldung hinzugefügt
         </Text>
