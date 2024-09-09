@@ -1,7 +1,7 @@
-import { Anchor, Divider, Paper, Stack } from '@mantine/core';
+import { Divider, Paper, Stack } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import CardRow from '../../../layout/card/CardRow';
 import MediaInfo from './MediaInfo';
@@ -16,7 +16,6 @@ import AdminOrTutorAnchor from '../../anchor/AdminOrTutorAnchor';
 
 const IssueCard = () => {
   const params = useParams();
-  const navigate = useNavigate();
   const { data: issue, isLoading } = useQuery({
     queryKey: ['issue'],
     queryFn: () => getIssue(params.id!),
@@ -48,10 +47,9 @@ const IssueCard = () => {
         <CardRow
           label="Tutor"
           value={
-            <Anchor
-              c="green"
-              onClick={() => navigate(`/users/${issue?.course?.tutor?.id!}`)}
-            >{`${issue?.course.tutor.first_name} ${issue?.course?.tutor.last_name}`}</Anchor>
+            <AdminOrTutorAnchor
+              path={`/users/${issue?.course?.tutor?.id!}`}
+            >{`${issue?.course.tutor.first_name} ${issue?.course?.tutor.last_name}`}</AdminOrTutorAnchor>
           }
           loading={isLoading}
         />
