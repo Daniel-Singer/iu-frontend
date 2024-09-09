@@ -8,3 +8,12 @@
 .table th:first-of-type {
     width: 48px;
 }
+
+.header {
+    position: sticky;
+    background-color: var(--mantine-color-body);
+
+    &[data-scrolling] {
+        box-shadow: var(--mantine-shadow-sm);
+    }
+}
