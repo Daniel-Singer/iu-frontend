@@ -1,0 +1,4 @@
+.table th:last-of-type,
+.table td:last-of-type {
+    text-align: right;
+}

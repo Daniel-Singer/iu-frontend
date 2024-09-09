@@ -1,14 +1,18 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import dayjs from 'dayjs';
 import { Alert, FileInput, Group, Stack, Table, Text } from '@mantine/core';
 import { IconAlertCircle, IconPaperclip } from '@tabler/icons-react';
+import { useForm } from '@mantine/form';
+
 import ImageColumn from './ImageColumn';
 import UploadButton from '../../components/buttons/UploadButton';
-import { useForm } from '@mantine/form';
 import { uploadMedia } from '../../queries/media/uploadMedia';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { getMediaFileInfo } from '../../queries/media/getMediaFileInfo';
 import { checkAttackedFileExtension } from '../../helpers/issue/checkAttachedFileExtension';
+
+import classes from './MediaTable.module.css';
 
 interface IFormValues {
   attached_file: any;
@@ -18,7 +22,7 @@ const MediaTable = () => {
   const params = useParams();
   const queryClient = useQueryClient();
 
-  const { data: media } = useQuery({
+  const { data: media, isLoading } = useQuery({
     queryKey: ['media'],
     queryFn: () => getMediaFileInfo(params?.id!),
     enabled: !!params.id,
@@ -60,28 +64,9 @@ const MediaTable = () => {
     },
   });
 
-  if (media?.file_path) {
+  if (media?.length! > 0 && !isLoading) {
     return (
-      <>
-        <Table>
-          <Table.Thead>
-            <Table.Tr>
-              <Table.Th>Bezeichnung</Table.Th>
-              <Table.Th>Typ</Table.Th>
-            </Table.Tr>
-          </Table.Thead>
-          <Table.Tbody>
-            <Table.Tr>
-              <ImageColumn media_label={media?.name!} id={media?.id!} />
-              <Table.Td>{media?.mimetype!}</Table.Td>
-            </Table.Tr>
-          </Table.Tbody>
-        </Table>
-      </>
-    );
-  } else {
-    return (
-      <Stack gap="xs" p="xs">
+      <Stack gap="xs">
         <form
           onSubmit={form.onSubmit((values) =>
             uploadFile({
@@ -90,7 +75,7 @@ const MediaTable = () => {
             })
           )}
         >
-          <Group align="end">
+          <Group align="end" p="xs">
             <FileInput
               flex={1}
               leftSection={<IconPaperclip size={16} />}
@@ -105,12 +90,35 @@ const MediaTable = () => {
             </UploadButton>
           </Group>
         </form>
-        <Alert icon={<IconAlertCircle size={18} />}>
-          <Text size="sm" c="blue">
-            Keine Dateien für diese Fehlermeldung hinzugefügt
-          </Text>
-        </Alert>
+        <Table className={classes.table}>
+          <Table.Thead>
+            <Table.Tr>
+              <Table.Th>Bezeichnung</Table.Th>
+              <Table.Th>Typ</Table.Th>
+              <Table.Th>Hochgeladen am</Table.Th>
+            </Table.Tr>
+          </Table.Thead>
+          <Table.Tbody>
+            {media?.map((element) => (
+              <Table.Tr key={element.id!}>
+                <ImageColumn media_label={element?.name!} id={element?.id!} />
+                <Table.Td>{element?.mimetype!}</Table.Td>
+                <Table.Td>
+                  {dayjs(element?.created_at!).format('DD.mm.YYYY')}
+                </Table.Td>
+              </Table.Tr>
+            ))}
+          </Table.Tbody>
+        </Table>
       </Stack>
+    );
+  } else {
+    return (
+      <Alert icon={<IconAlertCircle size={18} />}>
+        <Text size="sm" c="blue">
+          Keine Dateien für diese Fehlermeldung hinzugefügt
+        </Text>
+      </Alert>
     );
   }
 };
