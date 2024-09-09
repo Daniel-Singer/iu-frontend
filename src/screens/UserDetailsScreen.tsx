@@ -34,7 +34,7 @@ const UserDetailsScreen = () => {
       />
       <SimpleGrid cols={2}>
         <Stack>
-          <UserCard {...(user! as IUserCreate)} />
+          <UserCard {...(user! as IUserCreate)} loading={isLoading} />
           <AdminOnly>
             <ResetPasswordForm />
           </AdminOnly>
