@@ -37,7 +37,7 @@ const MediaTable = () => {
                 <ImageColumn media_label={element?.name!} id={element?.id!} />
                 <Table.Td>{element?.mimetype!}</Table.Td>
                 <Table.Td>
-                  {dayjs(element?.created_at!).format('DD.mm.YYYY')}
+                  {dayjs(element?.created_at!).format('DD.MM.YYYY')}
                 </Table.Td>
               </Table.Tr>
             ))}
