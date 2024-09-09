@@ -1,7 +1,5 @@
 import { Divider, Paper, Stack } from '@mantine/core';
-import { useQuery } from '@tanstack/react-query';
 import dayjs from 'dayjs';
-import { useParams } from 'react-router-dom';
 
 import CardRow from '../../../layout/card/CardRow';
 import MediaInfo from './MediaInfo';
@@ -11,16 +9,14 @@ import MediaModal from '../../../modals/media/MediaModal';
 import OverviewInfo from './OverviewInfo';
 import StatusModal from '../../../modals/status/StatusModal';
 
-import { getIssue } from '../../../queries/issues/getIssue';
 import AdminOrTutorAnchor from '../../anchor/AdminOrTutorAnchor';
 
-const IssueCard = () => {
-  const params = useParams();
-  const { data: issue, isLoading } = useQuery({
-    queryKey: ['issue'],
-    queryFn: () => getIssue(params.id!),
-    enabled: !!params.id,
-  });
+interface IProps {
+  issue: IIssueReceive;
+  isLoading: boolean;
+}
+
+const IssueCard = ({ issue, isLoading }: IProps) => {
   return (
     <Paper p="xs">
       <Stack>

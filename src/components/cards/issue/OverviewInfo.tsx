@@ -22,6 +22,7 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
         value={
           <StatusLabel id={issue?.status?.id!} label={issue?.status?.label!} />
         }
+        loading={isLoading}
       />
       {issue?.status?.reason ? (
         <CardRow
