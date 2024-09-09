@@ -26,7 +26,8 @@ const IssueCard = ({ issue, isLoading }: IProps) => {
         <Alert mb="xs" color="red" icon={<IconAlertTriangle size={20} />}>
           <Text c="red" size="sm">
             Der dieser Fehlermeldung zugewiesene Kurs ist inaktiv.
-            Fehlermeldungen die diesen betreffen können nicht bearbeitet werden.
+            Fehlermeldungen die diesen betreffen können nicht weiter bearbeitet
+            werden.
           </Text>
         </Alert>
       ) : null}

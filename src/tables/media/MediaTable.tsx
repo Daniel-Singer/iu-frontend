@@ -13,6 +13,7 @@ import { getMediaFileInfo } from '../../queries/media/getMediaFileInfo';
 import { checkAttackedFileExtension } from '../../helpers/issue/checkAttachedFileExtension';
 
 import classes from './MediaTable.module.css';
+import { useCourseContext } from '../../context/CourseContext';
 
 interface IFormValues {
   attached_file: any;
@@ -21,6 +22,7 @@ interface IFormValues {
 const MediaTable = () => {
   const params = useParams();
   const queryClient = useQueryClient();
+  const { active } = useCourseContext();
 
   const { data: media, isLoading } = useQuery({
     queryKey: ['media'],
@@ -83,8 +85,12 @@ const MediaTable = () => {
             accept={'image/jpeg, image/png'}
             {...form.getInputProps('attached_file')}
             clearable
+            disabled={!active}
           />
-          <UploadButton disabled={!form.values.attached_file} type="submit">
+          <UploadButton
+            disabled={!form.values.attached_file || !active}
+            type="submit"
+          >
             hochladen
           </UploadButton>
         </Group>
