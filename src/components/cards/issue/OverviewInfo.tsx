@@ -6,6 +6,7 @@ import EditButton from '../../buttons/EditButton';
 import { useModalContext } from '../../../context/ModalContext';
 import AdminAndTutorOnly from '../../../auth/AdminAndTutorOnly';
 import AdminOrTutorAnchor from '../../anchor/AdminOrTutorAnchor';
+import { useCourseContext } from '../../../context/CourseContext';
 
 interface IProps {
   issue: IIssueReceive;
@@ -14,6 +15,7 @@ interface IProps {
 
 const OverviewInfo = ({ issue, isLoading }: IProps) => {
   const { toggleModal } = useModalContext();
+  const { active } = useCourseContext();
   return (
     <>
       <CardLabel>Übersicht</CardLabel>
@@ -33,7 +35,11 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
       ) : null}
       <AdminAndTutorOnly>
         <Group>
-          <EditButton onClick={toggleModal} variant="light">
+          <EditButton
+            onClick={toggleModal}
+            variant="light"
+            disabled={!active && !isLoading}
+          >
             status ändern
           </EditButton>
         </Group>
