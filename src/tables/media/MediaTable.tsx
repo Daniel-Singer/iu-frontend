@@ -8,6 +8,11 @@ import { useForm } from '@mantine/form';
 import { uploadMedia } from '../../queries/media/uploadMedia';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { getMediaFileInfo } from '../../queries/media/getMediaFileInfo';
+import { checkAttackedFileExtension } from '../../helpers/issue/checkAttachedFileExtension';
+
+interface IFormValues {
+  attached_file: any;
+}
 
 const MediaTable = () => {
   const params = useParams();
@@ -19,12 +24,23 @@ const MediaTable = () => {
     enabled: !!params.id,
   });
 
-  const form = useForm({
+  const form = useForm<IFormValues>({
     initialValues: {
       attached_file: null,
     },
     validate: {
-      attached_file: (value) => (!value ? 'Bitte Datei auswählen' : null),
+      // attached_file: (value) => (!value ? 'Bitte Datei auswählen' : null),
+      attached_file: (value) => {
+        if (value) {
+          const isAllowed = checkAttackedFileExtension({
+            name: value.name,
+            allowed: ['.png', '.jpg', '.jpeg'],
+          });
+          return isAllowed ? null : 'Ungültiges Dateiformat';
+        } else {
+          return 'Bitte Datei wählen';
+        }
+      },
     },
   });
 
@@ -74,11 +90,12 @@ const MediaTable = () => {
             })
           )}
         >
-          <Group>
+          <Group align="end">
             <FileInput
               flex={1}
               leftSection={<IconPaperclip size={16} />}
               placeholder="Datei wählen"
+              description="Es sind nur JPEG und PNG Dateien erlaubt"
               accept={'image/jpeg, image/png'}
               {...form.getInputProps('attached_file')}
               clearable
