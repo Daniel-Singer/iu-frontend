@@ -24,7 +24,11 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
         }
       />
       {issue?.status?.reason ? (
-        <CardRow label="Begründung" value={issue?.status?.reason!} />
+        <CardRow
+          label="Begründung"
+          value={issue?.status?.reason!}
+          loading={isLoading}
+        />
       ) : null}
       <AdminAndTutorOnly>
         <Group>
@@ -34,7 +38,7 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
         </Group>
       </AdminAndTutorOnly>
       <Divider />
-      <CardRow label="ID" value={issue?.id!} loading={isLoading} />
+      <CardRow label="ID" value={issue?.id!} />
       <CardRow
         label="Eingereicht von"
         value={
