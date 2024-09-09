@@ -1,8 +1,14 @@
 import { Table } from '@mantine/core';
+import { useScrollingContext } from '../../context/ScrollingContext';
+import classes from './NotificationsTable.module.css';
 
 const Thead = () => {
+  const { scrolling } = useScrollingContext();
   return (
-    <Table.Thead>
+    <Table.Thead
+      className={classes.header}
+      data-scrolling={scrolling === true || undefined}
+    >
       <Table.Tr>
         <Table.Th></Table.Th>
         <Table.Th>ID</Table.Th>
