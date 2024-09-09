@@ -1,4 +1,4 @@
-import { Divider, Paper, Stack } from '@mantine/core';
+import { Alert, Divider, Paper, Stack, Text } from '@mantine/core';
 import dayjs from 'dayjs';
 
 import CardRow from '../../../layout/card/CardRow';
@@ -10,6 +10,8 @@ import OverviewInfo from './OverviewInfo';
 import StatusModal from '../../../modals/status/StatusModal';
 
 import AdminOrTutorAnchor from '../../anchor/AdminOrTutorAnchor';
+import { useCourseContext } from '../../../context/CourseContext';
+import { IconAlertTriangle } from '@tabler/icons-react';
 
 interface IProps {
   issue: IIssueReceive;
@@ -17,8 +19,17 @@ interface IProps {
 }
 
 const IssueCard = ({ issue, isLoading }: IProps) => {
+  const { active } = useCourseContext();
   return (
     <Paper p="xs">
+      {!active && issue ? (
+        <Alert mb="xs" color="red" icon={<IconAlertTriangle size={20} />}>
+          <Text c="red" size="sm">
+            Der dieser Fehlermeldung zugewiesene Kurs ist inaktiv.
+            Fehlermeldungen die diesen betreffen können nicht bearbeitet werden.
+          </Text>
+        </Alert>
+      ) : null}
       <Stack>
         <ModalProvider>
           <StatusModal />
@@ -34,6 +45,7 @@ const IssueCard = ({ issue, isLoading }: IProps) => {
           label="Kurs"
           value={
             <AdminOrTutorAnchor
+              color={issue?.course?.active! ? 'green' : 'red'}
               path={`/courses/${issue?.course?.id!}`}
             >{`${issue?.course.code!} - ${issue?.course
               .title!}`}</AdminOrTutorAnchor>

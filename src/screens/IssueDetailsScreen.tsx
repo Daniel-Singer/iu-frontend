@@ -7,6 +7,7 @@ import { ModalProvider } from '../context/ModalContext';
 import AuditCard from '../components/cards/audit/AuditCard';
 import { getIssue } from '../queries/issues/getIssue';
 import { useParams } from 'react-router-dom';
+import { CourseProvider } from '../context/CourseContext';
 
 const IssueDetailsScreen = () => {
   const queryClient = useQueryClient();
@@ -31,7 +32,7 @@ const IssueDetailsScreen = () => {
   }, []);
 
   return (
-    <>
+    <CourseProvider issue={issue} isLoading={isLoading}>
       <ScrollArea.Autosize>
         <SimpleGrid cols={2} p={0} spacing="xs">
           <Stack>
@@ -46,7 +47,7 @@ const IssueDetailsScreen = () => {
           </Stack>
         </SimpleGrid>
       </ScrollArea.Autosize>
-    </>
+    </CourseProvider>
   );
 };
 

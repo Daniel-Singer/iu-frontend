@@ -2,6 +2,7 @@ import { createContext, ReactNode, useContext } from 'react';
 
 interface ICourseContext {
   active: boolean;
+  isLoading: boolean;
 }
 
 export const CourseContext = createContext<ICourseContext | undefined>(
@@ -9,13 +10,20 @@ export const CourseContext = createContext<ICourseContext | undefined>(
 );
 
 interface IContextProviderProps {
+  isLoading: boolean;
   issue: IIssueReceive | undefined;
   children: ReactNode;
 }
 
-export const CourseProvider = ({ issue, children }: IContextProviderProps) => {
+export const CourseProvider = ({
+  issue,
+  isLoading,
+  children,
+}: IContextProviderProps) => {
   return (
-    <CourseContext.Provider value={{ active: issue?.course?.active! }}>
+    <CourseContext.Provider
+      value={{ active: issue?.course?.active!, isLoading }}
+    >
       {children}
     </CourseContext.Provider>
   );
