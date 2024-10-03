@@ -48,8 +48,17 @@ const NotificationsTable = () => {
                         )}
                       </ThemeIcon>
                     </Table.Td>
-                    <Table.Td>{id}</Table.Td>
-                    <Table.Td>{subject}</Table.Td>
+                    <Table.Td>
+                      <Anchor
+                        size="sm"
+                        onClick={() => navigate(`/notifications/${id}`)}
+                      >
+                        {id}
+                      </Anchor>
+                    </Table.Td>
+                    <Table.Td onClick={() => navigate(`/notifications/${id}`)}>
+                      {subject}
+                    </Table.Td>
                     <Table.Td>
                       <Anchor onClick={() => navigate(`/issue/${issue_id}`)}>
                         <Text size="sm" c="green">
