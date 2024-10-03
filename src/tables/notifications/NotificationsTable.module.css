@@ -5,8 +5,13 @@
     text-align: right;
 }
 
+
 .table th:first-of-type {
     width: 48px;
+}
+
+.table tr>td {
+    cursor: pointer;
 }
 
 .header {
