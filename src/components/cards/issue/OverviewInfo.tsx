@@ -38,9 +38,13 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
           <EditButton
             onClick={toggleModal}
             variant="light"
-            disabled={(!active && !isLoading) || issue?.status?.id >= 3}
+            disabled={
+              (!active && !isLoading) ||
+              issue?.status?.id === 3 ||
+              issue?.status?.id === 4
+            }
           >
-            {issue?.status?.id >= 3 ? 'Read only' : 'status ändern'}
+            status ändern
           </EditButton>
         </Group>
       </AdminAndTutorOnly>
