@@ -40,7 +40,7 @@ const OverviewInfo = ({ issue, isLoading }: IProps) => {
             variant="light"
             disabled={(!active && !isLoading) || issue?.status?.id >= 3}
           >
-            status ändern
+            {issue?.status?.id >= 3 ? 'Read only' : 'status ändern'}
           </EditButton>
         </Group>
       </AdminAndTutorOnly>
