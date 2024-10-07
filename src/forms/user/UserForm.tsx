@@ -16,24 +16,42 @@ import { useModalContext } from '../../context/ModalContext';
 import { showNotification } from '../../helpers/notifications/showNotification';
 import { useRef, useState } from 'react';
 import { IconAlertTriangle } from '@tabler/icons-react';
+import { useAuthContext } from '../../context/AuthContext';
 
-const roles = [
-  {
-    value: 'student',
-    label: 'Student',
-  },
-  {
-    value: 'tutor',
-    label: 'Tutor',
-  },
-  {
-    value: 'admin',
-    label: 'Admin',
-  },
-];
+interface IRoleSelectElements {
+  [key: string]: { value: string; label: string }[];
+}
+
+const roles: IRoleSelectElements = {
+  tutor: [
+    {
+      value: 'student',
+      label: 'Student',
+    },
+    {
+      value: 'tutor',
+      label: 'Tutor',
+    },
+  ],
+  admin: [
+    {
+      value: 'student',
+      label: 'Student',
+    },
+    {
+      value: 'tutor',
+      label: 'Tutor',
+    },
+    {
+      value: 'admin',
+      label: 'Admin',
+    },
+  ],
+};
 
 const UserForm = () => {
   const { toggleModal } = useModalContext();
+  const { auth } = useAuthContext();
   const queryClient = useQueryClient();
   const firstNameRef = useRef<HTMLInputElement | null>(null);
   const [displayError, setDisplayError] = useState<string | undefined>(
@@ -159,7 +177,7 @@ const UserForm = () => {
         <Select
           label="Rolle"
           withAsterisk
-          data={roles}
+          data={roles[auth?.role!]}
           allowDeselect={false}
           {...form.getInputProps('role')}
         />
